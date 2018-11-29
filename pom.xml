@@ -48,6 +48,19 @@
 			<artifactId>joda-time</artifactId>
 		</dependency>
 
+		<!-- 引入sftp包，进行解析操作 -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.42</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.samba.jcifs</groupId>
+			<artifactId>jcifs</artifactId>
+			<version>1.2.19</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
