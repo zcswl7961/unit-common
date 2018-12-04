@@ -25,9 +25,9 @@ jsch是一个基于ssh2的java的开源包，它允许你利用该开源工具�
 
  - [ ] 获取文件流操作
 ```
-	ChanneSft.get(String filepath)
+ChanneSft.get(String filepath)
 ```
- -  [ ]调用命令（将调用命令获取的结果转换成对应的IO流数据）
+ - [ ] 调用命令（将调用命令获取的结果转换成对应的IO流数据）
  ```
 session = sft.getSession();  
 channelExec = (ChannelExec) session.openChannel("exec");  
