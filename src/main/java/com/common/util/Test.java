@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo;
+package com.common.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo.jsch;
+package com.common.util.jsch;
 
 import com.jcraft.jsch.*;
 import org.slf4j.Logger;

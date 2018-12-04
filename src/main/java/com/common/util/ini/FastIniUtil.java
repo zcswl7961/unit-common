@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo.ini;
+package com.common.util.ini;
 
 import java.io.BufferedReader;
 import java.io.IOException;

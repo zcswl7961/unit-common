@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo;
+package com.common.util;
 
 /**
  * Created by zhoucg on 2018-10-26.

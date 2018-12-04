@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo;
+package com.common.util;
 
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 

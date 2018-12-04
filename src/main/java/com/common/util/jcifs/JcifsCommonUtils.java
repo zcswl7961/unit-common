@@ -1,4 +1,4 @@
-package com.SpringBootSwaggerDemo.demo.jcifs;
+package com.common.util.jcifs;
 
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
