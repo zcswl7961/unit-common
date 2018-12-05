@@ -70,3 +70,5 @@ InputStream in = channelExec.getInputStream();
 ThreadFactory namedThreadFactory = new 	ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
 ExecutorService executorService = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingDeque<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 ```
+
+## apache Lucence原理使用
