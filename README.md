@@ -71,4 +71,4 @@ ThreadFactory namedThreadFactory = new 	ThreadFactoryBuilder().setNameFormat("de
 ExecutorService executorService = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingDeque<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 ```
 
-## apache Lucence原理使用
+## apache Lucence使用
