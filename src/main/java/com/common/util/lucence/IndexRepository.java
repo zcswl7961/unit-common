@@ -27,6 +27,13 @@ import java.io.IOException;
  *      每个关键词叫做一个Term。Term中包含关键词及其所在的域，不同的域中相当的单词是不同的term。
  *   3）创建索引：索引：为了提高查询速度的一个数据结构。在关键词列表上创建一个索引；
  *      把索引和文档对象写入索引库，并记录关键词和文档对象的对应关系。
+ *
+ *
+ *   lucence-analyzers-common-4.0.0.jar    这里包含了各种语言的词法分析其，用于对文件内容进行关键字切分，提取
+ *   Lucene-highlighter-4.0.0.jar，这个jar包主要用于搜索出的内容高亮显示。
+ *   Lucene-queryparser-4.0.0.jar，提供了搜索相关的代码，用于各种搜索，比如模糊搜索，范围搜索，等等。
+ *
+ *   索引创建
  */
 public class IndexRepository {
 

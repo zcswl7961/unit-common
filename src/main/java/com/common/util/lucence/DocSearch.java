@@ -30,7 +30,7 @@ public class DocSearch {
         // 创建一个IndexSearcher对象
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         // 创建一个查询对象
-        TermQuery query = new TermQuery(new Term("name","common.properties"));
+        TermQuery query = new TermQuery(new Term("name","新建文本文档.txt"));
         // 执行查询
         // 返回的最大值，在分页的时候使用
         TopDocs topDocs = indexSearcher.search(query, 5);
