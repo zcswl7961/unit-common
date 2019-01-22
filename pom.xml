@@ -85,6 +85,9 @@
 			<artifactId>lucene-core</artifactId>
 			<version>4.10.3</version>
 		</dependency>
+		<!-- apache lucene 4.10.3 存在高危漏洞，
+		 	https://blog.csdn.net/skyxxb/article/details/78260395
+		 	可以通过提高version 版本进行修复-->
 
 		<dependency>
 			<groupId>redis.clients</groupId>
