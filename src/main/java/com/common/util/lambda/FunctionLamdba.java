@@ -14,6 +14,12 @@ import java.util.function.Function;
  *      R Stream<R> map(Function<? super T,? extends R> mapper) //转换流
  *
  * https://www.cnblogs.com/linzhanfly/p/9686941.html
+ *
+ * 在java.util.function 包中，含有大量的函数式接口数据，主要分为一下集中基本类型
+ * Function 输入参数为类型T，输出为类型R 记作  T --> R
+ * Consumer 输入参数为类型T ，输出为void 记作 T--> void
+ * Supplier 没有输入参数，输出参数为类型T， 记作 void --> T
+ * Predicate 输入参数为类型T，输出类型为boolean 记作  T --> boolean
  */
 public class FunctionLamdba {
 
