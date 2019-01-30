@@ -61,6 +61,11 @@ public class TableExample {
         Map<String,Integer> columnValueMap =tables.row("a");
         System.out.println(columnValueMap);
 
+        /**
+         * 根据row，column获取对应得Value
+         */
+        Integer sorce = tables.get("a","javase");
+
 
 
 
