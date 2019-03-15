@@ -1,12 +1,17 @@
 package com.common.util.spring;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
+
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by zhoucg on 2019-03-04.
@@ -58,5 +63,45 @@ public class SpringTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile.xml");
         User user1 = (User) applicationContext.getBean("user");
         System.out.println(user1);
+    }
+
+    /**
+     * spring 国际化操作
+     */
+    @Test
+    public void i18ntest() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beanFactoryFile.xml");
+        Object[] params = {"Wgp", new GregorianCalendar().getTime()};
+
+        String str1 = context.getMessage("test", params, Locale.US);
+        String str2 = context.getMessage("test", params, Locale.CHINA);
+
+        System.out.println(str1);
+        System.out.println(str2);
+    }
+
+    /**
+     * ApplicationEvent 和 ApplicationListener的使用
+     * 当程序运行时，Spring会将发出ApplicationTestEvent时间转给我们自定义的ApplicationTestListener监听器进一步进行处理
+     * 这个时典型的观察者的模式
+     */
+    @Test
+    public void testApplicationListener() {
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile.xml");
+        ApplicationTestEvent applicationTestEvent = new ApplicationTestEvent("hello","msg");
+        applicationContext.publishEvent(applicationTestEvent);
+    }
+
+    /**
+     * Spring 类型转化器
+     */
+    @Test
+    public void conversionServiceTest() {
+        DefaultConversionService serivce = new DefaultConversionService();
+        boolean actual = serivce.canConvert(String.class, Boolean.class);
+        Assert.assertEquals(true, actual);
+        Object acc = serivce.convert("true", Boolean.class);
+        Assert.assertEquals(true, ((Boolean)acc).booleanValue());
     }
 }
