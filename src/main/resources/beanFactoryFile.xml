@@ -64,4 +64,13 @@
 
     </bean>
 
+
+    <!-- AOP 面向切面编程 -->
+    <!-- 启动@aspectj的自动代理支持-->
+    <aop:aspectj-autoproxy />
+    <!-- 定义目标对象 -->
+    <bean id="userDaos" class="com.common.util.spring.UserDaoImpl" />
+    <!-- 定义aspect类 -->
+    <bean name="myAspectJ" class="com.common.util.spring.MyAspect"/>
+
 </beans>
