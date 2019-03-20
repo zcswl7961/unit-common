@@ -49,4 +49,10 @@ public class ThreadPoolTest {
 
     }
 
+
+    /**
+     * 初始化一个ThreadLocal
+     */
+    private ThreadLocal myThreadLocalPool = ThreadLocal.withInitial(() -> 1);
+
 }

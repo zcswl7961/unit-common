@@ -1,8 +1,5 @@
 package com.common.util.thread;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
-import scala.tools.cmd.gen.AnyVals;
-
 /**
  * Created by zhoucg on 2019-01-31.
  * 线程间的通信

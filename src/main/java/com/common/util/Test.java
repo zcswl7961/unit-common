@@ -1,12 +1,14 @@
 package com.common.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhoucg on 2018-10-17.
@@ -39,28 +41,68 @@ public class Test {
 //
 //        System.out.println("matcher=="+matcher.matches());
 
-        SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String str = "2018-11-15 3:00:00";
-        Date now = formate.parse(str);
+//        SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String str = "2018-11-15 3:00:00";
+//        Date now = formate.parse(str);
+//
+//
+//
+//
+//        /**
+//         * 获取当前时间的年月日
+//         */
+//        SimpleDateFormat ymdFormate = new SimpleDateFormat("yyyy-MM-dd");
+//        String yearMonthDayStr = ymdFormate.format(now);
+//        String gmt_zero = " 8:00:00";
+//        String fullEigthTime = yearMonthDayStr+gmt_zero;
+//        Date eigth = formate.parse(fullEigthTime);
+//        System.out.println(now.before(eigth));
+//
+//
+//        if(now.before(eigth)) {
+//            now = getYesterdayDay();
+//        }
+//        System.out.println(now);
 
+//        String dataTimeStr = "2019-02-27 01:54:27";
+//        int len = dataTimeStr.length();
+//        System.out.println(len);
 
+//        String a = "1";
+//        switch (a) {
+//            case "1" :
+//                System.out.println("找个输出的是1");
+//                break;
+//            case "2" :
+//                System.out.println("找个输出的是2");
+//                break;
+//            default:
+//                break;
+//        }
 
+//        List<String> a= new ArrayList<>();
+//        a.add("a");
+//        a.add("b");
+//        a.add("c");
+//        a.add("d");
+//        List<String> b = a.stream().filter(str -> str.equals("a")).collect(Collectors.toList());
+//
+//        for(String strA : b) {
+//            System.out.println(strA);
+//        }
 
-        /**
-         * 获取当前时间的年月日
-         */
-        SimpleDateFormat ymdFormate = new SimpleDateFormat("yyyy-MM-dd");
-        String yearMonthDayStr = ymdFormate.format(now);
-        String gmt_zero = " 8:00:00";
-        String fullEigthTime = yearMonthDayStr+gmt_zero;
-        Date eigth = formate.parse(fullEigthTime);
-        System.out.println(now.before(eigth));
+        String test = "-100";
+        int testInt = Integer.parseInt(test);
+        int sbtestInt = -testInt;
+        System.out.println(sbtestInt);
+        System.out.println(testInt);
+        test = test.substring(1);
+        boolean flag = StringUtils.isNumeric(test);
+        System.out.println(flag);
 
-
-        if(now.before(eigth)) {
-            now = getYesterdayDay();
-        }
-        System.out.println(now);
+        Date date = new Date();
+        ZonedDateTime d = ZonedDateTime.ofInstant(date.toInstant(),ZoneId.of("GMT-0"));
+        System.out.println(d);
 
     }
 

@@ -27,7 +27,7 @@ public class EsWriterClient {
 
     private static final Logger logger = LoggerFactory.getLogger(EsWriterClient.class);
 
-    private final ElasticSearchConnection connection;
+    private ElasticSearchConnection connection = null;
 
     private BulkProcessor bulkProcessor;
 
