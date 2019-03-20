@@ -2,7 +2,17 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop.xsd
+                http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd"
 >
     <!-- bean元素：使用该元素描述需要spring容器管理的对象 -->
     <!--
@@ -69,8 +79,11 @@
     <!-- 启动@aspectj的自动代理支持-->
     <aop:aspectj-autoproxy />
     <!-- 定义目标对象 -->
-    <bean id="userDaos" class="com.common.util.spring.UserDaoImpl" />
+    <bean id="userDaos" class="com.common.util.spring.aop.UserDaoImpl" />
     <!-- 定义aspect类 -->
-    <bean name="myAspectJ" class="com.common.util.spring.MyAspect"/>
+    <bean name="myAspectJ" class="com.common.util.spring.aop.MyAspect"/>
+
+    <!-- spring 事务的注解 -->
+    <tx:annotation-driven/>
 
 </beans>

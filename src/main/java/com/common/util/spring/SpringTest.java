@@ -1,5 +1,7 @@
 package com.common.util.spring;
 
+import com.common.util.spring.action.ActorServciceTest;
+import com.common.util.spring.aop.UserDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -19,15 +21,15 @@ import java.util.Locale;
 public class SpringTest {
 
     public static void main(String[] args) {
-        XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile.xml"));
-
-
-        /**
-         * spring beanFactory基类操作
-         */
-        User user = (User) beanFactory.getBean("user");
-        String name = user.getName();
-        System.out.println("userName=="+name);
+//        XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile.xml"));
+//
+//
+//        /**
+//         * spring beanFactory基类操作
+//         */
+//        User user = (User) beanFactory.getBean("user");
+//        String name = user.getName();
+//        System.out.println("userName=="+name);
 
         /**
          * spring框架扩展
@@ -104,4 +106,28 @@ public class SpringTest {
         Object acc = serivce.convert("true", Boolean.class);
         Assert.assertEquals(true, ((Boolean)acc).booleanValue());
     }
+
+
+    /**
+     * AOP面向 切面编程
+     */
+    @Test
+    public void aopTest() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile.xml");
+        UserDao userDao = (UserDao) applicationContext.getBean("userDaos");
+        userDao.addUser();
+    }
+
+
+    /**
+     * Spring 事务支持
+     */
+    @Test
+    public void aopTransactionTest() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile-shiwu.xml");
+        ActorServciceTest userDao = (ActorServciceTest) applicationContext.getBean("actorServciceTest");
+        userDao.test();
+    }
+
+
 }
