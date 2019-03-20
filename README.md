@@ -84,3 +84,7 @@ ExecutorService executorService = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MIL
     具体使用规则：
         https://www.cnblogs.com/nexiyi/p/metrics_sample_1.html
 ```
+## 包格式
+```
+    每一个包代表的是对应的每一个知识点的回顾数据
+```
