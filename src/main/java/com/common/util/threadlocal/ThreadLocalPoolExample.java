@@ -16,6 +16,11 @@ public class ThreadLocalPoolExample {
          */
         private ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
 
+        /**
+         * 初始化一个ThreadLocal
+         */
+        private ThreadLocal<Integer> myThreadLocalPool = ThreadLocal.withInitial(() -> 1);
+
         @Override
         public void run() {
             threadLocal.set( (int) (Math.random() * 100D) );

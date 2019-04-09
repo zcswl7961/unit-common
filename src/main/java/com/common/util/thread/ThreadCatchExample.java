@@ -9,25 +9,25 @@ public class ThreadCatchExample {
 
     public static void main(String[] args) {
 
-//        Thread t = new Thread(new AdminThread());
-//        t.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
-//        t.start();
-
-       String topic =  "RT.JMB.CONFIG".indexOf(".") > -1 ? "RT.JMB.CONFIG".substring(0,"RT.JMB.CONFIG".indexOf(".")) : "RT.JMB.CONFIG";
-        System.out.println(topic);
+        Thread t = new Thread(new AdminThread());
+        t.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
+        /**
+         * lambda写法
+         */
+        t.setDefaultUncaughtExceptionHandler((t1,e) -> System.out.println("Thread:" + t1 + " Exception message:" + e));
+        t.start();
     }
 
     static class AdminThread implements Runnable {
         @Override
         public void run() {
             try {
-                Thread.sleep(2000);
                 System.out.println("start ... Exception");
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            throw new NullPointerException(); //直接exception
+            throw new NullPointerException("线程没有捕获得异常"); //直接exception
         }
     }
 

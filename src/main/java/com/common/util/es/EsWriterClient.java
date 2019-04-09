@@ -31,8 +31,13 @@ public class EsWriterClient {
 
     private BulkProcessor bulkProcessor;
 
-    public EsWriterClient(@Value("${elasticsearch.hosts}") String esHosts,
-                          @Value("${elasticsearch.cluster.name}") String esClusterName) {
+    /**
+     * esHosts:es主机
+     * esClusterName：es集群
+     * @param esHosts
+     * @param esClusterName
+     */
+    public EsWriterClient( String esHosts,String esClusterName) {
         logger.info("LogSearchService init es:{}, cluster:{}", esHosts, esClusterName);
         connection = new ElasticSearchConnection(esHosts,esClusterName);
     }

@@ -52,23 +52,23 @@ public class MoreThreadSchedule implements SchedulingConfigurer{
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
 
 
-//        Runnable localRunnable = () ->{
-//            try{
-//                logger.info("schedule running ....");
-//            } catch ( Exception e) {
-//                e.printStackTrace();
-//            }
-//        };
-//        Trigger trigger = (triggerContext) -> {
-//
-//                //任务触发，可修改任务的执行周期.
-//                CronTrigger localtrigger = new CronTrigger(cron);
-//                Date nextExec = localtrigger.nextExecutionTime(triggerContext);
-//                return nextExec;
-//
-//        };
-//
-//        scheduledTaskRegistrar.addTriggerTask(localRunnable, trigger);
+        Runnable localRunnable = () ->{
+            try{
+                logger.info("schedule running ....");
+            } catch ( Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Trigger trigger = (triggerContext) -> {
+
+                //任务触发，可修改任务的执行周期.
+                CronTrigger localtrigger = new CronTrigger(cron);
+                Date nextExec = localtrigger.nextExecutionTime(triggerContext);
+                return nextExec;
+
+        };
+
+        scheduledTaskRegistrar.addTriggerTask(localRunnable, trigger);
 
     }
 
