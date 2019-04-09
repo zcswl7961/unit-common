@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
  * 它提供了能对存入内存的对应的内部的数据获取
  *      如获取该对象分配到内存中属性的内存偏移地址数据
  * 同时提供了cas 等操作
+ * 底层操作
  * @author zhoucg
  * @date 2018-12-10
  */
