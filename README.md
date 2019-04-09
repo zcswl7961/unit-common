@@ -88,7 +88,3 @@ ExecutorService executorService = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MIL
 ```
     每一个包代表的是对应的每一个知识点的回顾数据
 ```
-## 新建develop分支
-```
-整理表结构，新的分支更加合理的代码逻辑develop
-```
