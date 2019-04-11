@@ -2,12 +2,15 @@ package com.common.util.spring;
 
 import com.common.util.spring.action.ActorServciceTest;
 import com.common.util.spring.aop.UserDao;
+import com.common.util.spring.impor.ImportConfig;
+import com.common.util.spring.javaconfig.AppConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
@@ -127,6 +130,29 @@ public class SpringTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile-shiwu.xml");
         ActorServciceTest userDao = (ActorServciceTest) applicationContext.getBean("actorServciceTest");
         userDao.test();
+    }
+
+
+    /**
+     * spring @Configuration javaConfig 配置
+     */
+    @Test
+    public void testJavaConfig() {
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        People people = (People)applicationContext.getBean("javaPeople");
+        System.out.println(people.getName());
+
+    }
+
+    /**
+     * spring @Import 使用
+     */
+    @Test
+    public void testImport() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ImportConfig.class);
+        People people = applicationContext.getBean(People.class);
+        System.out.println(people.getName());
     }
 
 

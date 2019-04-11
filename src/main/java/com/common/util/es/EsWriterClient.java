@@ -12,8 +12,6 @@ import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
@@ -22,7 +20,6 @@ import javax.annotation.PostConstruct;
  *
  * es 批量插入文档信息
  */
-@Service
 public class EsWriterClient {
 
     private static final Logger logger = LoggerFactory.getLogger(EsWriterClient.class);
@@ -37,7 +34,7 @@ public class EsWriterClient {
      * @param esHosts
      * @param esClusterName
      */
-    public EsWriterClient( String esHosts,String esClusterName) {
+    public EsWriterClient(String esHosts,String esClusterName) {
         logger.info("LogSearchService init es:{}, cluster:{}", esHosts, esClusterName);
         connection = new ElasticSearchConnection(esHosts,esClusterName);
     }
