@@ -1,11 +1,14 @@
 package com.common.util.spring;
 
 import com.common.util.spring.action.ActorServciceTest;
+import com.common.util.spring.anno.ComponentExample;
+import com.common.util.spring.anno.ControllerExample;
+import com.common.util.spring.anno.ServiceExample;
 import com.common.util.spring.aop.UserDao;
 import com.common.util.spring.impor.ImportConfig;
-import com.common.util.spring.javaconfig.AppConfig;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -139,7 +142,7 @@ public class SpringTest {
     @Test
     public void testJavaConfig() {
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.common.util.spring.javaconfig");
         People people = (People)applicationContext.getBean("javaPeople");
         System.out.println(people.getName());
 
@@ -153,6 +156,24 @@ public class SpringTest {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ImportConfig.class);
         People people = applicationContext.getBean(People.class);
         System.out.println(people.getName());
+    }
+
+
+    /**
+     * spring <context component:scan> 注解的使用
+     */
+    @Test
+    public void TestcontextComponentScan() {
+//        BeanFactory applicationContext = new XmlBeanFactory(new ClassPathResource("beanFactoryFile-componentScan.xml"));
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanFactoryFile-componentScan.xml");
+        ComponentExample componentExample = (ComponentExample)applicationContext.getBean("componentExample");
+        componentExample.print();
+
+        ServiceExample serviceExample = (ServiceExample) applicationContext.getBean("serviceExample");
+        serviceExample.printService();
+
+        ControllerExample controllerExample = (ControllerExample) applicationContext.getBean("controllerExample");
+        controllerExample.print();
     }
 
 
