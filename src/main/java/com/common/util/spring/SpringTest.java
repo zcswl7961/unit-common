@@ -27,15 +27,15 @@ import java.util.Locale;
 public class SpringTest {
 
     public static void main(String[] args) {
-//        XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile.xml"));
-//
-//
-//        /**
-//         * spring beanFactory基类操作
-//         */
-//        User user = (User) beanFactory.getBean("user");
-//        String name = user.getName();
-//        System.out.println("userName=="+name);
+        XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile.xml"));
+
+
+        /**
+         * spring beanFactory基类操作
+         */
+        User user = (User) beanFactory.getBean("user");
+        String name = user.getName();
+        System.out.println("userName=="+name);
 
         /**
          * spring框架扩展

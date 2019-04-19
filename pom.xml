@@ -192,6 +192,12 @@
 			<version>1.5.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.7.4</version>
+		</dependency>
+
 		<!--Spring jdbc 引入 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -214,6 +220,13 @@
 			<groupId>com.uyun</groupId>
 			<artifactId>redis.locked</artifactId>
 			<version>1.0.0</version>
+		</dependency>
+
+		<!-- zookeeper连接 -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
 		</dependency>
 
 

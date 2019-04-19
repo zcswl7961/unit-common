@@ -20,6 +20,11 @@ import java.util.function.Function;
  * Consumer 输入参数为类型T ，输出为void 记作 T--> void
  * Supplier 没有输入参数，输出参数为类型T， 记作 void --> T
  * Predicate 输入参数为类型T，输出类型为boolean 记作  T --> boolean
+ *
+ * compose 和 andThen 的不同之处是函数执行的顺序不同。
+ * andThen就是按照正常思维：先执行调用者，再执行入参的。
+ * 然后compose 是反着来的，这点需要注意。
+ *
  */
 public class FunctionLamdba {
 
@@ -35,6 +40,29 @@ public class FunctionLamdba {
         //工资到手
         int[] incomes = ListToArray(employees,employee -> Double.valueOf(employee.getSalary() * 0.8).intValue());
 
+
+        /**
+         * Function函数
+         */
+        Function<Integer,Integer> times2 = i -> i*2;
+        Function<Integer,Integer> suqared = i -> i*i;
+
+
+        System.out.println(times2.apply(2));
+        System.out.println(suqared.apply(4));
+
+        System.out.println(times2.compose(suqared).apply(4));  //32   先4×4然后16×2, 先执行参数，再执行调用者
+        System.out.println(times2.andThen(suqared).apply(4));  //64   先4×2,然后8×8, 先执行调用者，再执行参数
+
+
+
+
+
+
+
+
+
+
     }
 
     private static int[] ListToArray(List<ConsumerLambda.Employee> list, Function<ConsumerLambda.Employee,Integer> function) {
@@ -45,4 +73,10 @@ public class FunctionLamdba {
         }
         return ints;
     }
+
+
+
+
+
+
 }
