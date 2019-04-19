@@ -27,15 +27,7 @@ import java.util.Locale;
 public class SpringTest {
 
     public static void main(String[] args) {
-        XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile.xml"));
 
-
-        /**
-         * spring beanFactory基类操作
-         */
-        User user = (User) beanFactory.getBean("user");
-        String name = user.getName();
-        System.out.println("userName=="+name);
 
         /**
          * spring框架扩展
@@ -46,6 +38,19 @@ public class SpringTest {
 
 
     }
+
+    /**
+     * spring基类 BeanFactory使用
+     */
+    @Test
+    public void beanFactoryTest() {
+        BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beanFactoryFile-bast.xml"));
+
+        User user = (User) beanFactory.getBean("user");
+        String name = user.getName();
+        System.out.println("userName=="+name);
+    }
+
 
     /**
      * PropertyPlaceholderConfigurer特性类的使用，特殊的BeanFactoryPostProcessor
