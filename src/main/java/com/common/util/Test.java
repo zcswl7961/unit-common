@@ -91,18 +91,34 @@ public class Test {
 //            System.out.println(strA);
 //        }
 
-        String test = "-100";
-        int testInt = Integer.parseInt(test);
-        int sbtestInt = -testInt;
-        System.out.println(sbtestInt);
-        System.out.println(testInt);
-        test = test.substring(1);
-        boolean flag = StringUtils.isNumeric(test);
-        System.out.println(flag);
+//        String test = "-100";
+//        int testInt = Integer.parseInt(test);
+//        int sbtestInt = -testInt;
+//        System.out.println(sbtestInt);
+//        System.out.println(testInt);
+//        test = test.substring(1);
+//        boolean flag = StringUtils.isNumeric(test);
+//        System.out.println(flag);
+//
+//        Date date = new Date();
+//        ZonedDateTime d = ZonedDateTime.ofInstant(date.toInstant(),ZoneId.of("GMT-0"));
+//        System.out.println(d);
 
-        Date date = new Date();
-        ZonedDateTime d = ZonedDateTime.ofInstant(date.toInstant(),ZoneId.of("GMT-0"));
-        System.out.println(d);
+//        String url = "http://10.1.65.194:8888/MMD/api/rest/intf/fetch/normal?user=USERNAME&password=PASSWORD&interfaceId=getAreaInfo";
+//        url = url.replace("USERNAME","tianjing-330000");
+//        url = url.replace("PASSWORD","tianjing-330000");
+//        System.out.println(url);
+
+
+        Map<String,String> map = new HashMap<>();
+        map.put("aa","aa");
+        map.put("bb","bb");
+        if(map.containsKey("aa")) {
+            map.remove("aa");
+        }
+        System.out.println(map);
+
+
 
     }
 
