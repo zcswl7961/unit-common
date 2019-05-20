@@ -13,9 +13,7 @@ public class CglibTest {
 
         // 该设置用于输出cglib动态代理产生的类,后面一个参数表示的存放class的文件目录
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\");
-
         HelloTest userDao = new HelloTestImpl();
-
         System.out.println("========普通对象调用方法========");
         userDao.say("普通方法");
         System.out.println("========代理对象增强方法========");
