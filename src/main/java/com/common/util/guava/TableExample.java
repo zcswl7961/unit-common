@@ -7,6 +7,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Table的几个主要的实现
+ * HashBasedTable : 本质上用HashMap<R, HashMap<C, V>>实现；
+ * TreeBasedTable：本质上用TreeMap<R, TreeMap<C,V>>实现；
+ * ImmutableTable：本质上用ImmutableMap<R, ImmutableMap<C, V>>实现；注：ImmutableTable对稀疏或密集的数据集都有优化。
+ *
  * Created by zhoucg on 2019-01-30.
  * guava类库 Table 双键的Map数据
  * Table是Guava提供的一个接口 Interface Table<R,C,V>，由rowKey+columnKey+value组成

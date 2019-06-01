@@ -37,11 +37,11 @@ public class ZookeeperConstructorSimple implements Watcher{
      */
     @Test
     public void testCreate() throws IOException, InterruptedException, KeeperException {
-        ZooKeeper zookeeper = new ZooKeeper("10.1.241.37:2181", 5000, new ZookeeperConstructorSimple());
+        ZooKeeper zookeeper = new ZooKeeper("127.0.0.1:2181", 5000, new ZookeeperConstructorSimple());
         System.out.println(zookeeper.getState());
         countDownLatch.await();
 
-        String path1 = zookeeper.create("/zk-test-ephemeral-", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        String path1 = zookeeper.create("/zhoucg", "this is a PERSISTENT znode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         System.out.println("Success create znode: " + path1);
 
         String path2 = zookeeper.create("/zk-test-ephemeral-", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
@@ -88,7 +88,7 @@ public class ZookeeperConstructorSimple implements Watcher{
 
 
     public static void main(String[] args) throws IOException {
-        ZooKeeper zookeeper = new ZooKeeper("10.1.241.37:2181", 5000, new ZookeeperConstructorSimple());
+        ZooKeeper zookeeper = new ZooKeeper("127.0.0.1:2181", 5000, new ZookeeperConstructorSimple());
         System.out.println(zookeeper.getState());
         try {
             countDownLatch.await();
