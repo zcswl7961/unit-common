@@ -23,6 +23,8 @@ public class BiMapDemo {
         weekNameMap.put("星期五","Friday");
         weekNameMap.put("星期六","Saturday");
         weekNameMap.put("星期日","Sunday");
+        //会覆盖前一个设置key的value值
+        weekNameMap.put("星期日","RI");
         System.out.println("星期日的英文名是" + weekNameMap.get("星期日"));
         System.out.println("Sunday的中文是" + weekNameMap.inverse().get("Sunday"));
     }

@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -110,14 +112,17 @@ public class Test {
 //        System.out.println(url);
 
 
-        Map<String,String> map = new HashMap<>();
-        map.put("aa","aa");
-        map.put("bb","bb");
-        if(map.containsKey("aa")) {
-            map.remove("aa");
-        }
-        System.out.println(map);
+//        Map<String,String> map = new HashMap<>();
+//        map.put("aa","aa");
+//        map.put("bb","bb");
+//        if(map.containsKey("aa")) {
+//            map.remove("aa");
+//        }
+//        System.out.println(map);
 
+        BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
+        String a = blockingQueue.take();
+        System.out.println(a);
 
 
     }

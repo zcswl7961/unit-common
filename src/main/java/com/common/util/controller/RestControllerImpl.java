@@ -1,7 +1,9 @@
 package com.common.util.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zcg.configuration.HelloConfiguration;
+import com.zcg.service.StarterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhoucg on 2018-09-29.
@@ -10,8 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/service/api/v1")
 public class RestControllerImpl {
 
-    @RequestMapping("/get")
-    public String get(){
+    @Autowired
+    private StarterService starterService;
+
+    @Autowired
+    private HelloConfiguration helloConfiguration;
+
+    @GetMapping("/get")
+    public String get(@RequestParam("apikey") String apikey){
+        System.out.println(apikey);
+        String[] splitArray = starterService.split(",");
+        helloConfiguration.print();
         return "get";
     }
 }

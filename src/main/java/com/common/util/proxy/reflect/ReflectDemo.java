@@ -14,6 +14,11 @@ public class ReflectDemo {
 
     }
 
+    public void setClassName(String  className) {
+        this.className = className;
+    }
+
+
     private ReflectDemo(String className) {
         this.className = className;
     }

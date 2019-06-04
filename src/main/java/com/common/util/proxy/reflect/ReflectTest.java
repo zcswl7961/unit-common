@@ -2,10 +2,7 @@ package com.common.util.proxy.reflect;
 
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 /**
  * @author: zhoucg
@@ -82,6 +79,22 @@ public class ReflectTest {
         }
 
         method1.invoke(reflectClass.newInstance());
+
+        //获取对应的对象
+        ReflectDemo reflectDemo = (ReflectDemo)reflectClass.newInstance(); //无参数的构造函数
+        for(Method method2 : reflectClass.getMethods()) {
+            if (method2.getName().startsWith("set")
+                    && method2.getParameterTypes().length == 1
+                    && Modifier.isPublic(method2.getModifiers())) {
+                //寻找方法开始时set的，并且只有一个参数类型的，参数为public的
+                Class<?> pt = method2.getParameterTypes()[0];//获取对应的参数的类型
+                System.out.println("参数类型=="+pt.getName());
+                method2.invoke(reflectDemo,"12");
+            }
+        }
+
+        method1.invoke(reflectDemo);
+
 
 
     }
