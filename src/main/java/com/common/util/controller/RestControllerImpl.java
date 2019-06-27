@@ -25,4 +25,16 @@ public class RestControllerImpl {
         helloConfiguration.print();
         return "get";
     }
+
+
+    /**
+     * 钉钉短信通知
+     * @param incidentData
+     * @return
+     */
+    @PostMapping("/post")
+    public String post(@RequestBody IncidentData incidentData) {
+        System.out.println(incidentData);
+        return "test";
+    }
 }

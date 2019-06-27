@@ -32,20 +32,20 @@ public class MoreThreadSchedule implements SchedulingConfigurer{
      */
     public MoreThreadSchedule() {
 
-        //默认情况下，设置每五秒执行一次
-        cron = "0/5 * * * * *";
-
-        Runnable runnable = () -> {
-            try{
-                //外部动态获取
-                Thread.sleep(15000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        //修改为：每10秒执行一次.
-        cron = "0/10 * * * * *";
-        new Thread(runnable).start();
+//        //默认情况下，设置每五秒执行一次
+//        cron = "0/5 * * * * *";
+//
+//        Runnable runnable = () -> {
+//            try{
+//                //外部动态获取
+//                Thread.sleep(15000);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        };
+//        //修改为：每10秒执行一次.
+//        cron = "0/10 * * * * *";
+//        new Thread(runnable).start();
     }
 
     @Override

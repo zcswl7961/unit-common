@@ -50,7 +50,7 @@ public class SingleSchedule {
     @Scheduled(cron = "*/10 * * * * ?")
     public void reInit() {
 
-        System.out.println("线程执行");
+        //System.out.println("线程执行");
 
     }
 }

@@ -15,11 +15,11 @@ public class TestRunable implements Runnable{
     @Override
     public void run() {
 
-        try{
-            logger.info("进入到该线程中进行执行");
-        }catch (Exception e) {
-            logger.error("线程中的信息是错误的");
-        }
+//        try{
+//            logger.info("进入到该线程中进行执行");
+//        }catch (Exception e) {
+//            logger.error("线程中的信息是错误的");
+//        }
 
 
 

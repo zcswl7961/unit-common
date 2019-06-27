@@ -28,8 +28,6 @@
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
 		<kafka.version>0.10.2.0</kafka.version>
-
-		<javassist_version>3.20.0-GA</javassist_version>
 	</properties>
 
 	<dependencies>
@@ -116,6 +114,13 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<!--<version>3.4.2</version>--><!-- 使用了cache line padding技术-->
+			<version>3.2.1</version> <!--我实在没有搞懂这个版本为什么没有用cache line padding技术 -->
+		</dependency>
+
 
 		<!-- elastisearch sql支持查询 -->
 		<dependency>
@@ -134,7 +139,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.8.2</version>
+			<version>2.3.1</version>
 		</dependency>
 
 		<!-- google guava 类库引入 -->
@@ -194,12 +199,6 @@
 			<version>1.5.4</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjtools</artifactId>
-			<version>1.7.4</version>
-		</dependency>
-
 		<!--Spring jdbc 引入 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -251,6 +250,11 @@
 			<version>${javassist_version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.qizhi.mq</groupId>
+			<artifactId>activemq</artifactId>
+			<version>5.8.0-RELEASE</version>
+		</dependency>
 
 
 	</dependencies>
