@@ -28,6 +28,8 @@
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
 		<kafka.version>0.10.2.0</kafka.version>
+
+		<javassist_version>3.15.0</javassist_version>
 	</properties>
 
 	<dependencies>
@@ -247,7 +249,9 @@
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
-			<version>${javassist_version}</version>
+			<version>3.22.0-GA</version>
+			<scope>compile</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
