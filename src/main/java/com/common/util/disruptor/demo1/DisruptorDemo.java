@@ -24,36 +24,30 @@ import java.util.concurrent.*;
  */
 public class DisruptorDemo {
 
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         int BUFFER_SIZE=1024;
         int THREAD_NUMBERS=4;
-
+        //创建RingBuffer
         final RingBuffer<TradeTransaction> ringBuffer = RingBuffer.createSingleProducer(() -> new TradeTransaction(),BUFFER_SIZE,new YieldingWaitStrategy());
-
         //创建线程池
         ExecutorService executors = Executors.newFixedThreadPool(THREAD_NUMBERS);
         //创建SequenceBarrier
         SequenceBarrier sequenceBarrier = ringBuffer.newBarrier();
-
-
         //创建消息处理器
         BatchEventProcessor<TradeTransaction> transProcessor = new BatchEventProcessor<>(ringBuffer,sequenceBarrier,new TradeTransactionInDBHandler());
-
-        //这一部的目的是让RingBuffer根据消费者的状态    如果只有一个消费者的情况可以省略
-        ringBuffer.addGatingSequences(transProcessor.getSequence());
+        //处理
         executors.submit(transProcessor);
 
-        //如果存大多个消费者 那重复执行上面3行代码 把TradeTransactionInDBHandler换成其它消费者类
-
+        //创建一个消费者
         Future<?> future=executors.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
                 long seq;
                 for(int i=0;i<1000;i++){
                     seq=ringBuffer.next();//占个坑 --ringBuffer一个可用区块
-
                     ringBuffer.get(seq).setPrice(Math.random()*9999);//给这个区块放入 数据  如果此处不理解，想想RingBuffer的结构图
-                    ringBuffer.get(seq).setId(UUID.randomUUID().toString()); //
+                    ringBuffer.get(seq).setId(UUID.randomUUID().toString()+"===="+i); //
                     ringBuffer.publish(seq);//发布这个区块的数据使handler(consumer)可见
                 }
                 return null;

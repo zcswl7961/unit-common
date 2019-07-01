@@ -1,5 +1,6 @@
-package com.common.util.disruptor;
+package com.common.util.disruptor.demo2;
 
+import com.common.util.disruptor.TradeTransaction;
 import com.common.util.disruptor.demo1.TradeTransactionInDBHandler;
 import com.lmax.disruptor.*;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 使用WorkerPool辅助创建消费者
+ * 使用WorkerPool创建多个消费群
  * @author: zhoucg
  * @date: 2019-06-26
  */
@@ -23,20 +24,20 @@ public class DisruptorWorkerPoolDemo {
         SequenceBarrier sequenceBarrier = ringBuffer.newBarrier();
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMBERS);
 
-        WorkHandler<TradeTransaction> workHandlers = new TradeTransactionInDBHandler();
+        //创建两个消费者，实现至WorkHandler
+        WorkHandler<TradeTransaction> workHandlers = event -> System.out.println(Thread.currentThread().getName()+":"+event.getId());
+        WorkHandler<TradeTransaction> workHandlers2 = event -> System.out.println(Thread.currentThread().getName()+":"+event.getId());
 
 
-         /*
-         * 这个类代码很简单的，亲自己看哈！~
-         */
-        WorkerPool<TradeTransaction> workerPool=new WorkerPool<TradeTransaction>(ringBuffer, sequenceBarrier, new IgnoreExceptionHandler(), workHandlers);
+        //创建一个消费池
+        WorkerPool<TradeTransaction> workerPool=new WorkerPool(ringBuffer, sequenceBarrier, new IgnoreExceptionHandler(), workHandlers,workHandlers2);
         workerPool.start(executor);
 
-        //下面这个生产8个数据，图简单就写到主线程算了
+        //下面模拟生产数据
         for(int i=0;i<8;i++){
             long seq=ringBuffer.next();
             ringBuffer.get(seq).setPrice(Math.random()*9999);
-            ringBuffer.get(seq).setId(UUID.randomUUID().toString());
+            ringBuffer.get(seq).setId(UUID.randomUUID().toString()+"="+i);
             ringBuffer.publish(seq);
         }
 

@@ -17,7 +17,7 @@ public class TradeTransactionInDBHandler implements EventHandler<TradeTransactio
 
     @Override
     public void onEvent(TradeTransaction event) throws Exception {
-        //System.out.println(event.getId());
+        System.out.println(Thread.currentThread().getName()+":"+event.getId());
     }
 
 
