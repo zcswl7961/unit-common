@@ -24,12 +24,14 @@
 		<java.version>1.8</java.version>
 		<metrics.version>4.0.0</metrics.version>
 		<elasticsearch-sql.version>2.3.5.0</elasticsearch-sql.version>
+		<elasticsearch.version>2.3.5</elasticsearch.version>
 
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
 		<kafka.version>0.10.2.0</kafka.version>
 
 		<javassist_version>3.15.0</javassist_version>
+		<redis.version>2.9.0</redis.version>
 	</properties>
 
 	<dependencies>
@@ -97,10 +99,11 @@
 		 	https://blog.csdn.net/skyxxb/article/details/78260395
 		 	可以通过提高version 版本进行修复-->
 
+		<!-- redis客户端代码 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
+			<version>${redis.version}</version>
 		</dependency>
 
 		<!-- Metric 用于指标记录  -->
@@ -134,7 +137,7 @@
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>2.3.5</version>
+			<version>${elasticsearch.version}</version>
 		</dependency>
 
 		<!--gson引入 -->
@@ -219,6 +222,7 @@
 			<version>5.1.26</version>
 		</dependency>
 
+		<!-- 自定义redis lock -->
 		<dependency>
 			<groupId>com.uyun</groupId>
 			<artifactId>redis.locked</artifactId>
@@ -250,10 +254,10 @@
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.22.0-GA</version>
-			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
 
+		<!-- 本地maven私服 activeMq -->
 		<dependency>
 			<groupId>com.qizhi.mq</groupId>
 			<artifactId>activemq</artifactId>
