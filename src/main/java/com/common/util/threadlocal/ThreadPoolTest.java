@@ -44,7 +44,7 @@ public class ThreadPoolTest {
         /**
          * (3)
          */
-        for(int i=0;i<50 ;i++) {
+        for(int i=0;i<1 ;i++) {
             poolExecutor.execute(() ->{
                 LOCAL_THREADLOCAL.set(new LocalVariable());
                 System.out.println(Thread.currentThread().getName()+":"+"use local variable");

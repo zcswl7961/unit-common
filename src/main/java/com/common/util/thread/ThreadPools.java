@@ -12,7 +12,7 @@ import java.util.concurrent.*;
  */
 public class ThreadPools  {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         /**
          * java线程池使用的正确方式
@@ -29,7 +29,13 @@ public class ThreadPools  {
 
 
         executorService.execute(() ->{
-            System.out.println(Thread.currentThread().getName());
+            System.out.println(Thread.currentThread().getName()+"线程正在执行");
+        });
+
+        Thread.sleep(3000);
+
+        executorService.execute(() ->{
+            System.out.println(Thread.currentThread().getName()+"线程正在执行2");
         });
     }
 }
