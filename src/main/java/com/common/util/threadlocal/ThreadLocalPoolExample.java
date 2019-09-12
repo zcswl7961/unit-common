@@ -16,21 +16,19 @@ public class ThreadLocalPoolExample {
          */
         private ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
 
-        /**
-         * 初始化一个ThreadLocal
-         */
-        private ThreadLocal<Integer> myThreadLocalPool = ThreadLocal.withInitial(() -> 1);
+        private ThreadLocal<Integer> threadLocal1 = ThreadLocal.withInitial(() -> 1);
 
         @Override
         public void run() {
             threadLocal.set( (int) (Math.random() * 100D) );
-
+            threadLocal1.set((int) (Math.random() * 100D) );
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
             }
 
             System.out.println(Thread.currentThread().getName()+":"+threadLocal.get());
+            System.out.println(Thread.currentThread().getName()+":"+threadLocal1.get());
         }
     }
 
