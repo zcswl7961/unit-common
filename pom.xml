@@ -5,7 +5,7 @@
 
 	<groupId>com.project</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>demo</name>
@@ -25,8 +25,12 @@
 		</developer>
 	</developers>
 
-	<!--添加并指定 snapshot 以及release 地址-->
+	<!--添加至maven私服仓库-->
 	<distributionManagement>
+		<repository>
+			<id>zcswl-public</id>
+			<url>http://localhost:8081/repository/zcswl-public/</url>
+		</repository>
 	</distributionManagement>
 
 	<properties>
@@ -234,7 +238,7 @@
 	<build>
 		<!-- 设置swagger插件导出数据操作 -->
 		<plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
                 <version>2.2.3</version>
@@ -253,8 +257,14 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
         </plugins>
+
+
 
 	</build>
 
