@@ -18,6 +18,17 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<developers>
+		<developer>
+			<name>zhoucg</name>
+			<email>26921832@qq.com</email>
+		</developer>
+	</developers>
+
+	<!--添加并指定 snapshot 以及release 地址-->
+	<distributionManagement>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -29,6 +40,12 @@
 		<scala.version>2.11</scala.version>
 		<kafka.version>0.10.2.0</kafka.version>
 	</properties>
+
+	<!--版本控制 -->
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>

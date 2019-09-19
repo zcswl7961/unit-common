@@ -127,7 +127,6 @@ public class Test {
         userList.add(new User("1","A.0001.0031.R001:A.0011.0001.P001:A.0011.0001.S001"));
         userList.add(new User("1","B.0001.0008.R001:B.0001.0008.PT01:B.0001.0024.S001"));
         userList.add(new User("1","G.0002.0004.R001:G.0002.0004.P001:G.0002.0001.S001"));
-
         System.out.println(userList);
 
 
