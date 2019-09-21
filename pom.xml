@@ -25,7 +25,7 @@
 		</developer>
 	</developers>
 
-	<!--添加至maven私服仓库-->
+	<!--添加至maven私服仓库 ,本次个人私服数据信息-->
 	<distributionManagement>
 		<repository>
 			<id>zcswl-public</id>
