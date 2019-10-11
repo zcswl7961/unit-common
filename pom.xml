@@ -6,7 +6,23 @@
 	<groupId>com.project</groupId>
 	<artifactId>demo</artifactId>
 	<version>v0.0.1</version>
-	<packaging>jar</packaging>
+
+
+    <modules>
+        <module>util-elasticsearch</module>
+		<module>util-annotation</module>
+		<module>util-concurrent</module>
+		<module>util-enum</module>
+		<module>util-guava</module>
+		<module>util-tools</module>
+		<module>util-kafka</module>
+		<module>util-jdk</module>
+		<module>util-spark</module>
+		<module>util-redis</module>
+	</modules>
+
+
+    <packaging>pom</packaging>
 
 	<name>demo</name>
 	<description>java基础组件调用 - 类调用</description>
@@ -38,7 +54,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<metrics.version>4.0.0</metrics.version>
-		<elasticsearch-sql.version>2.3.5.0</elasticsearch-sql.version>
+		<elasticsearch-sql.version>5.1.2.0</elasticsearch-sql.version>
+		<elasticsearch.version>5.1.2</elasticsearch.version>
 
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
@@ -48,6 +65,160 @@
 	<!--版本控制 -->
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.5.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-joda</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+			</dependency>
+
+			<!-- 引入sftp包，进行解析操作 -->
+			<dependency>
+				<groupId>com.jcraft</groupId>
+				<artifactId>jsch</artifactId>
+				<version>0.1.42</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.samba.jcifs</groupId>
+				<artifactId>jcifs</artifactId>
+				<version>1.2.19</version>
+			</dependency>
+
+			<!-- 单元测试 -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+			</dependency>
+
+			<!-- Metric 用于指标记录  -->
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-core</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+
+			<!-- elastisearch sql支持查询 -->
+			<dependency>
+				<groupId>org.nlpcn</groupId>
+				<artifactId>elasticsearch-sql</artifactId>
+				<version>${elasticsearch-sql.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>transport</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+
+			<!--gson引入 -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+
+			<!-- google guava 类库引入 -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>18.0</version>
+			</dependency>
+
+			<!-- redis库-->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+
+			<!-- spark java 引入 -->
+			<dependency>
+				<groupId>org.apache.spark</groupId>
+				<artifactId>spark-streaming_${scala.version}</artifactId>
+				<version>${spark.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.spark</groupId>
+				<artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+
+			<!-- kafka包 -->
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka_2.10</artifactId>
+				<version>${kafka.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka-clients</artifactId>
+				<version>${kafka.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>1.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
+			</dependency>
+
+			<!-- aop包-->
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.5.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.5.4</version>
+			</dependency>
+
+			<!--Spring jdbc 引入 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.26</version>
+			</dependency>
+
+			<!-- 日志配置-->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>2.11.1</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -61,177 +232,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-            <version>2.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-joda</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-
-		<!-- 引入sftp包，进行解析操作 -->
-		<dependency>
-			<groupId>com.jcraft</groupId>
-			<artifactId>jsch</artifactId>
-			<version>0.1.42</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.samba.jcifs</groupId>
-			<artifactId>jcifs</artifactId>
-			<version>1.2.19</version>
-		</dependency>
-
-		<!-- http://mvnrepository.com/artifact/commons-io/commons-io -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-		<!-- http://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-common -->
-		<!--<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-analyzers-common</artifactId>
-			<version>4.10.3</version>
-		</dependency>-->
-		<!-- http://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser -->
-		<!--<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-queryparser</artifactId>
-			<version>4.10.3</version>
-		</dependency>-->
-		<!-- http://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
-		<!--<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-			<version>4.10.3</version>
-		</dependency>-->
-		<!-- apache lucene 4.10.3 存在高危漏洞，
-		 	https://blog.csdn.net/skyxxb/article/details/78260395
-		 	可以通过提高version 版本进行修复-->
-
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
-		</dependency>
-
-		<!-- Metric 用于指标记录  -->
-		<dependency>
-			<groupId>io.dropwizard.metrics</groupId>
-			<artifactId>metrics-core</artifactId>
-			<version>${metrics.version}</version>
-		</dependency>
-
-		<!-- 单元测试 -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-
-
-		<!-- elastisearch sql支持查询 -->
-		<dependency>
-			<groupId>org.nlpcn</groupId>
-			<artifactId>elasticsearch-sql</artifactId>
-			<version>${elasticsearch-sql.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>2.3.5</version>
-		</dependency>
-
-		<!--gson引入 -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-
-		<!-- google guava 类库引入 -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>18.0</version>
-		</dependency>
-
-		<!-- spark java 引入 -->
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-streaming_${scala.version}</artifactId>
-			<version>${spark.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
-			<version>2.0.2</version>
-		</dependency>
-
-		<!-- kafka包 -->
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.10</artifactId>
-			<version>${kafka.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>${kafka.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-
-		<!--Spring jdbc 引入 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.26</version>
-		</dependency>
-
-
-
 	</dependencies>
 
 	<build>
@@ -257,10 +257,10 @@
                     </execution>
                 </executions>
             </plugin>-->
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			</plugin>-->
         </plugins>
 
 
