@@ -8,6 +8,7 @@
 	<version>v0.0.1</version>
 
 
+	<!--子模块-->
     <modules>
         <module>util-elasticsearch</module>
 		<module>util-annotation</module>
@@ -41,7 +42,7 @@
 		</developer>
 	</developers>
 
-	<!--添加至maven私服仓库 ,本次个人私服数据信息-->
+	<!--添加至maven私服仓库 ,个人私服数据信息-->
 	<distributionManagement>
 		<repository>
 			<id>zcswl-public</id>
@@ -60,6 +61,10 @@
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
 		<kafka.version>0.10.2.0</kafka.version>
+		<swagger.version>2.5.0</swagger.version>
+		<gson.version>2.3.1</gson.version>
+		<guava.version>18.0</guava.version>
+		<redis.version>2.9.0</redis.version>
 	</properties>
 
 	<!--版本控制 -->
@@ -68,17 +73,8 @@
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
-				<version>2.5.0</version>
+				<version>${swagger.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.datatype</groupId>
-				<artifactId>jackson-datatype-joda</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-			</dependency>
-
 			<!-- 引入sftp包，进行解析操作 -->
 			<dependency>
 				<groupId>com.jcraft</groupId>
@@ -90,12 +86,6 @@
 				<groupId>org.samba.jcifs</groupId>
 				<artifactId>jcifs</artifactId>
 				<version>1.2.19</version>
-			</dependency>
-
-			<!-- 单元测试 -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
 			</dependency>
 
 			<!-- Metric 用于指标记录  -->
@@ -127,21 +117,21 @@
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
-				<version>2.3.1</version>
+				<version>${gson.version}</version>
 			</dependency>
 
 			<!-- google guava 类库引入 -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>18.0</version>
+				<version>${guava.version}</version>
 			</dependency>
 
 			<!-- redis库-->
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
-				<version>2.9.0</version>
+				<version>${redis.version}</version>
 			</dependency>
 
 			<!-- spark java 引入 -->
@@ -153,7 +143,7 @@
 			<dependency>
 				<groupId>org.apache.spark</groupId>
 				<artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
-				<version>2.0.2</version>
+				<version>${spark.version}</version>
 			</dependency>
 
 			<!-- kafka包 -->
@@ -192,18 +182,6 @@
 				<groupId>aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
 				<version>1.5.4</version>
-			</dependency>
-
-			<!--Spring jdbc 引入 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-dbcp</groupId>
-				<artifactId>commons-dbcp</artifactId>
-				<version>1.4</version>
 			</dependency>
 
 			<dependency>
