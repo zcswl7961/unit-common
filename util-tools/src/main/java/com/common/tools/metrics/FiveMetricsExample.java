@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FiveMetricsExample {
 
+
     /**
      * 实例化一个registry，最核心的一个模块，相当于一个应用程序的metrics系统的容器，维护一个Map
      */
