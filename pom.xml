@@ -20,7 +20,8 @@
 		<module>util-jdk</module>
 		<module>util-spark</module>
 		<module>util-redis</module>
-	</modules>
+        <module>util-middleware</module>
+    </modules>
 
 
     <packaging>pom</packaging>
