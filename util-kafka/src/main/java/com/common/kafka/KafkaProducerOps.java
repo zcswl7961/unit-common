@@ -23,23 +23,27 @@ public class KafkaProducerOps{
         properties.load(inputStream);
 
         Producer<String,String> producer = new KafkaProducer<>(properties);
-        String topic = "hadoop";
+        String topic = "zhoucg_topic";
         String key = "1";
         String value = "今天是个好天气";
 
         /**
-         * kafka同步发送
+         * kafka同步发送,测试生成指定
          */
-        ProducerRecord<String,String> producerRecord = new ProducerRecord<>(topic,key,value);
-        producer.send(producerRecord);
-        producer.close();
+        for(int i=0;i<100000000;i++) {
+            ProducerRecord<String,String> producerRecord = new ProducerRecord<>(topic,key,value);
+            producer.send(producerRecord);
+        }
+//        ProducerRecord<String,String> producerRecord = new ProducerRecord<>(topic,key,value);
+//        producer.send(producerRecord);
+//        producer.close();
 
         /**
          * kafka异步发送
          */
-        producer.send(producerRecord,(metadata,exception) -> {
-            System.out.println("kafka异步调用报错");
-        });
+//        producer.send(producerRecord,(metadata,exception) -> {
+//            System.out.println("kafka异步调用报错");
+//        });
 
 
     }

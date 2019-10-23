@@ -33,27 +33,29 @@ public class KafkaUtil {
         Map<String,Object> config = new HashMap<>();
 
         //kafka服务器地址
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"10.1.152.212:9192");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.129.128:9192");
         //kafka消息序列化类 即将传入对象序列化为字节数组
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.ByteArraySerializer");
         //kafka消息key序列化类 若传入key的值，则根据该key的值进行hash散列计算出在哪个partition上
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
+        //当多条消息发送到同一个partition时，该值控制生产者批量发送消息的大小，批量发送可以减少生产者到服务端的请求数，有助于提高客户端和服务端的性能。
         config.put(ProducerConfig.BATCH_SIZE_CONFIG,1024*1024*5);
         //往kafka服务器提交消息间隔时间，0则立即提交不等待
         config.put(ProducerConfig.LINGER_MS_CONFIG,0);
+        //kakfa的ack模式 0，1，-1（all）
+        //config.put(ProducerConfig.ACKS_CONFIG,"all");
+        //生产者发送失败后，重试的次数
+        config.put(ProducerConfig.RETRIES_CONFIG,1);
+        //此处对应的是kafka定义分区的类
+        config.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,"com.common.kafka.Partitions");
+
         //消费者配置文件
         Properties properties = new Properties();
-
-        properties.put("zookeeper.connect","10.1.152.212:2181");
-
+        properties.put("zookeeper.connect","192.168.129.128:2181");
         properties.put("group.id","123");
-
         properties.put("auto.commit.interval.ms","1000");
-
         ConsumerConfig consumerConfig = new ConsumerConfig(properties);
-
         producer = new KafkaProducer<>(config);
-
         consumer = Consumer.createJavaConsumerConnector(consumerConfig);
 
 
@@ -119,6 +121,9 @@ public class KafkaUtil {
             //将对象序列化称字节码
             byte[] bytes=SerializationUtils.serialize(value);
             Future<RecordMetadata> future=producer.send(new ProducerRecord<String,byte[]>(topic,bytes));
+            RecordMetadata recordMetadata  = future.get();
+
+
             return future;
         }catch(Exception e){
             throw e;
@@ -133,15 +138,15 @@ public class KafkaUtil {
 
     public static void main(String[] args) throws Exception {
         //发送一个信息
-        send("test",new User("id","userName", "password"));
+        send("zhoucg_topic",new User("id","userName", "password"));
         //为test启动一个消费者，启动后每次有消息则打印对象信息
-        KafkaUtil.startConsumer("test", new MqMessageHandler<User>() {
+        /*KafkaUtil.startConsumer("test", new MqMessageHandler<User>() {
             @Override
             public void handle(User user) {
                 //实现自己的处理逻辑，这里只打印出消息
                 System.out.println(user.toString());
             }
-        },2);
+        },2);*/
     }
 
     static class User implements Serializable{
