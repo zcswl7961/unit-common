@@ -1,4 +1,4 @@
-package com.common.tools.ini;
+package com.zcswl.tools.ini;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * ini文件解析操作
  * @author zhoucg
  * @date 2018-11-29
  */
@@ -27,9 +27,7 @@ public class FastIniUtil {
         if(result.contains("#")) {
             result = result.substring(0,result.indexOf("#"));
         }
-
         return result.trim();
-
     }
 
     /**

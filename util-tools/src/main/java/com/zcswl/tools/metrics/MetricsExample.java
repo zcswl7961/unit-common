@@ -1,4 +1,4 @@
-package com.common.tools.metrics;
+package com.zcswl.tools.metrics;
 
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.MetricRegistry;

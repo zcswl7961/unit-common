@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>demo</artifactId>
-        <groupId>com.project</groupId>
+        <groupId>com.zcswl</groupId>
         <version>v0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <!-- 中间件相关示例 -->
-    <groupId>com.project</groupId>
+    <groupId>com.zcswl</groupId>
     <artifactId>util-middleware</artifactId>
 
     <dependencies>

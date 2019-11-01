@@ -1,4 +1,4 @@
-package com.common.tools.jcifs;
+package com.zcswl.tools.jcifs;
 
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;

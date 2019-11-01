@@ -1,4 +1,4 @@
-package com.common.tools.jsch;
+package com.zcswl.tools.jsch;
 
 import com.jcraft.jsch.*;
 import org.slf4j.Logger;
@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- *
- * @author zhoucg
- * @date 2018-11-29
  * 远程linux系统，将linux系统目录下的指定文件夹，
  * 调用命令
+ * @author zhoucg
+ * @date 2018-11-29
  */
 public class SftpUtils {
 
@@ -23,8 +23,9 @@ public class SftpUtils {
 
     /**
      * 新增线程池操作获取sftp连接
+     * 使用高性能的ConcurrentHashMap作为线程池
      */
-    private static final Map<String,Channel> SFTP_CHANNEL_POOL = new HashMap<>();
+    private static final ConcurrentHashMap<String,Channel> SFTP_CHANNEL_POOL = new ConcurrentHashMap<>();
 
     /**
      * 默认编码格式
@@ -33,13 +34,91 @@ public class SftpUtils {
 
 
     /**
+     * split the colonyPropery
+     */
+    private static final String SPLIT_COMMA =",";
+
+    /**
+     * split the colony value
+     */
+    private static final String SPLIT_POUND_SINGLE = ":";
+
+
+
+    /**
+     * CMACAST集群数据获取,设置CMACAST集群连接的随机性
+     * @param colonyPropery 指定sft格式  host:port:username:password,host:name:username:password
+     * @param serial sftp 连接编号
+     * @return 连接句柄
+     */
+    public static ChannelSftp getSftpConnectionColony(final String colonyPropery,String serial) {
+
+        int currentRetry = 0;
+
+        Channel channel ;
+        ChannelSftp sftp ;
+        String[] colonyArrs = colonyPropery.split(SPLIT_COMMA);
+        List<String> providers = Arrays.asList(colonyArrs);
+        Collections.shuffle(providers);
+        LABEL:for(;;) {
+            for(String colony : providers) {
+                String[] property = colony.split(SPLIT_POUND_SINGLE);
+                String host = property[0];
+                int port = Integer.parseInt(property[1]);
+                String userName = property[2];
+                String password = property[3];
+                try{
+                    currentRetry++;
+                    if(currentRetry > colonyArrs.length * 4) {
+                        sftp = null;
+                        break LABEL;
+                    }
+                    String key = host + "," + port + "," + userName + "," +password + "," + serial;
+                    channel = doConnection(host,port,userName,password,key);
+                    logger.info("[SYSTEM] channel success current host:{},port:{},userName:{},password:{}",host,port,userName,password);
+                    sftp = (ChannelSftp) channel;
+                    if(sftp != null) {
+                        break LABEL;
+                    }
+                } catch ( Exception e) {
+                    logger.error("channel faile go continue current host:{},port:{},userName:{},password:{}",host,port,userName,password);
+                }
+
+            }
+        }
+
+        return sftp;
+    }
+
+    /**
+     * CMACAST释放连接
+     * @param colonyPropery 指定sft格式  host:port:username:password,host:name:username:password
+     * @param serial  sftp 连接编号
+     */
+    public static void relase(final String colonyPropery,String serial) {
+        String[] colonyArrs = colonyPropery.split(SPLIT_COMMA);
+        for(String colony : colonyArrs) {
+            String[] property = colony.split(SPLIT_POUND_SINGLE);
+            String host = property[0];
+            int port = Integer.parseInt(property[1]);
+            String userName = property[2];
+            String password = property[3];
+            String key = host + "," + port + "," + userName + "," +password + "," + serial;
+            if(SFTP_CHANNEL_POOL.contains(key)) {
+                SFTP_CHANNEL_POOL.remove(key);
+            }
+        }
+    }
+
+
+    /**
      * 多线程下获取ftp连接
-     * @param host
-     * @param port
-     * @param userName
-     * @param password
-     * @param threadId
-     * @return
+     * @param host 主机地址
+     * @param port 主机端口
+     * @param userName 用户名
+     * @param password 密码
+     * @param threadId 线程id
+     * @return 连接句柄
      */
     public static ChannelSftp getSftpConnection(final String host, final int port, final String userName,
                                                 final String password, final long threadId) throws JSchException {
@@ -53,11 +132,11 @@ public class SftpUtils {
 
     /**
      * 单线程下获取连接
-     * @param host
-     * @param port
-     * @param userName
-     * @param password
-     * @return
+     * @param host 主机ip
+     * @param port 主机端口
+     * @param userName 用户名
+     * @param password 密码
+     * @return 连接句柄
      */
     public static ChannelSftp getSftpConnection(final String host,final int port,final String userName,
                                                 final String password) throws JSchException {
@@ -72,40 +151,39 @@ public class SftpUtils {
 
     /**
      * 使用Map存储对应的sftp连接，连接池
-     * @param host
-     * @param port
-     * @param userName
-     * @param password
-     * @param key
+     * @param host 主机
+     * @param port 端口
+     * @param userName 用户名
+     * @param password 密码
+     * @param key 指定key
      * @return
-     * @throws JSchException
+     * @throws JSchException 异常抛出
      */
     public static Channel doConnection (String host,int port,String userName,String password,String key) throws JSchException {
-        Session sshSession = null;
-        Channel channel = null;
-        ChannelSftp sftp = null;
-//        if(null == SFTP_CHANNEL_POOL.get(key)) {
-        JSch jsch = new JSch();
-        jsch.getSession(userName, host, port);
-        sshSession = jsch.getSession(userName, host, port);
-        sshSession.setPassword(password);
-        Properties sshConfig = new Properties();
-        sshConfig.put("StrictHostKeyChecking", "no");
-        sshSession.setConfig(sshConfig);
-        sshSession.connect();
-        channel = sshSession.openChannel("sftp");
-        channel.connect();
-//            SFTP_CHANNEL_POOL.put(key, channel);
-//        } else {
-//            channel = SFTP_CHANNEL_POOL.get(key);
-//            sshSession = channel.getSession();
-//            if (!sshSession.isConnected()) {
-//                sshSession.connect();
-//            }
-//            if (!channel.isConnected()) {
-//                channel.connect();
-//            }
-//        }
+        Session sshSession;
+        Channel channel;
+        if(null == SFTP_CHANNEL_POOL.get(key)) {
+            JSch jsch = new JSch();
+            jsch.getSession(userName, host, port);
+            sshSession = jsch.getSession(userName, host, port);
+            sshSession.setPassword(password);
+            Properties sshConfig = new Properties();
+            sshConfig.put("StrictHostKeyChecking", "no");
+            sshSession.setConfig(sshConfig);
+            sshSession.connect();
+            channel = sshSession.openChannel("sftp");
+            channel.connect();
+            SFTP_CHANNEL_POOL.put(key, channel);
+        } else {
+            channel = SFTP_CHANNEL_POOL.get(key);
+            sshSession = channel.getSession();
+            if (!sshSession.isConnected()) {
+                sshSession.connect();
+            }
+            if (!channel.isConnected()) {
+                channel.connect();
+            }
+        }
         return channel;
     }
 
