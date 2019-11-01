@@ -20,20 +20,15 @@
 		<module>util-jdk</module>
 		<module>util-spark</module>
         <module>util-middleware</module>
-    </modules>
+		<module>util-auto</module>
+		<module>util-autoconfiguration</module>
+	</modules>
 
 
     <packaging>pom</packaging>
 
 	<name>demo</name>
 	<description>java基础组件调用 - 类调用</description>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
 
 	<developers>
 		<developer>
@@ -65,6 +60,10 @@
 		<gson.version>2.3.1</gson.version>
 		<guava.version>18.0</guava.version>
 		<redis.version>2.9.0</redis.version>
+
+		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+
+		<auto.version>1.0-beta7</auto.version>
 	</properties>
 
 	<!--版本控制 -->
@@ -197,6 +196,14 @@
 				<version>2.11.1</version>
 			</dependency>
 
+			<!-- spring boot 版本控制 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -215,6 +222,16 @@
 	<build>
 		<!-- 设置swagger插件导出数据操作 -->
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<target>1.8</target>
+					<source>1.8</source>
+					<encoding>UTF-8</encoding>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
             <!--<plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
