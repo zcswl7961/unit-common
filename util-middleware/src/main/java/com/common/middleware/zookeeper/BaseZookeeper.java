@@ -5,7 +5,6 @@ import org.apache.zookeeper.data.Stat;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.List;
-
 /**
  * @author: zhoucg
  * @date: 2019-10-21
@@ -32,10 +31,11 @@ public class BaseZookeeper implements Watcher {
      * @param host
      * @throws Exception
      */
-    public void connectZookeeper(String host) throws Exception{
+    public ZooKeeper connectZookeeper(String host) throws Exception{
         zookeeper = new ZooKeeper(host, SESSION_TIMEOUT, this);
         countDownLatch.await();
         System.out.println("zookeeper connection success");
+        return zookeeper;
     }
 
     /**
