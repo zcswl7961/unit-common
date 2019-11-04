@@ -22,6 +22,10 @@
         <module>util-middleware</module>
 		<module>util-auto</module>
 		<module>util-autoconfiguration</module>
+        <module>util-interface</module>
+		<module>util-interface-a</module>
+		<module>util-interface-b</module>
+		<module>util-interface-combine</module>
 	</modules>
 
 
@@ -58,7 +62,7 @@
 		<kafka.version>0.10.2.0</kafka.version>
 		<swagger.version>2.5.0</swagger.version>
 		<gson.version>2.3.1</gson.version>
-		<guava.version>18.0</guava.version>
+		<guava.version>27.0.1-jre</guava.version>
 		<redis.version>2.9.0</redis.version>
 
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>

@@ -50,11 +50,18 @@ public class AutoServiceProcessor extends AbstractBladeProcessor {
 
 	@Override
 	protected boolean processImpl(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		/**
+		 * 如果上一次循环中注解处理器已经处理完了，就调用generateConfigFiles生成MEATA_INF配置文件；
+		 * 如果上一轮没有处理就调用processAnnotations处理注解。
+		 * 		返回true就代表改变或者生成语法树中的内容；
+		 * 		返回false就是没有修改或者生成，通知编译器这个Round中的代码未发生变化。
+		 */
 		if (roundEnv.processingOver()) {
 			generateConfigFiles();
 		} else {
 			processAnnotations(annotations, roundEnv);
 		}
+		//返回true表示生成语法树中的内容
 		return true;
 	}
 
@@ -65,7 +72,9 @@ public class AutoServiceProcessor extends AbstractBladeProcessor {
 		log(elements.toString());
 
 		for (Element e : elements) {
+			//被AutoService注解的元素，这里简称T
 			TypeElement providerImplementer = (TypeElement) e;
+			//判度胺
 			AnnotationMirror annotationMirror = getAnnotationMirror(e, AutoService.class);
 			if (annotationMirror == null) {
 				continue;

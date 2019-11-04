@@ -10,57 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zcswl</groupId>
-    <artifactId>util-tools</artifactId>
-
+    <artifactId>util-interface-b</artifactId>
     <properties>
-        <auto-factory.version>1.0-beta7</auto-factory.version>
         <auto-service.version>1.0-rc6</auto-service.version>
+        <google-auto-service.version>1.0-rc6</google-auto-service.version>
     </properties>
 
     <dependencies>
-        <!-- 引入sftp包，进行解析操作 -->
         <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
+            <groupId>com.zcswl</groupId>
+            <artifactId>util-interface</artifactId>
+            <version>v0.0.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.samba.jcifs</groupId>
-            <artifactId>jcifs</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.dropwizard.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.auto.factory</groupId>
-            <artifactId>auto-factory</artifactId>
-            <version>${auto-factory.version}</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
-        <groupId>com.google.auto.service</groupId>
-        <artifactId>auto-service-annotations</artifactId>
-        <version>1.0-rc6</version>
-    </dependency>
 
         <dependency>
             <groupId>com.google.auto.service</groupId>
@@ -68,26 +29,25 @@
             <version>${auto-service.version}</version>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>com.google.auto.service</groupId>
                             <artifactId>auto-service</artifactId>
-                            <version>${auto-service.version}</version>
+                            <version>${google-auto-service.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 
 </project>
