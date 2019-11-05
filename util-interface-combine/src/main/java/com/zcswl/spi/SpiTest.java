@@ -2,6 +2,7 @@ package com.zcswl.spi;
 
 import com.zcswl.inter.Pay;
 
+import javax.annotation.processing.Processor;
 import java.util.ServiceLoader;
 
 /**
@@ -18,6 +19,11 @@ public class SpiTest {
         ServiceLoader<Pay> load = ServiceLoader.load(Pay.class);
         for(Pay pay : load) {
             pay.pay();
+        }
+
+        ServiceLoader<Processor> load1 = ServiceLoader.load(Processor.class);
+        for(Processor processor : load1) {
+            System.out.println(processor);
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.zcswl.auto.factories;
 
+import com.google.auto.service.AutoService;
 import com.zcswl.auto.common.AbstractBladeProcessor;
 import com.zcswl.auto.common.MultiSetMap;
-import com.zcswl.auto.service.AutoService;
 
 import javax.annotation.processing.*;
 import javax.lang.model.element.AnnotationMirror;
@@ -62,6 +62,7 @@ public class AutoFactoriesProcessor extends AbstractBladeProcessor {
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
+		System.out.println("进行编译执行，初始化init"+processingEnv);
 		super.init(processingEnv);
 		elementUtils = processingEnv.getElementUtils();
 	}

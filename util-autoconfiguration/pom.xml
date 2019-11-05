@@ -20,5 +20,38 @@
         </dependency>
     </dependencies>
 
+    <!-- 这一部的添加，是因为对应的util-auto没有添加对应的META-INF/service/javax.annotation.processing.Processor
+            需要显示添加annotationProcessors annotationProcessorPaths-->
+    <!--<build>
+        &lt;!&ndash;http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#annotationProcessorPaths &ndash;&gt;
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.zcswl</groupId>
+                            <artifactId>util-auto</artifactId>
+                            <version>v0.0.1</version>
+                        </path>
+                    </annotationProcessorPaths>
+
+                    <annotationProcessors>
+                        com.zcswl.auto.factories.AutoFactoriesProcessor
+                    </annotationProcessors>
+
+
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>-->
+
 
 </project>

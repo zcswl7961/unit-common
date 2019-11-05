@@ -28,6 +28,12 @@
             <version>v0.0.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.zcswl</groupId>
+            <artifactId>util-autoconfiguration</artifactId>
+            <version>v0.0.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

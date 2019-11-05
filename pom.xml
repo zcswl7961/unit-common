@@ -231,7 +231,6 @@
 	</dependencies>
 
 	<build>
-		<!-- 设置swagger插件导出数据操作 -->
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -243,6 +242,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+			<!-- 设置swagger插件导出数据操作 -->
             <!--<plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>

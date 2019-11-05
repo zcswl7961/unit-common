@@ -16,8 +16,17 @@ public class MetricsExample {
     public static void main(String[] args) {
         startReport();
         metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+        metrics.meter("requests").mark();
+
         wait5Second();
-}
+    }
 
     static void startReport() {
         ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics)
