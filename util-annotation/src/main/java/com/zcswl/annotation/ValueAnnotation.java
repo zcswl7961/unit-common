@@ -1,4 +1,4 @@
-package com.common.annotation;
+package com.zcswl.annotation;
 
 import java.lang.annotation.*;
 

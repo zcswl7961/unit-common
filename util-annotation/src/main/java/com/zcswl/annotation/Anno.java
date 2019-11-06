@@ -1,4 +1,4 @@
-package com.common.annotation;
+package com.zcswl.annotation;
 
 /**
  * Created by zhoucg on 2018-12-18.
