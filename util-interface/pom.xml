@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-interface</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
 
 </project>

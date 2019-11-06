@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-autoconfiguration</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

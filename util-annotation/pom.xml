@@ -9,8 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.zcswl</groupId>
     <artifactId>util-annotation</artifactId>
-
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
 </project>

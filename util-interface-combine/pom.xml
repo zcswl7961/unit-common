@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-interface-combine</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
     <properties>
         <google-auto-service.version>1.0-rc6</google-auto-service.version>
     </properties>

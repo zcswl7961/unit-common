@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-spark</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- spark java 引入 -->

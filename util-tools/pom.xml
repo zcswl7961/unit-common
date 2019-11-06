@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-tools</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <auto-factory.version>1.0-beta7</auto-factory.version>

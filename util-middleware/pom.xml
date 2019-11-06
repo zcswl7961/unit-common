@@ -12,6 +12,8 @@
     <!-- 中间件相关示例 -->
     <groupId>com.zcswl</groupId>
     <artifactId>util-middleware</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!--zookeeper连接 -->

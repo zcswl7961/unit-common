@@ -29,7 +29,7 @@
 		<module>util-dependencies</module>
 	</modules>
 
-
+	<!-- 作为聚合modules使用 -->
     <packaging>pom</packaging>
 
 	<name>demo</name>
@@ -51,6 +51,9 @@
 	</distributionManagement>
 
 	<properties>
+		<!-- 模块版本固定 -->
+		<util-common.version>v0.0.1</util-common.version>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>

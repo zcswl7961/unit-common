@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-enum</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
 
 </project>

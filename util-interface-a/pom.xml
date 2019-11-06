@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-interface-a</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <auto-service.version>1.0-rc6</auto-service.version>

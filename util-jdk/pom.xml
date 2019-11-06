@@ -11,6 +11,8 @@
 
     <groupId>com.zcswl</groupId>
     <artifactId>util-jdk</artifactId>
+    <version>${util-common.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <javassist_version>3.20.0-GA</javassist_version>
