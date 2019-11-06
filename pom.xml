@@ -204,6 +204,8 @@
 				<version>2.11.1</version>
 			</dependency>
 
+			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 -->
+			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
 			<!-- spring boot 版本控制 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -265,9 +267,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>-->
         </plugins>
-
-
-
 	</build>
 
 
