@@ -42,13 +42,49 @@
 		</developer>
 	</developers>
 
-	<!--添加至maven私服仓库 ,个人私服数据信息-->
+
+	<!--<scm>
+		<developerConnection>https://github.com/zcswl7961/unit-common.git</developerConnection>
+		<connection>https://github.com/zcswl7961/unit-common.git</connection>
+		<url>https://github.com/zcswl7961/unit-common</url>
+	</scm>-->
+
+	<!--发布依赖包到对应的私服配置中
+			使用 mvn clean deploy 命令发布依赖包
+				repository：配置表示的对应的稳定版本，
+		snapshotRepository：表示扩展版本
+			这两个配置中的id需要和maven中settings.xml中<server>中配置的id保持一致，不然会出现权限问题，
+			url 分别指定 maven-releases 和 maven-snapshots 的地址(同样你也可以自己创建对应的仓库地址)
+		带有 SNAPSHOT 的就会到 snapshots 仓库，如果不加 SNAPSHOT 就会到 releases 仓库。
+			-->
 	<distributionManagement>
+		<!-- 稳定版本 -->
 		<repository>
-			<id>zcswl-public</id>
-			<url>http://localhost:8081/repository/zcswl-public/</url>
+			<id>maven-repository-releases</id>
+			<url>http://localhost:8081/repository/maven-releases/</url>
 		</repository>
+
+		<!-- 快照版本-->
+		<snapshotRepository>
+			<id>maven-repository-snapshots</id>
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
 	</distributionManagement>
+
+
+	<!-- 处理从maven中配置的中央仓库中下来依赖包之外，同样会从下面配置的
+	 		私服地址进行下载依赖 其中id和你的仓库名称一致
+	 		设置 snapshots 的 enabled 为ture，表示允许下载 snapshots 版本的包-->
+	<repositories>
+		<repository>
+			<id>maven-releases</id>
+			<name>maven-releases</name>
+			<url>http://localhost:8081/repository/maven-releases/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<properties>
 		<!-- 模块版本固定 -->
@@ -241,6 +277,41 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+
+			<!-- java 源码打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- java doc文档打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
 			<!-- 设置swagger插件导出数据操作 -->
             <!--<plugin>
                 <groupId>io.swagger</groupId>
@@ -269,5 +340,45 @@
         </plugins>
 	</build>
 
+	<!--发布到中央仓库
+			https://www.jianshu.com/p/923913d904fb
+			https://blog.csdn.net/lizhengjava/article/details/81704283
+https://www.cnblogs.com/jialin16/p/8624019.html -->
+	<!--<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					&lt;!&ndash; GPG &ndash;&gt;
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				&lt;!&ndash; 稳定版本 &ndash;&gt;
+				<repository>
+					<id>maven-repository-releases</id>
+					<url>http://localhost:8081/repository/maven-releases/</url>
+				</repository>
+
+				&lt;!&ndash; 快照版本&ndash;&gt;
+				<snapshotRepository>
+					<id>maven-repository-snapshots</id>
+					<url>http://localhost:8081/repository/maven-snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>-->
 
 </project>
