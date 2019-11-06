@@ -26,6 +26,7 @@
 		<module>util-interface-a</module>
 		<module>util-interface-b</module>
 		<module>util-interface-combine</module>
+		<module>util-dependencies</module>
 	</modules>
 
 
@@ -220,13 +221,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!--Lombok-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

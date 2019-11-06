@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>demo</artifactId>
+        <groupId>com.zcswl</groupId>
+        <version>v0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zcswl</groupId>
+    <artifactId>util-dependencies</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        版本依赖
+    </description>
+
+    <!-- 该模块作为util-common版本依赖的pom引用 -->
+    <!-- 外部module在引用util-common中的包时，只需要在父级pom文件中加入-->
+    <!--
+
+        <dependencyManagement>
+            <dependencies>
+              <dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-dependencies</artifactId>
+                <version>v0.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+              </dependency>
+            </dependencies>
+          </dependencyManagement>
+
+        同时子级目录只需要引入到对应的util-dependencies中的目录数据
+     -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-auto</artifactId>
+                <version>v0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-tools</artifactId>
+                <version>v0.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-elasticsearch</artifactId>
+                <version>v0.0.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

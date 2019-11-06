@@ -1,7 +1,6 @@
 package com.zcswl.auto.factories;
 
 import com.zcswl.auto.common.MultiSetMap;
-import lombok.experimental.UtilityClass;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,8 +16,7 @@ import java.util.StringJoiner;
  *
  * @author L.cm
  */
-@UtilityClass
-class FactoriesFiles {
+public class FactoriesFiles {
 	private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
 	/**
