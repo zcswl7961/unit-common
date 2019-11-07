@@ -11,9 +11,10 @@ import org.slf4j.LoggerFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+
 /**
- * Created by zhoucg on 2019-01-28.
- * es 连接工具
+ * @author zhoucg
+ * @date 2019-10-7
  */
 public class ElasticSearchConnection {
 

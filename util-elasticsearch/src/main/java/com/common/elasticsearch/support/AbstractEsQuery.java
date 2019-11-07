@@ -75,7 +75,9 @@ public abstract class AbstractEsQuery<T> implements EsQuery<T> {
                 TimeValue timeValue = new TimeValue(30000);
                 while (true) {
                     SearchResponse sr = client.prepareSearchScroll(next).setScroll(timeValue).get();
-                    if(sr.getHits().getHits().length ==0) break;
+                    if(sr.getHits().getHits().length ==0) {
+                        break;
+                    }
                     //do something as for subclass
                     return (List<T>) this.parseSourceTotalHits(list,sr.getHits().getHits());
                 }
