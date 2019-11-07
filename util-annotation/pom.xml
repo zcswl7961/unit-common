@@ -15,4 +15,21 @@
     <version>${util-common.version}</version>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <!--aop 模块-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zcswl</groupId>
+            <artifactId>util-auto</artifactId>
+            <version>${util-common.version}</version>
+            <!-- https://blog.csdn.net/yh_zeng2/article/details/82562596 -->
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
 </project>
