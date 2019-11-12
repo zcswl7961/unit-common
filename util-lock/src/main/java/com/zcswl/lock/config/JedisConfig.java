@@ -13,6 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 配置中心，获取application配置信息中redis的相关配置
+ *
+ * <p>redis.sentinel.nodes,redis.sentinel.masterName,redis.sentinel.password
+ *
+ * <p>将配置解析到的{@link JedisSentinelPool} pool 加入到spring 容器中
  * @author zhoucg
  * @date 2019-11-12 15:26
  */
@@ -48,6 +53,9 @@ public class JedisConfig {
     private static final String SEMICOLON = ":";
 
 
+    /**
+     * register JedisSentinelPool into ApplicationContext
+     */
     @Bean
     public JedisSentinelPool getJedisSentinelPool() {
         JedisSentinelPool pool;

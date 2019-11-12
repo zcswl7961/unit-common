@@ -9,6 +9,8 @@ import redis.clients.jedis.JedisSentinelPool;
 import java.util.Collections;
 
 /**
+ * redis lock
+ *
  * @author zhoucg
  * @date 2019-11-12 15:23
  */
