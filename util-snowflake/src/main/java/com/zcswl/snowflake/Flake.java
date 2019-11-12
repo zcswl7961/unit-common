@@ -79,7 +79,7 @@ public final class Flake {
      * @return
      */
     public synchronized long nextId() {
-        long currStmp = getNewstmp();
+        long currStmp = System.currentTimeMillis();
         if(currStmp < lastStmp) {
             throw new RuntimeException("Clock moved backwards.  Refusing to generate id");
         }
@@ -104,16 +104,11 @@ public final class Flake {
     }
 
     private long getNextMill() {
-        long mill = getNewstmp();
+        long mill = System.currentTimeMillis();
         while (mill <= lastStmp) {
-            mill = getNewstmp();
+            mill = System.currentTimeMillis();
         }
         return mill;
     }
-
-    private long getNewstmp() {
-        return System.currentTimeMillis();
-    }
-
 
 }
