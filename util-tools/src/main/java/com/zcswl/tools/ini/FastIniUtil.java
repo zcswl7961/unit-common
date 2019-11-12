@@ -14,6 +14,12 @@ import java.util.Map;
  */
 public class FastIniUtil {
 
+    private static final String SEMICOLON = ";";
+
+    private static final String NUMBER_SIGN = "#";
+
+
+
     /**
      * 去除ini文件中的注释，以";"或"#"开头，顺便去除UTF-8等文件的BOM头
      * @param source
@@ -21,10 +27,10 @@ public class FastIniUtil {
      */
     private static String removeIniCommments(String source) {
         String result = source;
-        if(result.contains(";")) {
+        if(result.contains(SEMICOLON)) {
             result = result.substring(0,result.indexOf(";"));
         }
-        if(result.contains("#")) {
+        if(result.contains(NUMBER_SIGN)) {
             result = result.substring(0,result.indexOf("#"));
         }
         return result.trim();
@@ -61,8 +67,8 @@ public class FastIniUtil {
      *      Map<String,String>  -> 标签对应数据
      */
     public static Map<String,Map<String,String>> readIniFile(BufferedReader bufferedReader) {
-        Map<String, List<String>> listResult = new HashMap<>();
-        Map<String,Map<String,String>> result = new HashMap<>();
+        Map<String, List<String>> listResult = new HashMap<>(32);
+        Map<String,Map<String,String>> result = new HashMap<>(32);
         String globalSection = "global";
 
         try{
@@ -136,7 +142,7 @@ public class FastIniUtil {
             if(tempList == null || tempList.size() == 0) {
                 continue;
             }
-            Map<String,String> properties = new HashMap<>();
+            Map<String,String> properties = new HashMap<>(16);
             tempList.stream().forEach(str -> {
                 if(str.contains("=")) {
                     int delimiterPos = str.indexOf("=");

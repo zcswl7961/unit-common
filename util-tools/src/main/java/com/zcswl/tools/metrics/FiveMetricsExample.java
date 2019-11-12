@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * https://www.cnblogs.com/yangecnu/p/Using-Metrics-to-Profiling-WebService-Performance.html
  * https://www.cnblogs.com/nexiyi/p/metrics_sample_1.html
  */
-public class FiveMetricsExample {
+public final class FiveMetricsExample {
 
 
 

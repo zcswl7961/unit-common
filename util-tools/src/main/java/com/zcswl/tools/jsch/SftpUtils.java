@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author zhoucg
  * @date 2018-11-29
  */
-public class SftpUtils {
+public final class SftpUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(SftpUtils.class);
 
