@@ -1,6 +1,6 @@
 # java基础工具类方法
 
-本项目主要收录了在个人开发过程中，使用到的常用的个人开发工具，包括线程池，controller参数判断器，processor注解处理器，分布式锁，中间件，jcraft，jcifs等
+本项目主要收录了在个人开发过程中，使用到的常用的个人开发工具，包括线程池，controller参数判断器，processor注解处理器，分布式锁，中间件，jcraft，jcifs，分布式ID等
 
 ## jsch使用
 
