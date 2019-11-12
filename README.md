@@ -1,6 +1,6 @@
 # java基础工具类方法
 
-本项目主要收录了在个人开发过程中，使用到的常用的个人开发工具，包括线程池的使用，阿里巴巴的标准规范，jcraft的使用，jcifs工具包的使用等
+本项目主要收录了在个人开发过程中，使用到的常用的个人开发工具，包括线程池，controller参数判断器，processor注解处理器，分布式锁，中间件，jcraft，jcifs等
 
 ## jsch使用
 
@@ -83,8 +83,4 @@ ExecutorService executorService = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MIL
        5,Timers:Timers主要是用来统计某一块代码段的执行时间以及其分布情况，具体是基于Histograms和Meters来实现的
     具体使用规则：
         https://www.cnblogs.com/nexiyi/p/metrics_sample_1.html
-```
-## 包格式
-```
-    每一个包代表的是对应的每一个知识点的回顾数据
 ```
