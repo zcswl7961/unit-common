@@ -27,7 +27,8 @@
 		<module>util-interface-b</module>
 		<module>util-interface-combine</module>
 		<module>util-dependencies</module>
-	</modules>
+        <module>util-snowflake</module>
+    </modules>
 
 	<!-- 作为聚合modules使用 -->
     <packaging>pom</packaging>
