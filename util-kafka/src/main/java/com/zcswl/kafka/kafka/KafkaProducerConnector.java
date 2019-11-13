@@ -3,7 +3,6 @@ package com.zcswl.kafka.kafka;
 import com.zcswl.kafka.config.KafkaProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -28,7 +26,7 @@ public class KafkaProducerConnector {
 
     private final KafkaProperties properties;
 
-    private static KafkaProducer<String,byte[]> producer = null;
+    private static KafkaProducer<String,String> producer = null;
 
     @PostConstruct
     public void init() {
@@ -63,11 +61,9 @@ public class KafkaProducerConnector {
      * @return
      * @throws Exception
      */
-    public Future<RecordMetadata> send(Serializable value) throws Exception{
+    public Future<RecordMetadata> send(String value) throws Exception{
         try {
-            //将对象序列化称字节码
-            byte[] bytes= SerializationUtils.serialize(value);
-            Future<RecordMetadata> future=producer.send(new ProducerRecord(properties.getSendTopic(),bytes));
+            Future<RecordMetadata> future=producer.send(new ProducerRecord(properties.getSendTopic(), value));
             return future;
         }catch(Exception e){
             log.error("current send message error：{}",e);

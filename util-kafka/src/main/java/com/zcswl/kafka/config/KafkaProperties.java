@@ -33,7 +33,7 @@ public class KafkaProperties {
      * 当多条消息发送到同一个partition时，该值控制生产者批量发送消息的大小，批量发送可以减少生产者到服务端的请求数，
      * 有助于提高客户端和服务端的性能。
      */
-    private Long batchSize;
+    private Integer batchSize;
 
     /**
      * 往kafka服务器提交消息间隔时间，0则立即提交不等待
@@ -68,6 +68,11 @@ public class KafkaProperties {
     /**
      * 消费者自动提交的毫秒数
      */
-    private Long autoCommitMs;
+    private String autoCommitMs;
+
+    /**
+     * zookeeper配置信息
+     */
+    private String zkServices;
 
 }
