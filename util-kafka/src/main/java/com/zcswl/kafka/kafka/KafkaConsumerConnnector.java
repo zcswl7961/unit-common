@@ -2,7 +2,7 @@ package com.zcswl.kafka.kafka;
 
 import com.google.common.collect.Lists;
 import com.zcswl.kafka.config.KafkaProperties;
-import com.zcswl.kafka.handler.MqMessageHandler;
+import com.zcswl.kafka.handler.Handler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -36,7 +36,7 @@ public class KafkaConsumerConnnector {
      * @param handler 处理的逻辑
      * @param threadCount 执行线程处理
      */
-    public void consumer(String topic, final MqMessageHandler handler, Integer threadCount) {
+    public void consumer(String topic, final Handler handler, Integer threadCount) {
         if (threadCount < 1) {
             throw new IllegalArgumentException("出现消息的线程数最少为1");
         }
@@ -63,7 +63,7 @@ public class KafkaConsumerConnnector {
         /**
          * 创建消费者组
          */
-        public ConsumerGroup(int consumerNum,String groupId,String topic,String brokerList,MqMessageHandler handler) {
+        public ConsumerGroup(int consumerNum,String groupId,String topic,String brokerList,Handler handler) {
             consumers = Lists.newArrayList();
             for(int i = 0;i<consumerNum;i++) {
                 ConsumerRunnable consumerRunnable = new ConsumerRunnable(brokerList,groupId,topic,handler);
@@ -118,7 +118,7 @@ public class KafkaConsumerConnnector {
      */
     private static class ConsumerRunnable extends ConsumerBuilder implements Runnable{
 
-        private MqMessageHandler handler = null;
+        private Handler handler = null;
 
         /**
          * 每一个线程拥有一个消息KafkaConsumer对象
@@ -127,7 +127,7 @@ public class KafkaConsumerConnnector {
          * @param topic 指定topic
          * @param handler 任务执行
          */
-        public ConsumerRunnable(String brokerList,String groupId,String topic,MqMessageHandler handler) {
+        public ConsumerRunnable(String brokerList,String groupId,String topic,Handler handler) {
             this(brokerList,groupId,topic);
             this.handler = handler;
         }

@@ -5,7 +5,7 @@ package com.zcswl.kafka.handler;
  * @author zhoucg
  * @date 2019-11-13 10:39
  */
-public interface MqMessageHandler {
+public interface Handler {
 
     /**
      * 消息处理
