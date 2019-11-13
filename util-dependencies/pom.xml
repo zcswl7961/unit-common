@@ -60,6 +60,12 @@
                 <version>v0.0.1</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-kafka</artifactId>
+                <version>v0.0.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

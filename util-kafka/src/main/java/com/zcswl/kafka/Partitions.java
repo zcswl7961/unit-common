@@ -1,13 +1,14 @@
-package com.common.kafka;
+package com.zcswl.kafka;
 
-        import org.apache.kafka.clients.producer.Partitioner;
-        import org.apache.kafka.common.Cluster;
-        import org.apache.kafka.common.Node;
+import org.apache.kafka.clients.producer.Partitioner;
+import org.apache.kafka.common.Cluster;
+import org.apache.kafka.common.Node;
 
-        import java.util.List;
-        import java.util.Map;
+import java.util.List;
+import java.util.Map;
 
 /**
+ * Test
  * kafka生产者消息设置自定义分区
  * @author: zhoucg
  * @date: 2019-10-22
