@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 获取当前spring context上下文。
  *
- * <p>非注解进去的spring容器的bean可以通过此类获取spring 容器中的对象。
+ * <p>非spring容器所管理的bean可以通过该类获取spring 容器中的管理bean对象，以及获取spring 容器上下文
  * @author zhoucg
  * @date 2019-11-13 17:24
  */
