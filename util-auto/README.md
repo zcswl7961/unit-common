@@ -52,4 +52,4 @@ META-INF/spring.factories 和 META-INF/spring-devtools.properties文件
 ### 参考
 - mica-atuo：https://github.com/lets-mica/mica-auto
 
-该开源包依赖于mic-auto中的自动生成spring.factories类
+该开源包来源于mic-auto中的自动生成spring.factories类
