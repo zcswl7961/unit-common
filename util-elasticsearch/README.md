@@ -1,0 +1,1 @@
+## elasticsearch批量插入和批量查询接口

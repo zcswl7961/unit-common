@@ -20,11 +20,6 @@
 		<module>util-jdk</module>
         <module>util-middleware</module>
 		<module>util-auto</module>
-		<module>util-autoconfiguration</module>
-        <module>util-interface</module>
-		<module>util-interface-a</module>
-		<module>util-interface-b</module>
-		<module>util-interface-combine</module>
 		<module>util-dependencies</module>
         <module>util-snowflake</module>
 		<module>util-lock</module>

@@ -33,10 +33,13 @@
 
     <!--1,我们可以创建注解处理器，作为我们内部工具类使用，extends AbstractProcessor,例如 AutoFactoriesProcessor-->
     <!--2,创建对应的Processor启动器 META-INF/services/javax.annotation.processing.Processor 文件，同时文件中声明对应的注解启动类 -->
-    <!--   对于步骤2，我们同样可以采用google-auto中的@AutoService注解进行自动生成，如果用这个步骤，那我们的编译器就需要添加下面这个(如本文章中)-->
+    <!--   对于步骤2，我们同样可以采用google-auto中的@AutoService注解进行自动生成-->
     <!--3,其他jar包在去使用该jar包时，需要去build添加对应的编译器，如果原始的含有注解处理器的jar包不含有对应的META-INF注解时（即工具类不含有下面的build），我们需要去声明-->
     <!--  see util-autoconfigration pom.xml-->
-    <build>
+
+
+    <!-- parent pom.xml 没有对应的META-INF/services/javax.annotation.processing.Processor的时候,需要添加(详建自动已Annotation-Processor模块） -->
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -49,10 +52,13 @@
                             <version>${google-auto-service.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <annotationProcessors>
+                        com.zcswl.auto.factories.AutoFactoriesProcessor
+                    </annotationProcessors>
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 
 </project>
