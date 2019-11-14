@@ -54,6 +54,7 @@
             <groupId>com.zcswl</groupId>
             <artifactId>util-auto</artifactId>
             <version>v0.0.1</version>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
