@@ -24,7 +24,8 @@
         <module>util-snowflake</module>
 		<module>util-lock</module>
 		<module>util-db</module>
-	</modules>
+        <module>util-swagger</module>
+    </modules>
 
 	<!-- 作为聚合modules使用 -->
     <packaging>pom</packaging>
@@ -110,11 +111,6 @@
 	<!--版本控制 -->
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
 			<!-- 引入sftp包，进行解析操作 -->
 			<dependency>
 				<groupId>com.jcraft</groupId>

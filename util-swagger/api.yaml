@@ -1,0 +1,139 @@
+swagger: '2.0'
+info:
+  description: 数据开放openApi接口文档
+  version: 1.0.0
+  title: 数据开放openApi接口文档
+  license:
+    name: 优云软件
+    url: 'https://www.zcswl.com'
+
+basePath: /v1
+
+schemes:
+- http
+
+produces:
+- application/json
+
+tags:
+- name: dataflow
+
+paths:
+  /data/queryCountryDataInfo:
+      post:
+        summary: 获取国家级考核指定资料的基本信息
+        operationId: queryCountryDataInfo
+        tags:
+          - dataflow
+        parameters:
+          - name: apikey
+            in: query
+            description: 访问APIKEY
+            type: string
+          - name: query
+            in: body
+            schema:
+              $ref: '#/definitions/CountryDataInfoQuery'
+        responses:
+          200:
+            description: 成功，返回执行结果
+            schema:
+             $ref: '#/definitions/CountryDataInfoResponse'
+          400:
+            description: 失败
+            schema:
+              $ref: '#/definitions/ErrorResponse'
+
+definitions:
+  CountryDataInfoQuery:
+    type: object
+    description: 基本封装数据
+    properties:
+      cts:
+        type: string
+        description: cts编码，例如 A.0001.0032.R001
+      dpc:
+        type: string
+        description: dpc编码，例如 A.0001.0032.R001
+      sod:
+        type: string
+        description: sod编码，例如 A.0001.0032.R001
+
+  CountryDataInfoResponse:
+    type: object
+    description: 基本返回数据类型
+    properties:
+      cts:
+        type: string
+        description: cts编码，例如 A.0001.0032.R001
+      dpc:
+        type: string
+        description: dpc编码，例如 A.0001.0032.R001
+      sod:
+        type: string
+        description: sod编码，例如 A.0001.0032.R001
+      dataName:
+        type: string
+        description: 资料名称
+      time:
+        type: string
+        description: 最新时次
+      oughtAccept:
+        type: integer
+        description: 100 应收数
+      realityAccpet:
+        type: integer
+        description: 100 实收数
+      ctsInTimeRate:
+        type: number
+        format: double
+        description:  0.4  及时率
+      ctsRate:
+        type: number
+        format: double
+        description: 1 到报率
+      checkOughtAccept:
+        type: integer
+        description: 100 考核应收数
+      checkRealityAccept:
+        type: integer
+        description: 100 考核实收数
+      checkCtsInTimeRate:
+        type: number
+        format: double
+        description: 1 考核及时率
+      checkCtsRate:
+        type: number
+        format: double
+        description: 1 考核到报率
+  ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          $ref: '#/definitions/Error'
+
+
+  Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: 错误编码
+          example: IllegalParameter
+        message:
+          type: string
+          description: 错误消息
+          example: 用户名称不能为空
+        path:
+          type: string
+          description: 请求路径
+          example: /v1/data/query
+        time:
+          type: string
+          description: 出错时间
+          example: 2017-02-21 09:11:20 232
