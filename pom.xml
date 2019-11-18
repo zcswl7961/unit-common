@@ -23,6 +23,7 @@
 		<module>util-dependencies</module>
         <module>util-snowflake</module>
 		<module>util-lock</module>
+		<module>util-db</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->
