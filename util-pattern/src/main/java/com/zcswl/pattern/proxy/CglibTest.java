@@ -1,4 +1,4 @@
-package com.common.jdk.proxy;
+package com.zcswl.pattern.proxy;
 
 import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.cglib.proxy.Enhancer;

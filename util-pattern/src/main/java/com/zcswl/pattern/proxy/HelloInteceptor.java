@@ -1,4 +1,4 @@
-package com.common.jdk.proxy;
+package com.zcswl.pattern.proxy;
 
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;

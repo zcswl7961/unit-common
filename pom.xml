@@ -25,6 +25,7 @@
 		<module>util-lock</module>
 		<module>util-db</module>
         <module>util-swagger</module>
+        <module>util-pattern</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->

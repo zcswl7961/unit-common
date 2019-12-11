@@ -1,4 +1,4 @@
-package com.common.jdk.proxy;
+package com.zcswl.pattern.proxy;
 
 import java.lang.reflect.*;
 
@@ -9,8 +9,8 @@ public class ProxyTest {
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         //设置为true,会在工程根目录生成$Proxy0.class代理类（com.sun.proxy.$Proxy0.class）
-        //System.getProperties().put(
-        //        "sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+        System.getProperties().put(
+                "sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 
         //String saveGeneratedFiles = System.getProperty("sun.misc.ProxyGenerator.saveGeneratedFiles");
         //System.out.println(saveGeneratedFiles);
@@ -24,6 +24,7 @@ public class ProxyTest {
                 helloWord.getClass().getInterfaces(), customInvocationHandler);
         //调用say方法
         proxy.say("test");
+
 
 
         Class proxyClass = Proxy.getProxyClass(HelloTest.class.getClassLoader(), HelloTest.class);

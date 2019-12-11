@@ -1,4 +1,4 @@
-package com.common.jdk.proxy;
+package com.zcswl.pattern.proxy;
 
 /**
  * Created by zhoucg on 2019-03-17.
