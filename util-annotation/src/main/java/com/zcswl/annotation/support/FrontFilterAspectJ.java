@@ -53,10 +53,12 @@ public class FrontFilterAspectJ {
         if(objects == null || objects.length == 0) {
             return;
         }
+
         String[] params = ap.param();
         if(params == null || params.length == 0) {
             return;
         }
+
         Class<?> clazz = ap.clazz();
         Optional<Object> optional = Optional.empty();
         for(Object obj : objects) {
