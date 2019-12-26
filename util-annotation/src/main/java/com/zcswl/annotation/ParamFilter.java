@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 public @interface ParamFilter {
 
     /**
-     * 用于判度实体类的字节码对象
+     * 用于判断实体类的字节码对象
      * @return
      */
     Class<?> clazz();
