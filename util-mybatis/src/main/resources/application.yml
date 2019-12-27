@@ -1,0 +1,45 @@
+#基于多数据源的数据库配置信息
+spring:
+    datasource:
+        pmcis:
+          name: pmcis
+          url: jdbc:mysql://${mysql.ip}:3306/pmcis
+          username: pmcis
+          password: Qmcis123!
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          filters: stat
+          maxActive: 20
+          initialSize: 1
+          maxWait: 60000
+          minIdle: 1
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: select 'x'
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+          verifyServerCertificate: false
+        wolf:
+          name: wolf
+          url: jdbc:mysql://${mysql.ip}:3306/wolf?rewriteBatchedStatements=true
+          username: ${mysql.username.wolf}
+          password: ${mysql.password.wolf}
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          filters: stat
+          maxActive: 20
+          initialSize: 1
+          maxWait: 60000
+          minIdle: 1
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: select 'x'
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+          verifyServerCertificate: false

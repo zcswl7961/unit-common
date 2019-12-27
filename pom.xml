@@ -27,6 +27,7 @@
         <module>util-swagger</module>
         <module>util-pattern</module>
         <module>util-dataflow</module>
+        <module>util-mybatis</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->
