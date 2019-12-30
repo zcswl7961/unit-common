@@ -28,7 +28,8 @@
         <module>util-pattern</module>
         <module>util-dataflow</module>
         <module>util-mybatis</module>
-    </modules>
+		<module>util-transaction</module>
+	</modules>
 
 	<!-- 作为聚合modules使用 -->
     <packaging>pom</packaging>
