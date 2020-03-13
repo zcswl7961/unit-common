@@ -59,10 +59,10 @@
         </dependency>
 
         <dependency>
-        <groupId>com.google.auto.service</groupId>
-        <artifactId>auto-service-annotations</artifactId>
-        <version>1.0-rc6</version>
-    </dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service-annotations</artifactId>
+            <version>1.0-rc6</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.auto.service</groupId>
@@ -71,6 +71,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.zcswl</groupId>
+            <artifactId>util-jcl</artifactId>
+            <version>${util-common.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

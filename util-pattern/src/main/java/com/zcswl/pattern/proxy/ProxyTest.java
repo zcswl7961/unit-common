@@ -31,7 +31,7 @@ public class ProxyTest {
         Constructor constructor = proxyClass.getConstructor(InvocationHandler.class);
         Object o = constructor.newInstance(customInvocationHandler);
         HelloTest helloTest = (HelloTest) Proxy.newProxyInstance(HelloTest.class.getClassLoader(),
-                HelloTest.class.getInterfaces(), new InvocationHandler() {
+                new Class[]{HelloTest.class}, new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         System.out.println(method.getName());

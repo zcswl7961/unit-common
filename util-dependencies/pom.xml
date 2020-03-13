@@ -66,6 +66,13 @@
                 <version>v0.0.1</version>
             </dependency>
 
+            <!-- 作为内部日志记录接口 -->
+            <!--<dependency>
+                <groupId>com.zcswl</groupId>
+                <artifactId>util-jcl</artifactId>
+                <version>v0.0.1</version>
+            </dependency> -->
+
         </dependencies>
     </dependencyManagement>
 
