@@ -26,9 +26,9 @@ public class CustomInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        System.out.println("Before invocation");
-        Object retVal = method.invoke(target,args);
-        System.out.println("After invocation");
+        System.out.println("Before invocation==============");
+        Object retVal = method.invoke(proxy,args);
+        System.out.println("After invocation===============");
         return retVal;
     }
 }

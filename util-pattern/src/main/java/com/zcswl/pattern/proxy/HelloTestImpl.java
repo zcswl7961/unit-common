@@ -8,6 +8,12 @@ public class HelloTestImpl implements HelloTest{
     @Override
     public int say(String name) {
         System.out.println("Hello:" + name);
+        this.hello();
         return 0;
+    }
+
+    @Override
+    public void hello() {
+        System.out.println("你好，zhoucg");
     }
 }

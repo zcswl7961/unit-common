@@ -32,6 +32,7 @@
         <module>util-jcl</module>
 		<module>util-zwork</module>
         <module>util-spring</module>
+        <module>util-io</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->

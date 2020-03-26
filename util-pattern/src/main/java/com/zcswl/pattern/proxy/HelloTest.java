@@ -7,4 +7,7 @@ package com.zcswl.pattern.proxy;
 public interface HelloTest {
 
     int say(String name);
+
+    void hello();
+
 }

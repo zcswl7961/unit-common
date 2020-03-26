@@ -27,19 +27,21 @@ public class ProxyTest {
 
 
 
-        Class proxyClass = Proxy.getProxyClass(HelloTest.class.getClassLoader(), HelloTest.class);
+        /*Class proxyClass = Proxy.getProxyClass(HelloTest.class.getClassLoader(), HelloTest.class);
         Constructor constructor = proxyClass.getConstructor(InvocationHandler.class);
-        Object o = constructor.newInstance(customInvocationHandler);
-        HelloTest helloTest = (HelloTest) Proxy.newProxyInstance(HelloTest.class.getClassLoader(),
+        HelloTest o = (HelloTest) constructor.newInstance(customInvocationHandler);
+        o.say("zhoucg");*/
+
+
+        /*HelloTest helloTest = (HelloTest) Proxy.newProxyInstance(HelloTest.class.getClassLoader(),
                 new Class[]{HelloTest.class}, new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        System.out.println(method.getName());
-                        return null;
+                        return proxy;
                     }
                 });
 
-        helloTest.say("你好");
+        helloTest.say("你好");*/
 
     }
 }
