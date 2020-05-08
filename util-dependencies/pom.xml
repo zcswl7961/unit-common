@@ -37,18 +37,18 @@
      -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
+            <!--<dependency>
                 <groupId>com.zcswl</groupId>
                 <artifactId>util-annotation</artifactId>
                 <version>v0.0.1</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>com.zcswl</groupId>
                 <artifactId>util-auto</artifactId>
                 <version>v0.0.1</version>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>com.zcswl</groupId>
                 <artifactId>util-tools</artifactId>
                 <version>v0.0.1</version>
@@ -64,7 +64,7 @@
                 <groupId>com.zcswl</groupId>
                 <artifactId>util-kafka</artifactId>
                 <version>v0.0.1</version>
-            </dependency>
+            </dependency>-->
 
             <!-- 作为内部日志记录接口 -->
             <!--<dependency>

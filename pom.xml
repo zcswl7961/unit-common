@@ -63,17 +63,34 @@
 			url 分别指定 maven-releases 和 maven-snapshots 的地址(同样你也可以自己创建对应的仓库地址)
 		带有 SNAPSHOT 的就会到 snapshots 仓库，如果不加 SNAPSHOT 就会到 releases 仓库。
 			-->
-	<distributionManagement>
-		<!-- 稳定版本 -->
+	<!-- 个人电脑内部私服 -->
+	<!--<distributionManagement>
+		&lt;!&ndash; 稳定版本 &ndash;&gt;
 		<repository>
 			<id>maven-repository-releases</id>
 			<url>http://localhost:8081/repository/maven-releases/</url>
 		</repository>
 
-		<!-- 快照版本-->
+		&lt;!&ndash; 快照版本&ndash;&gt;
 		<snapshotRepository>
 			<id>maven-repository-snapshots</id>
 			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>-->
+
+
+	<!-- 美创私服 -->
+	<distributionManagement>
+		<!-- 稳定版本 -->
+		<repository>
+			<id>maven-repository-releases</id>
+			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/releases/</url>
+		</repository>
+
+		<!-- 快照版本-->
+		<snapshotRepository>
+			<id>maven-repository-snapshots</id>
+			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 

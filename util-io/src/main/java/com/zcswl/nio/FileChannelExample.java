@@ -19,8 +19,11 @@ public class FileChannelExample {
         FileChannel fileChannel = new FileInputStream("G:\\logs\\datacatalog.log").getChannel();
         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
 
-
         int bytesRead = fileChannel.read(byteBuffer);
+
+        long position = fileChannel.position();
+
+
         while (bytesRead != -1) {
 
             System.out.println("Read " + bytesRead);
@@ -31,8 +34,8 @@ public class FileChannelExample {
             }
             byteBuffer.clear();
             bytesRead = fileChannel.read(byteBuffer);
+
         }
         fileChannel.close();
-
     }
 }
