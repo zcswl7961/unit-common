@@ -19,7 +19,6 @@ public class FastIniUtil {
     private static final String NUMBER_SIGN = "#";
 
 
-
     /**
      * 去除ini文件中的注释，以";"或"#"开头，顺便去除UTF-8等文件的BOM头
      * @param source

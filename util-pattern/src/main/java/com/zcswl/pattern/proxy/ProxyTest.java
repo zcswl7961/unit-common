@@ -33,15 +33,17 @@ public class ProxyTest {
         o.say("zhoucg");*/
 
 
+        // 改测试实例会指定调用对应的代理对象
         /*HelloTest helloTest = (HelloTest) Proxy.newProxyInstance(HelloTest.class.getClassLoader(),
                 new Class[]{HelloTest.class}, new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        return proxy;
+                        return 1;
                     }
                 });
 
-        helloTest.say("你好");*/
+        int x = helloTest.say("你好");*/
+
 
     }
 }

@@ -27,8 +27,13 @@ public class CustomInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         System.out.println("Before invocation==============");
-        Object retVal = method.invoke(proxy,args);
+        // target代理的是对应调用的本身
+        Object retVal = method.invoke(target,args);
+
+        // 这里得proxy就是代理对象 下面得这个写法错误
+        // method.invoke(proxy,args);
         System.out.println("After invocation===============");
         return retVal;
+
     }
 }

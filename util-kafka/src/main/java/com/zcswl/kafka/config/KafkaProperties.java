@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @date 2019-11-13 10:08
  */
 @Data
-@Component
 @ConfigurationProperties(prefix = "spring.kafka")
 public class KafkaProperties {
 

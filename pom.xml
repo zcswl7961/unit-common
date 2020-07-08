@@ -33,9 +33,15 @@
 		<module>util-zwork</module>
         <module>util-spring</module>
         <module>util-io</module>
-    </modules>
+		<module>util-raft</module>
+        <module>util-sharding-jdbc</module>
+		<module>util-cache</module>
+		<module>util-local</module>
+	</modules>
 
 	<!-- 作为聚合modules使用 -->
+	<!-- packaging 给出了项目得打包类型，即作为项目得发布形式， 可用得配置形式  jar , war pom-->
+	<!-- 其中，父模块必须以pom打包类型，同时以<modules>给出所有的子模块-->
     <packaging>pom</packaging>
 
 	<name>demo</name>
@@ -142,6 +148,8 @@
 		<redis.version>2.9.0</redis.version>
 
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+
+		<zuihou-commons.version>2.3.1</zuihou-commons.version>
 
 		<auto.version>1.0-beta7</auto.version>
 	</properties>
@@ -271,6 +279,14 @@
 				<version>2.11.1</version>
 			</dependency>
 
+
+			<dependency>
+				<groupId>com.github.zuihou</groupId>
+				<artifactId>zuihou-swagger2-starter</artifactId>
+				<version>${zuihou-commons.version}</version>
+			</dependency>
+
+
 			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 -->
 			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
 			<!-- spring boot 版本控制 -->
@@ -281,6 +297,20 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+
+
+
+			<!-- 简单了各种使用的插件 -->
+			<dependency>
+				<groupId>com.github.zuihou</groupId>
+				<artifactId>zuihou-dependencies</artifactId>
+				<version>${zuihou-commons.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -294,6 +324,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- 使用undertow -->
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>-->
+
 	</dependencies>
 
 	<build>

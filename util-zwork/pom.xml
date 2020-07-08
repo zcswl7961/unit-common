@@ -15,17 +15,17 @@
     <dependencies>
 
         <!-- 通用用户目录模块 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.mchz</groupId>
             <artifactId>mc-user-client</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.ory</groupId>
             <artifactId>hydra-client-resttemplate</artifactId>
             <version>1.0.0-mc</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.zcswl</groupId>
             <artifactId>util-swagger</artifactId>
@@ -36,6 +36,17 @@
             <groupId>com.zcswl</groupId>
             <artifactId>util-spring</artifactId>
             <version>v0.0.1</version>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>-->
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
     </dependencies>

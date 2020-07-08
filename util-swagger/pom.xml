@@ -83,12 +83,14 @@
                 </configuration>
             </plugin>
 
+            <!-- https://www.jianshu.com/p/4bbdf456305e 插件作用 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.8</version>
                 <executions>
                     <execution>
+                        <!-- maven 中配置这个的意义：http://www.360doc.com/content/18/0626/19/14808334_765612380.shtml -->
                         <phase>process-sources</phase>
                         <goals>
                             <goal>run</goal>

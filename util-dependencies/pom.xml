@@ -19,6 +19,7 @@
 
     <!-- 该模块作为util-common版本依赖的pom引用 -->
     <!-- 外部module在引用util-common中的包时，只需要在父级pom文件中加入-->
+    <!-- 示例 -->
     <!--
 
         <dependencyManagement>
