@@ -14,3 +14,7 @@
 
 
 ### 针对于features/develop11开发的设计模式
+
+
+### 这个是针对于features/develop2 特性进行开发的设计模式
+
