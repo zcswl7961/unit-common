@@ -28,6 +28,9 @@ public class SingletonExample {
         return instance;
     }
 
+    /**
+     * 饿汉的设计模式操作
+     */
     private static final SingletonExample hungryInstance = new SingletonExample();
 
     public static SingletonExample getInstanceHungry() {

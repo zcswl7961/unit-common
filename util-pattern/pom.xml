@@ -12,5 +12,25 @@
     <groupId>com.zcswl</groupId>
     <artifactId>util-pattern</artifactId>
 
+    <properties>
+        <hikari-cp.version>2.4.11</hikari-cp.version>
+    </properties>
+
+
+    <dependencies>
+        <!-- 验证对应的建造设设计模式 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP-java7</artifactId>
+            <version>${hikari-cp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

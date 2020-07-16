@@ -13,7 +13,8 @@ public class HelloTestImpl implements HelloTest{
     }
 
     @Override
-    public void hello() {
+    public String hello() {
         System.out.println("你好，zhoucg");
+        return "zhoucg";
     }
 }

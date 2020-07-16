@@ -8,6 +8,6 @@ public interface HelloTest {
 
     int say(String name);
 
-    void hello();
+    String hello();
 
 }
