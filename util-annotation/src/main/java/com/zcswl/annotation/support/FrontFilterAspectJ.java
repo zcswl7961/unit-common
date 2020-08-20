@@ -70,9 +70,6 @@ public class FrontFilterAspectJ {
             throw new AnnotationException("请求参数中不存在指定校验的参数类型");
         }
         List<String> paramList = Arrays.asList(params);
-        /**
-         * clazz对象需要是一个标准的DTO对象，含有指定的属性名和对应的get set方法
-         */
         for(Field field : clazz.getDeclaredFields()) {
             String fieldName = field.getName();
             if(paramList.contains(fieldName)) {

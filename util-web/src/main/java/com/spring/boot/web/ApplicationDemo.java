@@ -1,17 +1,17 @@
-package com.zcswl.local.test;
+package com.spring.boot.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author zhoucg
- * @date 2020-07-04 21:08
+ * @date 2020-07-23 16:16
  */
 @SpringBootApplication
-public class DemoApplication {
+public class ApplicationDemo {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(ApplicationDemo.class, args);
     }
 }

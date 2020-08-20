@@ -7,6 +7,8 @@ package com.zcswl.pattern.strategy;
  *
  * http://c.biancheng.net/view/1378.html
  * https://www.cnblogs.com/yimengyizhen/p/11062234.html
+ *
+ * 策略模式的代码层的实现：Arrays.sort
  * @author zhoucg
  * @date 2020-07-13 11:18
  */

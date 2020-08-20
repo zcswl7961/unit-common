@@ -16,7 +16,7 @@ import java.lang.reflect.Proxy;
  * @date 2020-03-12 16:02
  */
 @Component
-public class ConvertBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdapter implements BeanPostProcessor{
+public class ConvertBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdapter{
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

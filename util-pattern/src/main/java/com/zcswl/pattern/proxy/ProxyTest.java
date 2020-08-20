@@ -58,7 +58,5 @@ public class ProxyTest {
 
         int x = helloTest.say("你好");
 
-
-
     }
 }

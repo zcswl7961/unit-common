@@ -36,7 +36,9 @@
 		<module>util-raft</module>
         <module>util-sharding-jdbc</module>
 		<module>util-cache</module>
-		<module>util-local</module>
+        <module>util-web</module>
+        <module>util-swagger-starter</module>
+        <module>util-webflux</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->
@@ -54,7 +56,7 @@
 		</developer>
 	</developers>
 
-
+	<!-- 项目git相关地址信息 -->
 	<!--<scm>
 		<developerConnection>https://github.com/zcswl7961/unit-common.git</developerConnection>
 		<connection>https://github.com/zcswl7961/unit-common.git</connection>
@@ -142,16 +144,17 @@
 		<spark.version>2.0.2</spark.version>
 		<scala.version>2.11</scala.version>
 		<kafka.version>1.0.2</kafka.version>
-		<swagger.version>2.5.0</swagger.version>
 		<gson.version>2.3.1</gson.version>
 		<guava.version>27.0.1-jre</guava.version>
 		<redis.version>2.9.0</redis.version>
 
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
-
 		<zuihou-commons.version>2.3.1</zuihou-commons.version>
-
 		<auto.version>1.0-beta7</auto.version>
+
+		<springfox.swagger2.version>2.9.2</springfox.swagger2.version>
+		<swagger.version>1.6.2</swagger.version>
+		<knife4j.version>2.0.2</knife4j.version>
 	</properties>
 
 	<!--版本控制 -->
@@ -280,11 +283,52 @@
 			</dependency>
 
 
+			<!-- swagger2 -->
 			<dependency>
-				<groupId>com.github.zuihou</groupId>
-				<artifactId>zuihou-swagger2-starter</artifactId>
-				<version>${zuihou-commons.version}</version>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${springfox.swagger2.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>io.swagger</groupId>
+						<artifactId>swagger-models</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
+
+			<!-- https://www.jianshu.com/p/b0b19368e4a8-->
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-models</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-bean-validators</artifactId>
+				<version>${springfox.swagger2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-core</artifactId>
+				<version>${springfox.swagger2.version}</version>
+			</dependency>
+
+			<!-- https://doc.xiaominfo.com/knife4j/-->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-spring-boot-starter</artifactId>
+				<version>${knife4j.version}</version>
+			</dependency>
+
+
+			<!-- ================================== spring boot 引用 ====================================-->
 
 
 			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 -->
@@ -299,16 +343,14 @@
 			</dependency>
 
 
-
-
-			<!-- 简单了各种使用的插件 -->
-			<dependency>
+			<!-- 简单了各种使用的插件 zuihou-common -->
+			<!--<dependency>
 				<groupId>com.github.zuihou</groupId>
 				<artifactId>zuihou-dependencies</artifactId>
 				<version>${zuihou-commons.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
+			</dependency>-->
 
 
 		</dependencies>
@@ -333,7 +375,42 @@
 
 	</dependencies>
 
+	<!-- 对应的开发环境和生产环境的配置信息 -->
+	<profiles>
+		<!-- 开发环境 -->
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profile.active>dev</profile.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 生产环境-->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profile.active>prod</profile.active>
+			</properties>
+		</profile>
+	</profiles>
+
+	<!-- maven中的 build配置-->
+	<!-- https://blog.csdn.net/u010010606/article/details/79727438-->
+	<!-- build标签描述了如何来编译以及打包项目-->
+
 	<build>
+
+		<!-- 通过对应的filters，过滤，一般是在对应的子module【需要打包的module】 中进行添加，对应的条件 -->
+		<!-- 对应的使用案例：https://blog.csdn.net/pingweicheng/article/details/80579572-->
+		<!--<filters>
+			<filter>src/resources/util-${profile.active}.properties</filter>
+		</filters>-->
+
+		<!-- build中几个常见的plugin-->
+		<!-- maven-clean-plugin clean-->
+		<!-- maven 常见的plugin https://zhuanlan.zhihu.com/p/143576937-->
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -342,6 +419,7 @@
 					<target>1.8</target>
 					<source>1.8</source>
 					<encoding>UTF-8</encoding>
+					<!-- 全局跳过测试 -->
 					<skip>true</skip>
 				</configuration>
 			</plugin>
@@ -448,5 +526,9 @@ https://www.cnblogs.com/jialin16/p/8624019.html -->
 			</distributionManagement>
 		</profile>
 	</profiles>-->
+
+	<!-- maven中的 profiles配置-->
+	<!-- https://blog.csdn.net/java_collect/article/details/83870215-->
+
 
 </project>
