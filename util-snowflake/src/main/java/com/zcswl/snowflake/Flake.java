@@ -24,12 +24,12 @@ public final class Flake {
     /**
      * 数据中心占用的位数
      */
-    private final static long DATACENTER_BIT = 5;
+    private final static long DATA_CENTER_BIT = 5;
 
     /**
      * 每一部分的最大值
      */
-    private final static long MAX_DATACENTER_NUM = -1L ^ (-1L << DATACENTER_BIT);
+    private final static long MAX_DATACENTER_NUM = -1L ^ (-1L << DATA_CENTER_BIT);
     private final static long MAX_MACHINE_NUM = -1L ^ (-1L << MACHINE_BIT);
     private final static long MAX_SEQUENCE = -1L ^ (-1L << SEQUENCE_BIT);
 
@@ -38,7 +38,7 @@ public final class Flake {
      */
     private final static long MACHINE_LEFT = SEQUENCE_BIT;
     private final static long DATACENTER_LEFT = SEQUENCE_BIT + MACHINE_BIT;
-    private final static long TIMESTMP_LEFT = DATACENTER_LEFT + DATACENTER_BIT;
+    private final static long TIMESTMP_LEFT = DATACENTER_LEFT + DATA_CENTER_BIT;
 
     /**
      * 数据中心

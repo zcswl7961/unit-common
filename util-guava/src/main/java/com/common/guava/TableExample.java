@@ -1,6 +1,7 @@
 package com.common.guava;
 
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Table;
 
 import java.util.Map;
@@ -13,6 +14,10 @@ import java.util.Set;
  * 它有两个键，一个值，和一个n行三列的数据表类似，n行取决于Table对对象中存储了多少个数据
  * 主要的方法：com.google.common.collect.Table
  *
+ * HashBasedTable: 本质上用HashMap<R, HashMap<C, V>>实现；
+ * TreeBasedTable：本质上用TreeMap<R, TreeMap<C,V>>实现；
+ * ImmutableTable：本质上用ImmutableMap<R, ImmutableMap<C, V>>实现；注：ImmutableTable对稀疏或密集的数据集都有优化。
+ * ArrayTable：要求在构造时就指定行和列的大小，本质上由一个二维数组实现
  */
 public class TableExample {
 
@@ -65,8 +70,6 @@ public class TableExample {
          * 根据row，column获取对应得Value
          */
         Integer sorce = tables.get("a","javase");
-
-
 
 
 

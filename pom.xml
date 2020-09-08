@@ -13,7 +13,6 @@
         <module>util-elasticsearch</module>
 		<module>util-annotation</module>
 		<module>util-concurrent</module>
-		<module>util-enum</module>
 		<module>util-guava</module>
 		<module>util-tools</module>
 		<module>util-kafka</module>
@@ -23,22 +22,19 @@
 		<module>util-dependencies</module>
         <module>util-snowflake</module>
 		<module>util-lock</module>
-		<module>util-db</module>
         <module>util-swagger</module>
         <module>util-pattern</module>
-        <module>util-dataflow</module>
         <module>util-mybatis</module>
 		<module>util-transaction</module>
         <module>util-jcl</module>
 		<module>util-zwork</module>
         <module>util-spring</module>
         <module>util-io</module>
-		<module>util-raft</module>
         <module>util-sharding-jdbc</module>
-		<module>util-cache</module>
         <module>util-web</module>
         <module>util-swagger-starter</module>
         <module>util-webflux</module>
+		<module>util-docker</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->
@@ -49,6 +45,7 @@
 	<name>demo</name>
 	<description>java基础组件调用 - 类调用</description>
 
+	<!-- 开发人员信息描述 -->
 	<developers>
 		<developer>
 			<name>zhoucg</name>
@@ -131,6 +128,12 @@
 
 
 	<properties>
+		<!--maven配置信息-->
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- 模块版本固定 -->
 		<util-common.version>v0.0.1</util-common.version>
 
@@ -334,6 +337,7 @@
 			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 -->
 			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
 			<!-- spring boot 版本控制 -->
+			<!-- https://docs.spring.io/spring-boot/docs/2.2.9.RELEASE/reference/html/using-spring-boot.html#using-boot-maven-without-a-parent-->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -341,6 +345,9 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<!-- spring boot starter 学习-->
+			<!-- https://docs.spring.io/spring-boot/docs/2.2.9.RELEASE/reference/html/using-spring-boot.html#using-boot-starter -->
 
 
 			<!-- 简单了各种使用的插件 zuihou-common -->
@@ -398,7 +405,7 @@
 
 	<!-- maven中的 build配置-->
 	<!-- https://blog.csdn.net/u010010606/article/details/79727438-->
-	<!-- build标签描述了如何来编译以及打包项目-->
+	<!-- build标签描述了如何来编译以及-打包项目-->
 
 	<build>
 
@@ -412,17 +419,19 @@
 		<!-- maven-clean-plugin clean-->
 		<!-- maven 常见的plugin https://zhuanlan.zhihu.com/p/143576937-->
 		<plugins>
-			<plugin>
+			<!-- 可以参考上面的properties配置信息 -->
+
+			<!--<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
 					<target>1.8</target>
 					<source>1.8</source>
 					<encoding>UTF-8</encoding>
-					<!-- 全局跳过测试 -->
+					&lt;!&ndash; 全局跳过测试 &ndash;&gt;
 					<skip>true</skip>
 				</configuration>
-			</plugin>
+			</plugin>-->
 
 			<!-- java 源码打包 -->
 			<plugin>

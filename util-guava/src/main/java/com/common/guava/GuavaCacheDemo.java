@@ -41,7 +41,7 @@ public class GuavaCacheDemo {
 
     public static void main(String[] args) throws Exception {
 
-        cache();
+        //cache();
 
         RemovalListener<Integer,Student> removalListener = notification ->  System.out.println(notification.getKey() + " was removed, cause is " + notification.getCause());
 
@@ -66,7 +66,7 @@ public class GuavaCacheDemo {
                 .expireAfterWrite(8, TimeUnit.SECONDS)
                 //设置缓存容器的初始容量为10
                 .initialCapacity(10)
-                //设置缓存最大容量为100，超过100之后就会按照LRU最近虽少使用算法来移除缓存项
+                //设置缓存最大容量为100，超过100之后就会按照LRU最近最少使用算法来移除缓存项
                 .maximumSize(100)
                 //设置要统计缓存的命中率
                 .recordStats()

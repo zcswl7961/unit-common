@@ -26,13 +26,7 @@ public class ArrayListExample {
         list.add("1");
         list.add("2");
 
-        Iterator<String> iterator = list.iterator();
-        while(iterator.hasNext()) {
-            String item = iterator.next();
-            if(item.equals("1")) {
-                iterator.remove();
-            }
-        }
+        list.removeIf(item -> item.equals("1"));
 
 
     }

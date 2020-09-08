@@ -18,8 +18,18 @@ public class OptionalExample {
     public static void main(String[] args) {
 
         Person person = new Person("zcg","杭州市西湖区");
+
         /**
-         * Optional.ofNullable
+         * ofNullable（T t） 获取一个可为null的Optional
+         */
+        Optional<Object> o = Optional.ofNullable(null);
+
+        Optional<Object> o1 = Optional.of(null);
+        boolean present = o.isPresent();
+
+        /**
+         * Optional.ofNullable（）
+         * Optional.map(Function)
          */
         Optional.ofNullable(person).map(Person::getAddress).ifPresent(System.out::print);
 
@@ -28,10 +38,7 @@ public class OptionalExample {
          */
         Optional.of(null).ifPresent(System.out::print);
 
-        /**
-         * Optional.flatMap(Function<? super T,Optional<U>>)
-         */
-        Function mapper = p -> Optional.of(p);
+        Function mapper = Optional::of;
         Optional.ofNullable(person).flatMap(mapper).ifPresent(System.out::print);
 
         /**
