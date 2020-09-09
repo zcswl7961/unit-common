@@ -48,14 +48,18 @@ public class GuavaCacheDemo {
         CacheLoader<Integer,Student> cacheLoader = new CacheLoader<Integer, Student>() {
             @Override
             public Student load(Integer key) throws Exception {
-                System.out.println("load student " + key);
+                System.out.println("当前时间："+System.currentTimeMillis()+"load student " + key);
                 Student student = new Student();
                 student.setId(key);
                 student.setName("name " + key);
                 return student;
             }
         };
-
+        /**
+         * LoadingCache<K,V> 缓存对象
+         * CacheBuilder: 创建对应的缓存对象
+         *
+         */
         //缓存接口这里是LoadingCache，LoadingCache在缓存项不存在时可以自动加载缓存
         LoadingCache<Integer,Student> studentCache
                 //CacheBuilder的构造函数是私有的，只能通过其静态方法newBuilder()来获得CacheBuilder的实例
@@ -76,7 +80,7 @@ public class GuavaCacheDemo {
         for (int i=0;i<20;i++) {
             //从缓存中得到数据，由于我们没有设置过缓存，所以需要通过CacheLoader加载缓存数据
             Student student = studentCache.get(1);
-            System.out.println(student);
+            System.out.println("当前获取当的结果"+student);
             //休眠1秒
             TimeUnit.SECONDS.sleep(1);
         }
@@ -84,6 +88,8 @@ public class GuavaCacheDemo {
         System.out.println("cache stats:");
         //最后打印缓存的命中率等 情况
         System.out.println(studentCache.stats().toString());
+
+
 
         /**
          * guava的内部缓存很强大
