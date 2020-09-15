@@ -35,7 +35,8 @@
         <module>util-swagger-starter</module>
         <module>util-webflux</module>
 		<module>util-docker</module>
-	</modules>
+        <module>util-spark</module>
+    </modules>
 
 	<!-- 作为聚合modules使用 -->
 	<!-- packaging 给出了项目得打包类型，即作为项目得发布形式， 可用得配置形式  jar , war pom-->

@@ -69,7 +69,7 @@ public class TableExample {
         /**
          * 根据row，column获取对应得Value
          */
-        Integer sorce = tables.get("a","javase");
+        Integer score = tables.get("a","javase");
 
 
 
