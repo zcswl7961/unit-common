@@ -105,7 +105,7 @@
 	 		私服地址进行下载依赖 其中id和你的仓库名称一致
 	 		设置 snapshots 的 enabled 为ture，表示允许下载 snapshots 版本的包-->
 	<repositories>
-		<repository>
+		<!--<repository>
 			<id>maven-releases</id>
 			<name>maven-releases</name>
 			<url>http://localhost:8081/repository/maven-releases/</url>
@@ -114,7 +114,7 @@
 			</snapshots>
 		</repository>
 
-		<!--美创私服-->
+		&lt;!&ndash;美创私服&ndash;&gt;
 		<repository>
 			<id>nexus</id>
 			<name>Team Nexus Repository</name>
@@ -124,7 +124,7 @@
 				<updatePolicy>always</updatePolicy>
 				<checksumPolicy>warn</checksumPolicy>
 			</snapshots>
-		</repository>
+		</repository>-->
 	</repositories>
 
 
