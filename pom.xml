@@ -31,7 +31,6 @@
         <module>util-spring</module>
         <module>util-io</module>
         <module>util-sharding-jdbc</module>
-        <module>util-web</module>
         <module>util-swagger-starter</module>
         <module>util-webflux</module>
 		<module>util-docker</module>
