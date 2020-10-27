@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- 描述这个POM文件是遵从哪个版本的项目描述符
+		 对于maven2和maven2，它只能是4.0.0-->
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zcswl</groupId>
@@ -36,6 +38,7 @@
 		<module>util-docker</module>
         <module>util-spark</module>
 		<module>util-mapstruct</module>
+		<module>util-logging</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->
@@ -126,6 +129,9 @@
 			</snapshots>
 		</repository>-->
 	</repositories>
+
+	<!-- 表示配置的指定仓库中下载插件的包 -->
+	<!--<pluginRepositories>-->
 
 
 	<properties>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 去掉对应的继承关系，防止从父类中继承logback 干扰测试-->
+    <!--<parent>
+        <artifactId>demo</artifactId>
+        <groupId>com.zcswl</groupId>
+        <version>v0.0.1</version>
+    </parent>-->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zcswl</groupId>
+    <version>v0.0.1</version>
+    <artifactId>util-logging</artifactId>
+
+    <!-- 打包编译-->
+    <properties>
+        <!--maven配置信息-->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+
+    <dependencies>
+
+        <!-- 只是引入对应slf4j对应的接口 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
+
+        <!-- spring 中使用的是log4j，我们可以通过桥接的形式转到slf4j，然后slf4j再转到logback进行实现-->
+        <!-- 本pom中的引入就是上诉的实现，我们可以通过SpringApplication类进行观察-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <!-- 过滤掉因spring-jcl继承的log4j-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>5.0.9.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>5.0.9.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>5.0.9.RELEASE</version>
+        </dependency>
+
+        <!-- 将Commons Logging里的Simple Logger重定向到slf4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
+        <!-- 将Log4j重定向到Slf4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
+        <!-- logback-classic依赖logback-core，会自动级联引入-->
+        <!-- 作为slf4j门面的最终实现者-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!-- 多个实现的情况下，会造成对应的slf4j发出警告，并随机选择一个实现-->
+        <!-- 适配对应的log4j-->
+        <!--<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>-->
+
+
+        <!-- 适配对应的jul-->
+        <!-- 将对应的slf4j的实现适配到jdk中-->
+        <!--<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.25</version>
+        </dependency>-->
+
+
+        <!-- 适配对应的jcl -->
+        <!-- 将对应的实现适配到common logging中-->
+        <!--<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jcl</artifactId>
+            <version>1.7.25</version>
+        </dependency>-->
+
+
+    </dependencies>
+
+</project>
