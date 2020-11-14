@@ -28,13 +28,13 @@ public class OptionalExample {
         boolean present = o.isPresent();
 
         /**
-         * Optional.ofNullable（）
-         * Optional.map(Function)
+         * OptionalTest.ofNullable（）
+         * OptionalTest.map(Function)
          */
         Optional.ofNullable(person).map(Person::getAddress).ifPresent(System.out::print);
 
         /**
-         * Optional.of(T t) is null return NullPointerException
+         * OptionalTest.of(T t) is null return NullPointerException
          */
         Optional.of(null).ifPresent(System.out::print);
 

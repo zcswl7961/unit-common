@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+    <bookname name="XML详解" font="GB2312"></bookname>
+    <authors>
+        <author name="张孝祥" sex="男" age="45"></author>
+        <author name="王勇" sex="男" age="35"></author>
+        <author name="王波" sex="男" age="30"></author>
+    </authors>
+    <price value="￥55"></price>
+    <publishdate>
+        <value>2009-08-18</value>
+    </publishdate>
+</book>

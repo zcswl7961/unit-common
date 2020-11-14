@@ -3,6 +3,7 @@ package com.zcswl.spring.util;
 import org.springframework.util.ClassUtils;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +53,56 @@ public class ClassUtilsDemo {
             classLoader = Thread.currentThread().getContextClassLoader();
         }
 
+    }
+
+    /**
+     * from mybatis-3
+     */
+    public static Method[] getClassMethods(Class<?> clazz, ClassLoader classLoader) {
+        if (classLoader !=  clazz.getClassLoader()) {
+            // 报错
+        }
+        Map<String, Method> uniqueMethods = new HashMap<>();
+        Class<?> currentClass = clazz;
+        while (currentClass != null && currentClass != Object.class) {
+            addUniqueMethods(uniqueMethods, currentClass.getDeclaredMethods());
+
+            Class<?>[] interfaces = currentClass.getInterfaces();
+            for (Class<?> anInterface : interfaces) {
+                addUniqueMethods(uniqueMethods, anInterface.getMethods());
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+        Collection<Method> methods = uniqueMethods.values();
+        return methods.toArray(new Method[0]);
+    }
+
+    private static void addUniqueMethods(Map<String, Method> uniqueMethods, Method[] methods) {
+        for (Method currentMethod : methods) {
+            if (!currentMethod.isBridge()) {
+                String signature = getSignature(currentMethod);
+                // check to see if the method is already known
+                // if it is known, then an extended class must have
+                // overridden a method
+                if (!uniqueMethods.containsKey(signature)) {
+                    uniqueMethods.put(signature, currentMethod);
+                }
+            }
+        }
+    }
+
+    private static String getSignature(Method method) {
+        StringBuilder sb = new StringBuilder();
+        Class<?> returnType = method.getReturnType();
+        if (returnType != null) {
+            sb.append(returnType.getName()).append('#');
+        }
+        sb.append(method.getName());
+        Class<?>[] parameters = method.getParameterTypes();
+        for (int i = 0; i < parameters.length; i++) {
+            sb.append(i == 0 ? ':' : ',').append(parameters[i].getName());
+        }
+        return sb.toString();
     }
 
 

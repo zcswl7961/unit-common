@@ -43,7 +43,7 @@ public class MapReduceLambda {
     }
     /**
      * reduce方法有三种override的方法
-     * Optional<T> reduce(BinaryOperator<T> accumulator);
+     * OptionalTest<T> reduce(BinaryOperator<T> accumulator);
      * T reduce(T identity, BinaryOperator<T> accumulator);
      * <U> U reduce(U identity,BiFunction<U, ? super T, U> accumulator,BinaryOperator<U> combiner);
      */

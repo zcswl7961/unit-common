@@ -1,7 +1,11 @@
 package com.common.jdk.jvm;
 
+import sun.security.mscapi.RSACipher;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 
 /**
  * 两行输出结果中，从第一行可以看到这个对象确实是类org.fenixsoft.classloading.ClassLoaderTest实
@@ -40,8 +44,31 @@ public class ClassLoaderTest {
         };
 
         Object obj = myLoader.loadClass("com.common.jdk.jvm.ClassLoaderTest").newInstance();
+        ClassLoader classLoader = obj.getClass().getClassLoader();
 
         System.out.println(obj.getClass());
         System.out.println(obj instanceof ClassLoaderTest);
+
+
+        // 这个为什么是null
+        ClassLoader classLoader1 = String.class.getClassLoader();
+        ClassLoader classLoader2 = RSACipher.class.getClassLoader();
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+    }
+
+    /**
+     * 这种写法
+     */
+    ClassLoader getContextClassLoader() {
+        return (ClassLoader)
+                AccessController.doPrivileged(new PrivilegedAction() {
+                    public Object run() {
+                        ClassLoader cl = null;
+                        try {
+                            cl = Thread.currentThread().getContextClassLoader();
+                        } catch (SecurityException ex) { }
+                        return cl;
+                    }
+                });
     }
 }
