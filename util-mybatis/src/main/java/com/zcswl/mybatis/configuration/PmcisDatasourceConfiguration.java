@@ -1,5 +1,6 @@
 package com.zcswl.mybatis.configuration;
 
+/*
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -14,12 +15,14 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+*/
 
 /**
  * 主库配置
  * @author zhoucg
  * @date 2018-12-27 17:22
  */
+/*
 @Configuration
 @MapperScan(basePackages = "com.zcswl.mybatis.mapper.pmcis",sqlSessionFactoryRef = "pmcisSqlSessionFactory")
 public class PmcisDatasourceConfiguration {
@@ -52,3 +55,4 @@ public class PmcisDatasourceConfiguration {
     }
 
 }
+*/
