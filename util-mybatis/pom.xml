@@ -48,6 +48,8 @@
             <version>${mysql.version}</version>
         </dependency>
 
+        <!-- Mybatis Mapper 使用操作-->
+
 
 
     </dependencies>
