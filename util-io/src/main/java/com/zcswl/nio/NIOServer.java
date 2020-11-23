@@ -50,7 +50,7 @@ public class NIOServer {
             chanel.configureBlocking(false);
 
             //将ServerSocketChannel注册到selector上，感兴趣的事件为接受连接
-            chanel.register(selector, SelectionKey.OP_ACCEPT);
+            SelectionKey register = chanel.register(selector, SelectionKey.OP_ACCEPT);
 
 
         } catch (Exception e) {
@@ -65,6 +65,10 @@ public class NIOServer {
         try {
             while (true){
                 //获取事件，这一步是阻塞的，所以用while(true)没有关系，返回的是基于上一次select之后的事件
+                // Selector的api模型：调用此方法，会将上次 select 之后的准备好的 channel 对应的 SelectionKey 复制到 selected set 中。
+                // 如果没有任何通道准备好，这个方法会阻塞，直到至少有一个通道准备好。
+                // selectNow() :         功能和 select 一样，区别在于如果没有准备好的通道，那么此方法会立即返回 0。
+                // select(long timeout): 看了前面两个，这个应该很好理解了，如果没有通道准备好，此方法会等待一会
                 int select = selector.select();
                 if(select == 0){
                     continue;
