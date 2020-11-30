@@ -41,6 +41,7 @@
 		<module>util-logging</module>
         <module>util-cache</module>
 		<module>util-socketio</module>
+		<module>util-module</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->

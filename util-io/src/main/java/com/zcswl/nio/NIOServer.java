@@ -1,5 +1,6 @@
 package com.zcswl.nio;
 
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -49,8 +50,21 @@ public class NIOServer {
             //设置为非阻塞的，jdk为了兼容，默认为阻塞的
             chanel.configureBlocking(false);
 
-            //将ServerSocketChannel注册到selector上，感兴趣的事件为接受连接
+            // 将ServerSocketChannel注册到selector上，感兴趣的事件为接受连接
+            // 表示SelectableChannel 在 Selector 中的注册的标记/句柄。
             SelectionKey register = chanel.register(selector, SelectionKey.OP_ACCEPT);
+            if (register != null) {
+                int OP_ACCEPT = 1 << 4;
+                System.out.println(OP_ACCEPT);
+                int interestSet = register.interestOps();
+                // Retrieves this key's ready-operation set.
+                int i = register.readyOps();
+                boolean isInterestedInAccept = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT;
+
+                register.channel();
+            }
+
+            int select = selector.selectNow();
 
 
         } catch (Exception e) {
@@ -70,6 +84,7 @@ public class NIOServer {
                 // selectNow() :         功能和 select 一样，区别在于如果没有准备好的通道，那么此方法会立即返回 0。
                 // select(long timeout): 看了前面两个，这个应该很好理解了，如果没有通道准备好，此方法会等待一会
                 int select = selector.select();
+                int i = this.selector.selectNow();
                 if(select == 0){
                     continue;
                 }
