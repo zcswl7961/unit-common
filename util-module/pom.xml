@@ -11,15 +11,22 @@
 
     <artifactId>util-module</artifactId>
 
+    <properties>
+        <hutool.version>5.3.2</hutool.version>
+    </properties>
+
 
     <!-- 脚手架类定义文件安装操作-->
 
     <dependencies>
 
+        <!--工具类 only test-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
+
     </dependencies>
 
     <!-- 打包设置 -->
