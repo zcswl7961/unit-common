@@ -58,10 +58,16 @@ APP_NAME=data-module
 MAIN_CLASS=com.zcs.module.demo.ModuleApplication
 DEBUG_PORT=8000
 # CLASSPATH模块分为普通模块和对应的定制lib
-CLASSPATH=":$WORK_HOME/custom/*:$WORK_HOME/lib/*"
+# 追加系统/etc/profile 中配置过的CLASSPATH参数值
+CLASSPATH="$CLASSPATH:$WORK_HOME/custom/*:$WORK_HOME/lib/*"
 
 # ---------------------------------------------------------------------------------------------
 # JAVA_OPTS Java命令行参数说明
+#     -Djava.security.egd=file:/dev/./urandom    提供服务器对于随机数产生的性能
+#
+#
+#
+#
 # ----------------------------------------------------------------------------------------------
 JAVA_OPTS="-Dapp.name=$APP_NAME -Dwork.dir=$WORK_HOME -Djasypt.encryptor.password=ah0b6RZwIvJFUwZ8cVubCA -Dspring.profiles.active=prod \
            -Dlogging.config=$WORK_HOME/config/spring-logback.xml -Dspring.config.location=file:$WORK_HOME/config/ \
