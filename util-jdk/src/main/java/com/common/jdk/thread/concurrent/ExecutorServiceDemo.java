@@ -1,4 +1,4 @@
-package com.common.concurrent.cas;
+package com.common.jdk.thread.concurrent;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;

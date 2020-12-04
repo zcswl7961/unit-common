@@ -1,4 +1,4 @@
-package com.common.concurrent.cas;
+package com.common.jdk.thread.concurrent;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;

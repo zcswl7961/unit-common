@@ -1,4 +1,4 @@
-package com.common.concurrent.cas;
+package com.common.jdk.thread.concurrent;
 
 /**
  * Created by zhoucg on 2019-03-24.

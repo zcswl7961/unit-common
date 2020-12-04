@@ -14,7 +14,6 @@
     <modules>
         <module>util-elasticsearch</module>
 		<module>util-annotation</module>
-		<module>util-concurrent</module>
 		<module>util-guava</module>
 		<module>util-tools</module>
 		<module>util-kafka</module>

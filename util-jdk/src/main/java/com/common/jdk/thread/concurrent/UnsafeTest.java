@@ -1,4 +1,4 @@
-package com.common.concurrent.cas;
+package com.common.jdk.thread.concurrent;
 
 import sun.misc.Unsafe;
 
