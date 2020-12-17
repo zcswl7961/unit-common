@@ -136,6 +136,8 @@
 	<!--<pluginRepositories>-->
 
 
+	<!-- properties 表示对应的配置信息，用于当前模块以及其子模块使用
+	 	${} 使用-->
 	<properties>
 		<!--maven配置信息-->
 		<java.version>1.8</java.version>
@@ -343,7 +345,7 @@
 			<!-- ================================== spring boot 引用 ====================================-->
 
 
-			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 -->
+			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 描述scope = import的作用-->
 			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
 			<!-- spring boot 版本控制 -->
 			<!-- https://docs.spring.io/spring-boot/docs/2.2.9.RELEASE/reference/html/using-spring-boot.html#using-boot-maven-without-a-parent-->
@@ -352,6 +354,20 @@
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
+				<!-- maven中的dependency中的scope -->
+				<!--
+					compile: 缺省值（默认值），适用于所有阶段，会打包进项目
+					provided，类似compile，期望JDK、容器或使用者会提供这个依赖。例如 servlet-api。
+					runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。
+					test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。
+					system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。需要添加 systemPath 的属性来定义路径。
+					详解：
+					https://www.cnblogs.com/tuyang1129/p/10741558.html
+					https://blog.csdn.net/zy103118/article/details/84442623
+					其中scope 为import 需要跟着 <type> pom 进行使用
+					　　<scope>标签的取值对依赖传递有什么影响呢？
+　　							这个影响就是，只有当依赖的scope标签被定义为compile时才会发生依赖传递，而定义为test或者provided都不会发生依赖传递。
+				-->
 				<scope>import</scope>
 			</dependency>
 

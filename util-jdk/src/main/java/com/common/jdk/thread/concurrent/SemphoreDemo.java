@@ -11,12 +11,14 @@ import java.util.concurrent.Semaphore;
  */
 public class SemphoreDemo implements Runnable{
 
-    final Semaphore semaphore = new Semaphore(5);
+    final Semaphore semaphore = new Semaphore(1);
 
     @Override
     public void run() {
 
         try{
+            int i = semaphore.availablePermits();
+            System.out.println(i);
             semaphore.acquire();
             Random random = new Random();
             Thread.sleep(random.nextInt(3000));
@@ -25,6 +27,10 @@ public class SemphoreDemo implements Runnable{
             e.printStackTrace();
         } finally {
             semaphore.release();
+            semaphore.release();
+            semaphore.release();
+            int i = semaphore.availablePermits();
+            System.out.println(i);
         }
 
     }
@@ -32,7 +38,7 @@ public class SemphoreDemo implements Runnable{
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         final SemphoreDemo semphoreDemo = new SemphoreDemo();
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<1;i++) {
             System.out.println(executorService);
             executorService.submit(semphoreDemo);
         }
