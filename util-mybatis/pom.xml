@@ -28,17 +28,14 @@
             <version>${mybatis.version}</version>
         </dependency>
 
-        <!--阿里巴巴连接池 -->
-        <!-- 通过alibaba的数据源连接进行创建数据源操作-->
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
-        </dependency>-->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- jdbc driver驱动包-->
@@ -48,7 +45,17 @@
             <version>${mysql.version}</version>
         </dependency>
 
-        <!-- Mybatis Mapper 使用操作-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.13</version>
+        </dependency>-->
 
 
 
