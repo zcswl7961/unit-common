@@ -1,0 +1,66 @@
+# 多数据源配置
+mysql:
+  datasource:
+    db1:
+      druid:
+        username: root
+        password: 123456
+        url: jdbc:mysql://127.0.0.1:3306/db1?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        #连接池属性
+        initial-size: 15
+        max-active: 100
+        min-idle: 15
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        validation-query: SELECT 1
+        validation-query-timeout: 1000
+        keep-alive: true
+        remove-abandoned: true
+        remove-abandoned-timeout: 180
+        log-abandoned: true
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        filters: stat,wall,slf4j
+        use-global-data-source-stat: true
+        maxOpenPreparedStatements: 100
+        connect-properties.mergeSql: true
+        connect-properties.slowSqlMillis: 5000
+    db2:
+      druid:
+        username: root
+        password: 123456
+        url: jdbc:mysql://127.0.0.1:3306/db2?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        #连接池属性
+        initial-size: 15
+        max-active: 100
+        min-idle: 15
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        validation-query: SELECT 1
+        validation-query-timeout: 1000
+        keep-alive: true
+        remove-abandoned: true
+        remove-abandoned-timeout: 180
+        log-abandoned: true
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        filters: stat,wall,slf4j
+        use-global-data-source-stat: true
+        maxOpenPreparedStatements: 100
+        connect-properties.mergeSql: true
+        connect-properties.slowSqlMillis: 5000
+
+
+server:
+  port: 8999
+
