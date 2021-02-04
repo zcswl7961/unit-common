@@ -22,7 +22,7 @@ public class LockSupportDemo {
         }
         @Override public void run() {
             // park是不会释放锁的
-            synchronized (u) {
+            //synchronized (u) {
                 System.out.println("in " + getName());
                 LockSupport.park();
                 boolean interrupted = Thread.interrupted();
@@ -31,26 +31,54 @@ public class LockSupportDemo {
 //                    System.out.println("被中断了");
 //                }
                 System.out.println("继续执行");
-            }
+           // }
+        }
+    }
+
+
+    public static class ThreadTest extends Thread{
+
+        @Override
+        public void run() {
+            System.out.println("线程进入执行：ThreadTest");
+            LockSupport.park();
+
+            System.out.println("运行结束");
+            System.out.println("是否中断:"+Thread.currentThread().isInterrupted());
+            super.run();
         }
     }
 
 
     public static void main(String[] args) throws InterruptedException {
+        ThreadTest threadTest = new ThreadTest();
+        threadTest.start();
+        System.out.println("主线程结束");
+        // 给一个线程的中断标志位，会使其park（）阻塞的线程继续执行
+        Thread.sleep(1000L);
+        //threadTest.interrupt();
+
+        // 同样，我们可以调用LockSupport.unPark(Thread thread)进行唤醒操作
+        LockSupport.unpark(threadTest);
+        // 当LockSupport.park()在持有锁的语句种，不会释放锁
+
+
+
+
 //        t1.start();
 //        Thread.sleep(1000L);
 //        t2.start();
 //        Thread.sleep(3000L);
 //        t1.interrupt();
-//        LockSupport.unpark(t2);
+//        //LockSupport.unpark(t2);
 //        t1.join();
 //        t2.join();
 
 
         // test interrupt
-        t1.start();
-        Thread.sleep(5000);
-        LockSupport.unpark(t1);
+//        t1.start();
+//        Thread.sleep(5000);
+//        LockSupport.unpark(t1);
         //t1.interrupt();
 
 

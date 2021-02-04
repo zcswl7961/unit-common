@@ -5,10 +5,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * @author zhoucg
@@ -62,12 +59,18 @@ public class ExecutorServiceDemo {
         List<Future<Boolean>> futures = new ArrayList<>();
         futures.add(executorService.submit(runnable, true));
         futures.add(executorService.submit(runnable1, true));
-
         for (Future<Boolean> future : futures) {
             boolean done = future.isDone();
             Boolean aBoolean = future.get();
             System.out.println(aBoolean);
         }
+
+
+        // 可以抛出异常
+        Callable<String> callable =  () -> "zhoucg";
+
+        ExecutorService executorService1 =  Executors.newFixedThreadPool(1);
+        Future<String> submit = executorService1.submit(callable);
 
     }
 }

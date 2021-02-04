@@ -16,20 +16,20 @@ public class ThreadPoolTest {
         private Long[] a = new Long[1024 * 1024];
     }
     /**
-     *  (1)
+     *  (1) 线程池的创建
      */
     static ThreadFactory testThreadFactory = new ThreadFactoryBuilder().setNameFormat("test-pool-%d").build();
     static ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(5,5,
             1L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(1024),testThreadFactory,new ThreadPoolExecutor.DiscardPolicy());
 
     /**
-     * (2)
+     * (2) 创建一个ThreadLocal,无初始化值得
      */
     final static ThreadLocal<LocalVariable> LOCAL_THREADLOCAL = new ThreadLocal<>();
 
     public static void main(String[] args) throws Exception{
         /**
-         * (3)
+         * 如果我想这么设计，同一个线程池得结果具有传递性，
          */
         for(int i=0;i<50 ;i++) {
             poolExecutor.execute(() ->{
@@ -51,8 +51,8 @@ public class ThreadPoolTest {
 
 
     /**
-     * 初始化一个ThreadLocal
+     * 初始化一个ThreadLocal，有初始化值得
      */
-    private ThreadLocal myThreadLocalPool = ThreadLocal.withInitial(() -> 1);
+    // private ThreadLocal myThreadLocalPool = ThreadLocal.withInitial(() -> 1);
 
 }

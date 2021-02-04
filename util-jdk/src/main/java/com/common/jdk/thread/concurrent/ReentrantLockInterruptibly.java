@@ -24,8 +24,8 @@ public class ReentrantLockInterruptibly {
 
         try {
             System.out.println(name + " 开始获取锁");
-            //lock.lock();
-            lock.lockInterruptibly();
+            lock.lock();
+            //lock.lockInterruptibly();
             System.out.println(name + " 得到锁");
             System.out.println(name + " 开工干活");
             for (int i=0; i<5; i++) {
@@ -58,8 +58,6 @@ public class ReentrantLockInterruptibly {
         Thread.sleep(10);
         // 启动线程t2
         t1.start();
-        Thread.sleep(10000);
-        // 线程t1没有得到锁，中断t1的等待
         t1.interrupt();
     }
 }
