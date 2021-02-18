@@ -6,7 +6,7 @@ package com.common.jdk.thread;
  * 默认的安全管理器的配置文件：JDK\jre\lib\security\java.policy
  *
  *
- * 我们同样可以使用自定义的配置文件：VM options:-Djava.security.policy="...\JavaExample\src\test\resources\conf\sjava.policy"
+ * 我们同样可以使用自定义的配置文件：VM options:-Djava.security.policy="...\JavaExample\src\test\resources\conf\java.policy"
  * @author zhoucg
  * @date 2021-01-20 14:30
  */

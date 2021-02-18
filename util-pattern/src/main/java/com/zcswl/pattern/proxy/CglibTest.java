@@ -3,11 +3,16 @@ package com.zcswl.pattern.proxy;
 import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.cglib.proxy.Enhancer;
 
+import java.io.Serializable;
+
 /**
  * Created by zhoucg on 2019-03-17.
  * cglib动态代理测试
  */
-public class CglibTest {
+public class CglibTest implements Serializable {
+
+    private static final long serialVersionUID = 8603527809074101469L;
+
 
     public static void main(String[] args) {
 

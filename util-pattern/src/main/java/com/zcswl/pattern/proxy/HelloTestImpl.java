@@ -17,4 +17,13 @@ public class HelloTestImpl implements HelloTest{
         System.out.println("你好，zhoucg");
         return "zhoucg";
     }
+
+
+    /**
+     * 代理不了
+     */
+    public static String staticMethod() {
+        System.out.println("返回这个静态方法");
+        return "ZHOUCG";
+    }
 }

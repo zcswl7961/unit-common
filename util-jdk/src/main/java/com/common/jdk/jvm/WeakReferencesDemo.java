@@ -1,5 +1,6 @@
 package com.common.jdk.jvm;
 
+import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,12 @@ public class WeakReferencesDemo {
 
     public static void main(String[] args) {
 
+        // 创建一个引用队列
+        ReferenceQueue<Person> referenceQueue = new ReferenceQueue<>();
+
         Person person1 = new Person();
         person1.setName("zhoucg1");
         person1.setAge("23");
-
 
         Person person2 = new Person();
         person2.setName("zhoucg2");
@@ -29,19 +32,27 @@ public class WeakReferencesDemo {
         person3.setName("zhoucg3");
         person3.setAge("25");
 
+        // 加入三个弱引用
         List<WeakReference<Person>> lists = new ArrayList<>();
         lists.add(new WeakReference<>(person1));
         lists.add(new WeakReference<>(person2));
         lists.add(new WeakReference<>(person3));
 
+
+        // 实际上，上面中的person1 .. 2 都是由对应的结果，所有都是不能够GC掉的
+        // 如果加上这个，会变成null
+        person1 = null;
+        person2 = null;
+        person3 = null;
+        System.gc();
         for (WeakReference<Person> personSingle : lists) {
+            // 输出对应的null
             System.out.println(personSingle.get());
         }
 
-        System.gc();
-        for (WeakReference<Person> personSingle : lists) {
-            System.out.println(personSingle.get());
-        }
+
+
+
 
 
         List<Object> list = new ArrayList<>();
@@ -133,4 +144,16 @@ public class WeakReferencesDemo {
                     '}';
         }
     }
+
+    /**
+     * 当前的person对象属于虚引用
+     */
+    private static final class WeakPerson<K> extends WeakReference<K> {
+
+        public WeakPerson(K referent, ReferenceQueue<K> q) {
+            super(referent, q);
+        }
+    }
+
+
 }

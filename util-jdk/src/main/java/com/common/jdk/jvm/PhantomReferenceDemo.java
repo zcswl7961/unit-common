@@ -3,6 +3,7 @@ package com.common.jdk.jvm;
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 /**
@@ -34,9 +35,11 @@ public class PhantomReferenceDemo {
         new Thread() {
             public void run() {
                 while (isRun) {
-                    Object obj = referenceQueue.poll();
+                    Reference<? extends String> obj = referenceQueue.poll();
                     if (obj != null) {
                         try {
+                            System.out.println("回收："+obj);
+                            String s = obj.get();
                             Field rereferent = Reference.class
                                     .getDeclaredField("referent");
                             rereferent.setAccessible(true);
@@ -61,6 +64,9 @@ public class PhantomReferenceDemo {
         isRun = false;
 
     }
+
+
+
 
 
 
