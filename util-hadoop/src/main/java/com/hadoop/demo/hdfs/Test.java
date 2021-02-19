@@ -26,7 +26,7 @@ public class Test {
 
         // 创建一个hdfs的文件
         boolean b = HdfsUtils.mkDirs("/hdfsZzz");
-        HdfsUtils.create("/hdfsZzz/local.text", "周成功");
+        // HdfsUtils.create("/hdfsZzz/local.text", "周成功");
 
         // 获取hdfs文件
         HdfsUtils.cat("/hdfsZzz/local.text");
