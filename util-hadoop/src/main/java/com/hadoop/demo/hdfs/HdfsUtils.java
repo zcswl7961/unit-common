@@ -385,5 +385,12 @@ public class HdfsUtils {
     }
 
 
+    /**
+     * 安全模式
+     */
+    public static void setSafeMode() {
+    }
+
+
 
 }
