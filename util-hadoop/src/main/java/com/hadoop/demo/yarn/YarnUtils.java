@@ -47,7 +47,6 @@ public class YarnUtils {
         this.conf = conf;
         this.appMasterJar = ClassUtil.findContainingJar(ApplicationMaster.class);
         this.appMasterMainClass = ApplicationMaster.class.getName();
-
         yarnClient = YarnClient.createYarnClient();
         yarnClient.init(conf);
         yarnClient.start();
@@ -157,9 +156,24 @@ public class YarnUtils {
                 LocalResourceType.FILE, LocalResourceVisibility.PRIVATE, stat.getLen(), stat.getModificationTime());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, YarnException, InterruptedException {
         Configuration conf = new YarnConfiguration();
-
+        YarnUtils client = new YarnUtils(conf);
+        ApplicationId applicationId = client.submit();
+        boolean outAccepted = false;
+        boolean outTrackingUrl = false;
+        ApplicationReport report = client.getApplicationReport(applicationId);
+        while (report.getYarnApplicationState() != YarnApplicationState.FINISHED) {
+            report = client.getApplicationReport(applicationId);
+            if (!outAccepted && report.getYarnApplicationState() == YarnApplicationState.ACCEPTED) {
+                outAccepted = true;
+            }
+            if (!outTrackingUrl && report.getYarnApplicationState() == YarnApplicationState.RUNNING) {
+                String trackingUrl = report.getTrackingUrl();
+                outTrackingUrl = true;
+            }
+            Thread.sleep(1000);
+        }
 
     }
 
