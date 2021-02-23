@@ -42,6 +42,7 @@
 		<module>util-module</module>
 		<module>util-distributed-transatcion</module>
         <module>util-hadoop</module>
+        <module>util-flink</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->
