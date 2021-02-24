@@ -37,6 +37,8 @@
 
 
     <dependencies>
+
+        <!-- flink中得演示得包项目-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-walkthrough-common_${scala.binary.version}</artifactId>
@@ -55,6 +57,14 @@
             <artifactId>flink-clients_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- 本地调试集成-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Add connector dependencies here. They must be in the default scope (compile). -->
@@ -153,7 +163,8 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.zcswl.flink.FraudDetectionJob</mainClass>
+                                    <!--<mainClass>com.zcswl.flink.FraudDetectionJob</mainClass>-->
+                                    <mainClass>com.zcswl.flink.job.WordCount</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
