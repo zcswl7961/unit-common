@@ -38,14 +38,21 @@
 
     <dependencies>
 
-        <!-- flink中得演示得包项目-->
+        <!--&lt;!&ndash; flink中得演示得包项目&ndash;&gt;
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-walkthrough-common_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
 
-        <!-- This dependency is provided, because it should not be packaged into the JAR file. -->
+        &lt;!&ndash; flink-java 项目&ndash;&gt;
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        &lt;!&ndash; This dependency is provided, because it should not be packaged into the JAR file. &ndash;&gt;
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
@@ -59,13 +66,13 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 本地调试集成-->
+        &lt;!&ndash; 本地调试集成&ndash;&gt;
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- Add connector dependencies here. They must be in the default scope (compile). -->
 
@@ -93,7 +100,7 @@
 
         <!-- Add logging framework, to produce console output when running in the IDE. -->
         <!-- These dependencies are excluded from the application JAR by default. -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j.version}</version>
@@ -110,7 +117,34 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
             <scope>runtime</scope>
+        </dependency>-->
+
+        <!-- 演示所需要的包-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-walkthrough-common_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
         </dependency>
+
+        <!-- flink官方文档的规范引入：-->
+        <!-- 你可以添加以下你的pom的依赖性。xml包含Apache Flink在您的项目中。这些依赖关系包括本地执行环境,从而支持本地测试。-->
+        <!-- https://flink.apache.org/downloads.html-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
