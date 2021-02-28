@@ -33,6 +33,9 @@ public class FraudDetectionJob {
                 .keyBy(Transaction::getAccountId)
                 .process(new FraudDetector())
                 .name("fraud-detector");
+        // 聚合算子
+        // 所有的聚合操作，都是基于分组操作之后进行的
+
 
         // sink 会将 DataStream 写出到外部系统，例如 Apache Kafka、Cassandra 或者 AWS Kinesis 等。
         // AlertSink 使用 INFO 的日志级别打印每一个 Alert 的数据记录，而不是将其写入持久存储，以便你可以方便地查看结果。
