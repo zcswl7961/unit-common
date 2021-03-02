@@ -23,6 +23,11 @@ public class WindowDemo {
 
         // window 窗口操作
         // countWindowAll(int size);
+
+        /**
+         * 基于时间驱动的（Timer Window）
+         * 基于数据驱动的（Count Window）
+         */
         AllWindowedStream<Integer, GlobalWindow> allWindowedStream = integerDataStreamSource.countWindowAll(5);
 
         // 窗口最大数据
