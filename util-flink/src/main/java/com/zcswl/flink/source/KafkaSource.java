@@ -7,6 +7,7 @@ package com.zcswl.flink.source;
 public class KafkaSource {
 
     public static void main(String[] args) {
-        
+
+        // flink-connector-kafka
     }
 }

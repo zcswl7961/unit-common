@@ -29,6 +29,7 @@ public class SourceFromCollectionJob {
         lists.add(new Student("ZJCJDX","zdd",15));
 
         DataStream<Student> singleDataStreamSource = env.fromCollection(lists);
+        // env.fromSource()
 
         // ==========算子操作========================
         // keyBy 的操作
@@ -59,4 +60,7 @@ public class SourceFromCollectionJob {
         env.execute();
 
     }
+    /**
+     * 富函数 每一个UDF函数类都有一个对应的RIch Function 版本
+     */
 }

@@ -28,6 +28,7 @@ import org.apache.flink.walkthrough.common.entity.Alert;
 import org.apache.flink.walkthrough.common.entity.Transaction;
 
 /**
+ * 富函数
  * Skeleton code for implementing a fraud detector.
  * 定义了欺诈交易检测的业务逻辑。
  * KeyedProcessFunction
