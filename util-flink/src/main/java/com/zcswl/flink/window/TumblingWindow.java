@@ -1,5 +1,6 @@
 package com.zcswl.flink.window;
 
+import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -48,7 +49,10 @@ public class TumblingWindow {
             }
         });
 
-        // 基于时间统计，没10秒统计一次
+        // 基于时间统计，每10秒统计一次
+        // <T> The type of elements in the stream. 流的元属类型
+        // <K> The type of the key by which elements are grouped. 通过哪种元属类型进行分组
+        // <Window> 窗口信息
         WindowedStream<Tuple2<String, Integer>, Tuple, TimeWindow> timeWindow = map.keyBy(0)
                 .timeWindow(Time.seconds(10));
 
@@ -57,6 +61,9 @@ public class TumblingWindow {
                 .countWindow(100);
 
         timeWindow.apply(new MyTimeWindowFunction()).setParallelism(1).print();
+
+        // 增量聚合函数
+        SingleOutputStreamOperator<String> aggregate = timeWindow.aggregate(new MyAggregateFunction());
 
         env.execute();
     }
@@ -91,6 +98,67 @@ public class TumblingWindow {
             out.collect("key:" + tuple.getField(0) + " value: " + sum + "| window_start :"
                     + format.format(start) + "  window_end :" + format.format(end)
             );
+        }
+    }
+
+
+    /**
+     * <IN>  表示流的输入类型
+     * ACC:  累加器，表示中间的聚合状态（accumulator）
+     * OUT:  输出器
+     */
+    private static class MyAggregateFunction implements AggregateFunction<Tuple2<String,Integer>, InnerObject, String> {
+
+        @Override
+        public InnerObject createAccumulator() {
+            return new InnerObject();
+        }
+
+        @Override
+        public InnerObject add(Tuple2<String, Integer> value, InnerObject accumulator) {
+            accumulator.setX(accumulator.getX() + value.f1);
+            return accumulator;
+        }
+
+        @Override
+        public String getResult(InnerObject accumulator) {
+            return String.valueOf(accumulator.getX());
+        }
+
+        /**
+         * session window
+         */
+        @Override
+        public InnerObject merge(InnerObject a, InnerObject b) {
+            InnerObject innerObject = new InnerObject();
+            innerObject.setX(a.getX() + b.getX());
+            return innerObject;
+        }
+    }
+
+
+
+    /**
+     * 测试AggregateFunction
+     */
+    private static class InnerObject {
+        private String name;
+        private int x;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
         }
     }
 }
