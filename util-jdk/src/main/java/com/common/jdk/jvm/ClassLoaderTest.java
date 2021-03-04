@@ -1,7 +1,7 @@
 package com.common.jdk.jvm;
 
 import sun.misc.Launcher;
-import sun.security.mscapi.RSACipher;
+//import sun.security.mscapi.RSACipher;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class ClassLoaderTest {
 
         // 这个为什么是null? easy to know
         ClassLoader classLoader1 = String.class.getClassLoader();
-        ClassLoader classLoader2 = RSACipher.class.getClassLoader();
+        //ClassLoader classLoader2 = RSACipher.class.getClassLoader();
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
 
         Launcher launcher = new Launcher();
