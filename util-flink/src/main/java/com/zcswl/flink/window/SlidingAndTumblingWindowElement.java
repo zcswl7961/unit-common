@@ -1,6 +1,7 @@
 package com.zcswl.flink.window;
 
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -22,6 +23,9 @@ public class SlidingAndTumblingWindowElement {
         // env
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        // 从调用时刻开始给env创建的每一个stream追加时间特征
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+
         DataStream<String> dataStream = env.socketTextStream("192.168.129.128", 8888);
 
         // 转换成对应的格式
@@ -41,6 +45,7 @@ public class SlidingAndTumblingWindowElement {
          *     Window: 窗口类型
          *
          */
+
 
         // 基于时间的窗口滚动
         // 每隔十秒统计一次
