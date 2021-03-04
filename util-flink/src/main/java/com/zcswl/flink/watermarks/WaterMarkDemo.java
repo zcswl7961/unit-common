@@ -1,10 +1,12 @@
 package com.zcswl.flink.watermarks;
 
+import akka.stream.impl.fusing.Collect;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -39,15 +41,23 @@ public class WaterMarkDemo {
         DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
 
         // 解决数据乱序的第三种策略，如果设置的数据延迟时间之后仍然延迟，就放到侧输出栏中
-        OutputTag<StationLog> outputTag = new OutputTag<>("create");
+        OutputTag<StationLog> outputTag = new OutputTag<>("create", TypeInformation.of(StationLog.class));
 
     
         // 流处理
         WindowedStream<StationLog, String, TimeWindow> windowWindowedStream = dataStreamSource
-                .flatMap((FlatMapFunction<String, StationLog>) (value, out) -> {
-                    String[] words = value.split(",");
-                    out.collect(new StationLog(words[0], words[1], words[2], Long.parseLong(words[3]), Long.parseLong(words[4])));
+                // 流元素扁平化处理，转换成StationLog
+                .flatMap(new FlatMapFunction<String, StationLog>() {
+                    private static final long serialVersionUID = 9027908143422405274L;
+
+                    @Override
+                    public void flatMap(String value, Collector<StationLog> out){
+                        String[] words = value.split(",");
+                        out.collect(new StationLog(words[0], words[1], words[2], Long.parseLong(words[3]), Long.parseLong(words[4])));
+
+                    }
                 })
+                // 过滤
                 .filter((FilterFunction<StationLog>) value -> value.getDuration() > 0)
 
                 // 当Flink已Event Timer模式处理数据流时，它会根据数据里的时间戳来处理基于时间的算子
@@ -73,14 +83,14 @@ public class WaterMarkDemo {
 
         // 获取对应侧输出栏的结果
         DataStream<StationLog> sideOutput = reduce.getSideOutput(outputTag);
-
+        // flink的侧输出栏如何判断是在哪个桶上延迟的呢？
+        // 通过业务逻辑判断
         env.execute();
     }
 
     //用于如何处理窗口中的数据，即：找到窗口内通话时间最长的记录。
     static class MyReduceFunction implements ReduceFunction<StationLog> {
         private static final long serialVersionUID = 1748355616364915629L;
-
         @Override
         public StationLog reduce(StationLog value1, StationLog value2) {
             // 找到通话时间最长的通话记录
