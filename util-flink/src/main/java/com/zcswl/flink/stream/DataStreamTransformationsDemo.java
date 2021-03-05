@@ -1,6 +1,7 @@
 package com.zcswl.flink.stream;
 
 import org.apache.flink.api.common.JobExecutionResult;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 /**
@@ -27,6 +28,8 @@ public class DataStreamTransformationsDemo {
         //              .where(<key selector>).equalTo(<key selector>)
         //              .window(TumblingEventTimeWindows.of(Time.seconds(3)))
         //              .apply (new JoinFunction () {...});
+        //      process
+        //
         // DataStream -> KeyedStream
         //      keyBy
         // KeyedStream -> DataStream
@@ -62,12 +65,30 @@ public class DataStreamTransformationsDemo {
         //          sum()
         //          min minBy max maxBy
 
+        // DataStream 常用api操作
+        //      shuffle()   随机发牌
+        //      boradcast() 广播
+        //      forward() 直接发给当前slot槽位的下一个算子的子任务中, 下一个算子的并行度要调整和上一个算子的并行度相同
+        //                Forward partitioning does not allow change of parallelism. Upstream operation: Source: Socket Stream-1 parallelism: 1, downstream operation:
+        //                Sink: Print to Std. Out-3 parallelism: 8 You must use another partitioning strategy, such as broadcast, rebalance, shuffle or global.
+        //      reblance() 依次发给下一个算子
+        //      global 分发到下一个算子的第一个子任务中，这个一般不会设置，存在性能问题
+        //
+        DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
+        //DataStream<String> nextDataStream = dataStreamSource.shuffle();
+        //DataStream<String> nextDataStream = dataStreamSource.broadcast();
+        //DataStream<String> nextDataStream = dataStreamSource.forward();
+        DataStream<String> nextDataStream = dataStreamSource.rebalance();
+        nextDataStream.print();
+
+
 
         //DataStreamSource<Element> dataStream = env.fromElements(new Element("a", 1), new Element("a", 2), new Element("a", 3), new Element("a", 4), new Element("a", 5));
         //KeyedStream<Element, String> keyedStream = dataStream.keyBy(Element::getGroup);
         //DataStream<Element> reduce = keyedStream.reduce((ReduceFunction<Element>) (value1, value2) -> new Element(value1.getGroup(), value1.getCount() + value2.getCount()));
 
         //reduce.print();
+
 
         // The execute() method will wait for the job to finish and then return a JobExecutionResult,
         // this contains execution times and accumulator results.
