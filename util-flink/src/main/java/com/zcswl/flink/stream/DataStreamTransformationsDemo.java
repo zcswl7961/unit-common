@@ -1,5 +1,6 @@
 package com.zcswl.flink.stream;
 
+import org.apache.flink.api.common.JobExecutionResult;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 /**
@@ -68,7 +69,14 @@ public class DataStreamTransformationsDemo {
 
         //reduce.print();
 
-        env.execute();
+        // The execute() method will wait for the job to finish and then return a JobExecutionResult,
+        // this contains execution times and accumulator results.
+        // this will execute with a long time for a stream
+        JobExecutionResult execute = env.execute();
+
+        // 异步调用，返回一个JobClient
+        // JobClient jobClient = env.executeAsync();
+
     }
 
 

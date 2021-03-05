@@ -45,6 +45,13 @@ public class SlidingAndTumblingWindowElement {
 
         // 基于时间的窗口滚动
         // 每隔十秒统计一次
+        // 窗口的起始窗口的事件时间语义范围的定义
+        //      @see TumblingEventTimeWindows.assignWindows
+        // 我们进行如下的假设：
+        // 197（表示流处理中第一个事件中的时间戳） 10（timeWindow中设置的事件） 初始的桶接收到的事件时间范围：
+        //  [190,210) ->此时桶关闭的要求是watermark为210的时候，即有一个数据的时间大于等于212的时候进行关闭
+        //  xxx 197 -> 此时的watermark是195
+        //  xxx 198
         WindowedStream<Element, String, TimeWindow> elementStringTimeWindowWindowedStream = dataStreamMap.keyBy(Element::getValue)
                 .timeWindow(Time.seconds(10));
 

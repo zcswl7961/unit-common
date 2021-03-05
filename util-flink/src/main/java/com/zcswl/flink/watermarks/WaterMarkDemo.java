@@ -43,7 +43,32 @@ public class WaterMarkDemo {
         // 解决数据乱序的第三种策略，如果设置的数据延迟时间之后仍然延迟，就放到侧输出栏中
         OutputTag<StationLog> outputTag = new OutputTag<>("create", TypeInformation.of(StationLog.class));
 
-    
+
+        /*
+         *  结合代码中的程序设计，我们分析对应的事件时间语义下的关闭窗口：
+         *      该代码中，设置了watermark的为每100毫秒进行产生一次，并且设置了桶乱序下的最大的乱序等待时间为：3 秒（WatermarkStrategy.<StationLog>forBoundedOutOfOrderness(Duration.ofSeconds(3)），
+         *      滚动窗口事件10s（windowSize）同时设置了延迟等到的时间是5秒,并且设置了侧输出栏 outputTag
+         *  假设我们流处理的第一个数据为（第五个为事件时间定义的时间戳）
+         *      station1,18688822219,18684812319,10,1595158485855
+         *      首先，系统会根据第一个事件时间戳 去生成第一个桶（TimeWindow）接收的事件事件错的范围：
+         *      @see TumblingEventTimeWindows.of(size)     滚动窗口下：TumblingEventTimeWindows.assignWindows()
+			            long start = TimeWindow.getWindowStartWithOffset(timestamp, offset, size);  return timestamp - (timestamp - offset + windowSize) % windowSize;
+		 *                      5855 - (5855 - 0 + 10 ) % 10 = 5850
+			            return Collections.singletonList(new TimeWindow(start, start + size));
+			    即范围：【5850，5860） 【真正的事件时间戳】
+	     *  因此，当当前系统产生的watermark达到5860的时候，进行一次桶计算，（注意这里不是关闭桶），
+	     *      而系统中watermark的计算，是通过assignTimestampsAndWatermarks设置的 maxOutOfOrderness（最大乱序层度）进行算出来的
+	     *      即：【当前事件时间戳 - maxOutOfOrderness = watermark值】
+	     *  因此，触发当前【5850，5860）范围的第一次桶计算是当事件时间戳大于等于 5863 的时候触发的：
+	     *      station1,18688822219,18684812319,10,1595158485863  -> 触发【5850，5860） 桶计算
+	     *  而真正的 【5850，5860） 桶 关闭是再延迟乱序 5秒之后进行关闭
+	     *      也就是说， 当当前事件时间戳为5868（watermark = 5865）的时候出发了桶关闭
+	     *      station1,18688822219,18684812319,10,1595158485868  -> 触发【5850，5860） 桶关闭
+	     *  而之后，假设再来了一个属于 【5850，5860）的数据，实际上都是进入了 outputTag 侧输出拦的
+	     *
+	     * ======理清=================================
+         */
+
         // 流处理
         WindowedStream<StationLog, String, TimeWindow> windowWindowedStream = dataStreamSource
                 // 流元素扁平化处理，转换成StationLog
@@ -71,7 +96,8 @@ public class WaterMarkDemo {
                 // 分组操作,按照基站进行分组操作
                 .keyBy(StationLog::getStationID)
                 // 基于时间驱动，每隔5s计算一下最近10s的数据
-                .timeWindow(Time.seconds(10), Time.seconds(5))
+                //.timeWindow(Time.seconds(10), Time.seconds(5))
+                .timeWindow(Time.seconds(10))
                 // 解决事件乱序的另一个防范，设置数据延迟处理时间
                 .allowedLateness(Time.seconds(5))
                 // 侧输出栏
