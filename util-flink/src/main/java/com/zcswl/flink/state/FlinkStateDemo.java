@@ -43,6 +43,9 @@ public class FlinkStateDemo {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        // 设置状态后端 策略
+        // env.setStateBackend()
+
         DataStreamSource<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
 
         SingleOutputStreamOperator<StationLog> windowWindowedStream = dataStreamSource

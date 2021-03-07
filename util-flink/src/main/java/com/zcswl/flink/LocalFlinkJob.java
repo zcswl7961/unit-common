@@ -1,8 +1,21 @@
 package com.zcswl.flink;
 
+import com.zcswl.flink.watermarks.StationLog;
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.common.functions.FilterFunction;
+import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
+import org.apache.flink.util.Collector;
+
+import java.time.Duration;
 
 /**
  * @author zhoucg
@@ -15,15 +28,30 @@ public class LocalFlinkJob {
 
     public static void main(String[] args) throws Exception {
 
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStream<String> fileStream = env.readTextFile("G:\\学习文档\\字节码编译.txt");
+        DataStreamSource<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
 
-        DataStream<String> map = fileStream.map(s -> (index++) + "输出得结果" + s);
+        // 流处理
+        KeyedStream<StationLog, String> windowWindowedStream = dataStreamSource
+                // 流元素扁平化处理，转换成StationLog
+                .flatMap(new FlatMapFunction<String, StationLog>() {
+                    private static final long serialVersionUID = 9027908143422405274L;
 
-        //4.打印输出sink
-        map.print();
-        //5.开始执行
+                    @Override
+                    public void flatMap(String value, Collector<StationLog> out){
+                        String[] words = value.split(",");
+                        out.collect(new StationLog(words[0], words[1], words[2], Long.parseLong(words[3]), Long.parseLong(words[4])));
+
+                    }
+                })
+                // 过滤
+                .filter((FilterFunction<StationLog>) value -> value.getDuration() > 0)
+                .keyBy(StationLog::getStationID);
+
+
+        windowWindowedStream.print().setParallelism(2);
+
         env.execute();
 
 

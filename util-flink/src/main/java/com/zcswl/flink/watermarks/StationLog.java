@@ -1,7 +1,11 @@
 package com.zcswl.flink.watermarks;
 
 /**
- * //station1,18688822219,18684812319,10,1595158485855
+ *
+ * station1,18688822219,18684812319,10,1595158485855
+ * station2,18688822219,18684812319,10,1595158485855
+ * station3,18688822219,18684812319,10,1595158485855
+ * station6,18688822219,18684812319,10,1595158485855
  * @author zhoucg
  * @date 2021-03-03 22:48
  */
@@ -51,5 +55,16 @@ public class StationLog {
     }
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "StationLog{" +
+                "stationID='" + stationID + '\'' +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", duration=" + duration +
+                ", callTime=" + callTime +
+                '}';
     }
 }

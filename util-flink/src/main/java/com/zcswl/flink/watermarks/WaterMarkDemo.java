@@ -33,7 +33,7 @@ public class WaterMarkDemo {
         // 设置基于事件时间语义的流处理
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         // 设置公共默认的并行度
-        env.setParallelism(1);
+        // env.setParallelism(1);
         // 设置周期的产生watermark的时间间隔，当数据流很大的时候，如果每个事件都产生水位线，影响性能
         env.getConfig().setAutoWatermarkInterval(100);
 
@@ -41,6 +41,7 @@ public class WaterMarkDemo {
         DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
 
         // 解决数据乱序的第三种策略，如果设置的数据延迟时间之后仍然延迟，就放到侧输出栏中
+        OutputTag<StationLog> outputTag1 = new OutputTag<StationLog>("create"){};
         OutputTag<StationLog> outputTag = new OutputTag<>("create", TypeInformation.of(StationLog.class));
 
 
@@ -105,8 +106,8 @@ public class WaterMarkDemo {
                 .sideOutputLateData(outputTag);
 
 
-        SingleOutputStreamOperator<String> reduce = windowWindowedStream.reduce(new MyReduceFunction(), new MyProcessWindows()).setParallelism(5);
-        reduce.print().setParallelism(7);
+        SingleOutputStreamOperator<String> reduce = windowWindowedStream.reduce(new MyReduceFunction(), new MyProcessWindows());
+        reduce.print();
 
         // 获取对应侧输出栏的结果
         DataStream<StationLog> sideOutput = reduce.getSideOutput(outputTag);

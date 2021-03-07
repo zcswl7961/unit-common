@@ -146,11 +146,21 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <!-- flink tableapi需要引入的包 -->
+        <!-- flink blink 版本-->
+        <!-- https://zhuanlan.zhihu.com/p/55891534-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
 
         <!-- flink 的connector-->
         <!-- kafka-->
-        <!-- FlinkKafkaProcecer011  source-->
-        <!-- FlinkKafkaConsumer011  sink-->
+        <!-- FlinkKafkaProcecer011  sink-->
+        <!-- FlinkKafkaConsumer011  source-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
