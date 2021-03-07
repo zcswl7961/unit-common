@@ -32,7 +32,7 @@ public class WaterMarkDemo {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // 设置基于事件时间语义的流处理
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-        // 设置对应的并行度
+        // 设置公共默认的并行度
         env.setParallelism(1);
         // 设置周期的产生watermark的时间间隔，当数据流很大的时候，如果每个事件都产生水位线，影响性能
         env.getConfig().setAutoWatermarkInterval(100);
@@ -79,8 +79,9 @@ public class WaterMarkDemo {
                     public void flatMap(String value, Collector<StationLog> out){
                         String[] words = value.split(",");
                         out.collect(new StationLog(words[0], words[1], words[2], Long.parseLong(words[3]), Long.parseLong(words[4])));
-
+ 
                     }
+                    // 设置对应的flatMap 算子的并行度为4
                 })
                 // 过滤
                 .filter((FilterFunction<StationLog>) value -> value.getDuration() > 0)
@@ -104,8 +105,8 @@ public class WaterMarkDemo {
                 .sideOutputLateData(outputTag);
 
 
-        SingleOutputStreamOperator<String> reduce = windowWindowedStream.reduce(new MyReduceFunction(), new MyProcessWindows());
-        reduce.print();
+        SingleOutputStreamOperator<String> reduce = windowWindowedStream.reduce(new MyReduceFunction(), new MyProcessWindows()).setParallelism(5);
+        reduce.print().setParallelism(7);
 
         // 获取对应侧输出栏的结果
         DataStream<StationLog> sideOutput = reduce.getSideOutput(outputTag);
