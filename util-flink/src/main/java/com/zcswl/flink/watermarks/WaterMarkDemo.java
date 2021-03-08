@@ -1,6 +1,5 @@
 package com.zcswl.flink.watermarks;
 
-import akka.stream.impl.fusing.Collect;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FilterFunction;
