@@ -37,7 +37,7 @@ public class SourceFromCollectionJob {
         // map, flatMap 都是可以基于DataStream进行计算
         KeyedStream<Student, String> singleStringKeyedStream = singleDataStreamSource.keyBy(Student::getSchool);
 
-        // sum 算子
+        // sum 算子 每来一个流，进行一次sum操作，增量聚合操作
         DataStream<Student> count = singleStringKeyedStream.sum("count");
         // max 算子 max的算子结果只是更新了当前对象中的count的值，其他的值不会更新
         DataStream<Student> count1 = singleStringKeyedStream.max("count");
@@ -54,13 +54,10 @@ public class SourceFromCollectionJob {
         // union DataStream # union
 
         // Sink
-        count1.print();
+        count.print();
 
         // 执行
         env.execute();
 
     }
-    /**
-     * 富函数 每一个UDF函数类都有一个对应的RIch Function 版本
-     */
 }

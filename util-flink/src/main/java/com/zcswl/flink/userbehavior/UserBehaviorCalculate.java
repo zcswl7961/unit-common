@@ -44,16 +44,29 @@ public class UserBehaviorCalculate {
                     return new UserBehavior(Long.parseLong(split[0]), Long.parseLong(split[1]), Integer.parseInt(split[2]), split[3], Long.parseLong(split[4]));
                 })
                 .filter(data -> "pv".equals(data.getBehavior()))
+                // 有序流的过程，所以设置对应的watermark就是当前的事件时间
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<UserBehavior>forMonotonousTimestamps()
                         .withTimestampAssigner((SerializableTimestampAssigner<UserBehavior>) (element, recordTimestamp) -> {
                             return element.getTimestamp() * 1000;
                         }))
                 // 通过对用户行为的商品进行分组操作
+                // 分组数据流将你的window计算通过多任务并发执行，以为每一个逻辑分组流在执行中与其他的逻辑分组流是独立地进行的。
+                // 在非分组数据流中，你的原始数据流并不会拆分成多个逻辑流并且所有的window逻辑将在一个任务中执行，并发度为1。
+                // 这些窗口在概念上对每个键进行了单独的评估，这意味着这些窗口可以在每个键的不同点上触发。
+                // WindowStream 官方文档
                 .keyBy(UserBehavior::getItemId)
                 // 设置对应的
                 .timeWindow(Time.hours(1), Time.minutes(5))
                 // AggregateFunction<T, ACC, V> aggFunction,
                 // ProcessWindowFunction<V, R, K, W> windowFunction
+                /**
+                 * public <ACC, V, R> SingleOutputStreamOperator<R> aggregate(
+                 * 			AggregateFunction<T, ACC, V> aggFunction,
+                 * 			WindowFunction<V, R, K, W> windowFunction)
+                 *
+                 * 	AggreateFunction<IN, ACC(累加器),OUT>
+                 * 	    该类的函数的含义时对窗口
+                 */
                 .aggregate(new MyAggregateFunction(), new MyWindowFunction());
 
         // 收集统一窗口的所有商品的count数据，排序输出topn
@@ -65,12 +78,6 @@ public class UserBehaviorCalculate {
 
 
         env.execute();
-
-
-
-
-
-
     }
 
 
