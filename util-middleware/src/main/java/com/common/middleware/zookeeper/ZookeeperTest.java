@@ -12,10 +12,20 @@ public class ZookeeperTest {
         BaseZookeeper baseZookeeper = new BaseZookeeper();
         baseZookeeper.connectZookeeper("192.168.129.128:2181");
 
-        List<String> children = baseZookeeper.getChildren("/");
+        List<String> children = baseZookeeper.getChildren("/kafka-group");
         for(String path: children) {
             System.out.println(path);
         }
+        /**
+         * 创建一个节点
+         */
+        //String s = baseZookeeper.creatNode("/zhoucg", "192.168.129.128");
+        //System.out.println(s);
+
+
+        String s1 = baseZookeeper.creatNode("/zhoucg/ips", "192.168.129.128:2181;192.168.12.21:2181");
+        System.out.println(s1);
+
         baseZookeeper.closeConnection();
     }
 }
