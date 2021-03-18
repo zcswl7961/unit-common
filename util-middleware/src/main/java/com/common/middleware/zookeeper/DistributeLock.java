@@ -137,8 +137,8 @@ public class DistributeLock {
         ZooKeeper zooKeeper = baseZookeeper.connectZookeeper("192.168.129.128:2181");
 
         Random random = new Random();
-        CountDownLatch latch = new CountDownLatch(2);
-        for(int i = 0; i < 2; i++) {
+        CountDownLatch latch = new CountDownLatch(10);
+        for(int i = 0; i < 10; i++) {
             new Thread(() -> {
                 DistributeLock lock = null;
 
