@@ -27,6 +27,19 @@
             <artifactId>util-auto</artifactId>
             <version>${util-common.version}</version>
             <!-- https://blog.csdn.net/yh_zeng2/article/details/82562596 -->
+            <!-- optional：true(默认的是false)的作用
+                 当project-A 依赖project-B,  project-B 依赖project-D时
+                    project-A -> project-B -> project-D
+                 所以当project-B中pom.xml引入的project-D <dependency> 中加上<optional>true</optional>时
+                        <dependency>
+                            <groupId>sample.ProjectD</groupId>
+                            <artifactId>ProjectD</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                            <optional>true</optional>
+                        </dependency>
+                 如果在project-A中pom.xml文件中，没有显示引入对应的project-D的时候，是不依赖project-D的
+                 即：optional是控制引用的传递性的
+            -->
             <optional>true</optional>
         </dependency>
 

@@ -173,7 +173,9 @@
 		<knife4j.version>2.0.2</knife4j.version>
 	</properties>
 
-	<!--版本控制 -->
+	<!-- 版本控制 -->
+	<!-- dependencyManagement 是写在对应的parent中，<type>为pom的，
+		 父类通过dependencyManagement引入了很多的包，子类可以有选择性的进行引入操作-->
 	<dependencyManagement>
 		<dependencies>
 			<!-- 引入sftp包，进行解析操作 -->
@@ -347,10 +349,15 @@
 			<!-- ================================== spring boot 引用 ====================================-->
 
 
-			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 描述scope = import的作用-->
-			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
 			<!-- spring boot 版本控制 -->
 			<!-- https://docs.spring.io/spring-boot/docs/2.2.9.RELEASE/reference/html/using-spring-boot.html#using-boot-maven-without-a-parent-->
+			<!-- https://blog.csdn.net/K_520_W/article/details/84900722 描述scope = import的作用-->
+			<!-- https://blog.csdn.net/shijiujiu33/article/details/93381277 -->
+			<!-- 在dependencyManagement 中使用
+					<type>pom</type>
+					<scope>import</scope>
+				来实现maven中的多继承关系
+			-->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
