@@ -19,6 +19,9 @@ public class BaseZookeeper implements Watcher {
 
     private CountDownLatch countDownLatch = new CountDownLatch(1);
 
+    /**
+     * Watcher的一次性
+     */
     @Override
     public void process(WatchedEvent event) {
         /**
@@ -208,5 +211,10 @@ public class BaseZookeeper implements Watcher {
         if (zookeeper != null) {
             zookeeper.close();
         }
+    }
+
+
+    public ZooKeeper getZookeeper() {
+        return this.zookeeper;
     }
 }

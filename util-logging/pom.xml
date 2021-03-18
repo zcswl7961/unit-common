@@ -26,6 +26,14 @@
 
     <dependencies>
 
+        <!-- 核心的依赖====================-->
+        <!--
+            比较常用的日志组合：slf4j+logback     commons logging + log4j
+            其中：slf4j和commons logging 是对应的日志门面（接口的形式）
+                    logback + slf4j是对应的日志实现
+            https://www.cnblogs.com/chenhongliang/p/5312517.html
+        -->
+
         <!-- 只是引入对应slf4j对应的接口 -->
         <dependency>
             <groupId>org.slf4j</groupId>

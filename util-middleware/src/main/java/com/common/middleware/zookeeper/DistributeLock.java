@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * 1,锁是公平锁
+ * 2,我们分析一下这个锁是否为重入锁
+ *      不可重入锁
  * @author zhoucg
  * @date 2019-10-31 18:15
  */
@@ -68,7 +70,11 @@ public class DistributeLock {
         /**
          * 2，客户端调用getChildren(“locknode”)方法来获取所有已经创建的子节点。
          */
-        List<String> childrenNodes = zookeeper.getChildren(ROOT_LOCKS,true);
+        List<String> childrenNodes = zookeeper.getChildren(ROOT_LOCKS,false);
+
+        // 这个有点问题:
+        // getChildren()返回的介绍
+        // an unordered array of children of the node with the given path
         SortedSet<String> sortedSet = new TreeSet();
         for(String c:childrenNodes) {
             sortedSet.add(ROOT_LOCKS+"/"+c);
@@ -78,12 +84,14 @@ public class DistributeLock {
          */
         String first = sortedSet.first();
         if(lockID.equals(first)) {
+            System.out.println("线程Thread:"+Thread.currentThread().getName()+" 快速的拿到了锁");
             return true;
         }
 
         SortedSet<String> lessThanLockedId = sortedSet.headSet(lockID);
         if(!lessThanLockedId.isEmpty()) {
             //拿到比当前lockID这个节点更小的上一个节点
+            // 这个实际上就是公平锁
             String prevLockID = lessThanLockedId.last();
             /**这个地方其实是去监听prevLockID，为什么要这样做呢，因为我当前的lockID不能
              成功获得锁，那其实也就意味着我这个节点下面的更不可能获得锁了，获得锁的只有可
@@ -94,8 +102,11 @@ public class DistributeLock {
              传了一个计数器到watcher也就是监听，当我监听到了该节点做了删除操作或者它的会
              话超时了，那么这个时候计数器减1
              */
-            countDownLatch.await(sessionTimeout, TimeUnit.MILLISECONDS);
-            System.out.println("成功获取到了锁信息");
+            System.out.println("线程Thread:"+Thread.currentThread().getName()+"等待释放锁");
+            countDownLatch.await();
+            // 这个也有问题呀,设置了await的超时时间
+            //countDownLatch.await(sessionTimeout, TimeUnit.MILLISECONDS);
+            System.out.println("线程Thread:"+Thread.currentThread().getName()+"成功获取到了锁信息");
         }
 
         return true;
@@ -126,8 +137,8 @@ public class DistributeLock {
         ZooKeeper zooKeeper = baseZookeeper.connectZookeeper("192.168.129.128:2181");
 
         Random random = new Random();
-        CountDownLatch latch = new CountDownLatch(10);
-        for(int i = 0; i < 10; i++) {
+        CountDownLatch latch = new CountDownLatch(2);
+        for(int i = 0; i < 2; i++) {
             new Thread(() -> {
                 DistributeLock lock = null;
 
@@ -141,12 +152,15 @@ public class DistributeLock {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    Thread.sleep(random.nextInt(500));
+                    System.out.println("线程Thread:"+Thread.currentThread().getName()+" 获取到了锁，执行一定的任务");
+                    Thread.sleep(5000L);
+                    //Thread.sleep(random.nextInt(500));
                 }  catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 } finally {
                     if(lock != null) {
+                        System.out.println("线程Thread:"+Thread.currentThread().getName()+ " 执行任务完毕，释放锁");
                         lock.unlock();
                     }
                 }
