@@ -31,7 +31,9 @@ public class DataStreamTransformationsDemo {
         //      process
         //
         // DataStream -> KeyedStream
-        //      keyBy
+        //      keyBy: flink的keyBy并不是一个算子操作，Flink 的keyBy本质上并不是将相同key的元素集合到一个集合元素里面，
+        //      而是将相同key的元素散列到一个子任务中，而并不改变原来的元素数据结构。（注意，只是将相同的key的元素散列到一个子任务中，并不是说
+        //      子任务只会取处理它这一个指定的key）
         // KeyedStream -> DataStream
         //      reduce :“滚动”减少键控数据流。结合当前元素最后价值和降低排放的新值。(A "rolling" reduce on a keyed data stream.
         //                  Combines the current element with the last reduced value and emits the new value.)
@@ -53,7 +55,7 @@ public class DataStreamTransformationsDemo {
         // WindowedStream(AllWindowedStream) -> DataStream
         //      apply: 引用 WindowedFunction
         // WindowedStream -> DataStream
-        //      reduce():
+        //      reduce(): reduce有减少的意思，比如找到窗口中最小的数据
         //              ReduceFunction
         //      fold:
         //          windowedStream.fold("start", new FoldFunction<Integer, String>() {
