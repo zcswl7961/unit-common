@@ -49,14 +49,15 @@ public class ZookeeperTest {
 
 
         // 创建一个临时节点
-        ZooKeeper zookeeper = baseZookeeper.getZookeeper();
-        String s = zookeeper.create("/LOCK/", "zhoucg".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
         // 受限制与initTime 和tickTime的设置，如果在initTime * tickTime时间之内，当前客户端任然没有连接到服务，zookeeper
         // 集群服务认为此客户端已经断开连接，会清除掉设置的临时顺序节点
-        System.out.println(s);
+        /*ZooKeeper zookeeper = baseZookeeper.getZookeeper();
+        String s = zookeeper.create("/LOCK/", "zhoucg".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+        System.out.println(s);*/
+
+
 
         //Thread.sleep(50000);
-
         //baseZookeeper.closeConnection();
 
 
