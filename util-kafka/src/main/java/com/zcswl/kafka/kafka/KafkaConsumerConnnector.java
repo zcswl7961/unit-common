@@ -8,17 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 
 /**
+ * 1，kafka消费端消费组的概念
+ * 2，kafka消费端线程池对应partition分区
  * 消费者
  * @author zhoucg
  * @date 2019-11-13 10:42
@@ -36,7 +36,7 @@ public class KafkaConsumerConnnector {
      * @param handler 处理的逻辑
      * @param threadCount 执行线程处理
      */
-    public void consumer(String topic, final Handler handler, Integer threadCount) {
+    public void consumer(String topic, final Handler handler, Integer threadCount, String threadNamePre) {
         if (threadCount < 1) {
             throw new IllegalArgumentException("出现消息的线程数最少为1");
         }
@@ -52,8 +52,14 @@ public class KafkaConsumerConnnector {
         if(partitions.size() < threadCount) {
             threadCount = partitions.size();
         }
+        // 随机性的线程消费对应的partition 分区
         ConsumerGroup consumerGroup = new ConsumerGroup(threadCount,prop.getGroupId(),topic,prop.getServers(),handler);
-        consumerGroup.execute();
+
+        // 指定线程消费指定的partition 分区
+        ConsumerGroup consumerGroup1 = new ConsumerGroup(partitions, prop.getGroupId(), prop.getServers(),handler);
+
+        // 通过指定线程策略，定义对应的线程
+        consumerGroup.execute(threadNamePre);
     }
 
     private static class ConsumerGroup{
@@ -62,6 +68,7 @@ public class KafkaConsumerConnnector {
 
         /**
          * 创建消费者组
+         * 该方法使用kafkaConsumer.subscribe 方法，由系统内部进行线程绑定partition
          */
         public ConsumerGroup(int consumerNum,String groupId,String topic,String brokerList,Handler handler) {
             consumers = Lists.newArrayList();
@@ -72,11 +79,28 @@ public class KafkaConsumerConnnector {
         }
 
         /**
+         * 创建消费线程组
+         * 该方法通过指定线程-> partition的方式进行消费数据
+         */
+        public ConsumerGroup(List<PartitionInfo> partitionInfos, String groupId, String brokerList, Handler handler) {
+            consumers = Lists.newArrayList();
+            for (PartitionInfo partitionInfo : partitionInfos) {
+                TopicPartition topicPartition = new TopicPartition(partitionInfo.topic(), partitionInfo.partition());
+                ConsumerRunnable consumerRunnable = new ConsumerRunnable(brokerList, groupId, topicPartition, handler);
+                consumers.add(consumerRunnable);
+            }
+        }
+
+        /**
          * 消费
          */
-        public void execute() {
+        public void execute(String threadNamePre) {
+            int threadId = 0;
             for(ConsumerRunnable runnable : consumers) {
-                new Thread(runnable).start();
+                Thread thread = new Thread(runnable);
+                thread.setName(threadNamePre+"-"+threadId);
+                thread.start();
+                threadId++;
             }
         }
     }
@@ -89,13 +113,29 @@ public class KafkaConsumerConnnector {
         public KafkaConsumer<String,String> kafkaConsumer = null;
 
         void builer(String brokerList,String groupId,String topic) {
+            // 消费者配置文件
+            builer(brokerList, groupId);
+            // 消费topic 消费全部分区
+            kafkaConsumer.subscribe(Collections.singletonList(topic));
+        }
+
+        void builer(String brokerList,String groupId,TopicPartition topicPartition) {
+            // 消费者配置文件
+            builer(brokerList, groupId);
+            // 订阅指定的分区信息
+            kafkaConsumer.assign(Collections.singletonList(topicPartition));
+        }
+
+        void builer(String brokerList,String groupId) {
             //消费者配置文件
             Properties properties = new Properties();
-            //kafka的列表数据
+            //kafka的broker_list 配置信息
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);
             //消费组编号
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, groupId);
+            // 使用 earliest
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+
             //反序列化key
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
             //反序列化value
@@ -105,7 +145,6 @@ public class KafkaConsumerConnnector {
             //自定提交每一秒进行执行
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1000");
             kafkaConsumer= new KafkaConsumer<>(properties);
-            kafkaConsumer.subscribe(Arrays.asList(topic));
         }
 
         public KafkaConsumer get() {
@@ -116,16 +155,20 @@ public class KafkaConsumerConnnector {
     /**
      * 消费者消费线程
      */
-    private static class ConsumerRunnable extends ConsumerBuilder implements Runnable{
+    public static class ConsumerRunnable extends ConsumerBuilder implements Runnable{
 
         private Handler handler = null;
 
         /**
+         * 指定当前线程assign 消费指定的partition
+         */
+        public ConsumerRunnable(String brokerList,String groupId,TopicPartition topicPartition,Handler handler) {
+            builer(brokerList, groupId,topicPartition);
+            this.handler = handler;
+        }
+
+        /**
          * 每一个线程拥有一个消息KafkaConsumer对象
-         * @param brokerList kafka集群配置
-         * @param groupId 消费者groupid
-         * @param topic 指定topic
-         * @param handler 任务执行
          */
         public ConsumerRunnable(String brokerList,String groupId,String topic,Handler handler) {
             this(brokerList,groupId,topic);
@@ -134,20 +177,26 @@ public class KafkaConsumerConnnector {
 
         /**
          * 每一个线程拥有一个消息KafkaConsumer对象
-         * @param brokerList kafka集群配置
-         * @param groupId 消费者groupid
-         * @param topic 指定topic
          */
         public ConsumerRunnable(String brokerList,String groupId,String topic){
             builer(brokerList, groupId, topic);
+        }
+
+        /**
+         * 由外部决定是否assign 或者是 subscribe
+         */
+        public ConsumerRunnable(String brokerList,String groupId) {
+            builer(brokerList, groupId);
         }
 
         @Override
         public void run() {
             while (true) {
                 ConsumerRecords<String, String> records = get().poll(200);
+                Map metrics = get().metrics();
                 records.forEach(record -> {
-                    log.info( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
+                    //log.info( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
+                    System.out.println( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
                     handler.handle(record.value());
                 });
             }

@@ -10,8 +10,8 @@ import java.util.Map;
 /**
  * Test
  * kafka生产者消息设置自定义分区
- * @author: zhoucg
- * @date: 2019-10-22
+ * @author zhoucg
+ * @date 2019-10-22
  */
 public class Partitions implements Partitioner{
 

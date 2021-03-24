@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 /**
+ * 1， kafka的生产端自定义分区策略
+ * 2， kafka生产端的ack机制
  * @author zhoucg
  * @date 2019-11-13 10:22
  */
@@ -43,7 +45,7 @@ public class KafkaProducerConnector {
         config.put(ProducerConfig.BATCH_SIZE_CONFIG,properties.getBatchSize());
         //往kafka服务器提交消息间隔时间，0则立即提交不等待
         config.put(ProducerConfig.LINGER_MS_CONFIG,properties.getLingerMs());
-        //kakfa的ack模式 0，1，-1（all）
+        //kafka的ack模式 0，1，-1（all）
         config.put(ProducerConfig.ACKS_CONFIG,properties.getAck());
         //生产者发送失败后，重试的次数
         config.put(ProducerConfig.RETRIES_CONFIG,properties.getRetries());
