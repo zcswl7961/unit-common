@@ -6,14 +6,10 @@ import com.zcswl.kafka.kafka.KafkaConsumerConnnector;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
- * kafka消费者消费消息
- *
- * 消费者的概念：
- *      消费者组是Kafka实现单播和广播两种消息模型的手段。同一个topic，每个消费者组都可以拿到相同的全部数据。
  * @author zhoucg
- * @date 2021-03-23 21:39
+ * @date 2021-03-26 14:05
  */
-public class ConsumerTest {
+public class ConsumerTest4 {
 
     public static void main(String[] args) {
 
@@ -22,16 +18,17 @@ public class ConsumerTest {
         kafkaProperties.setAutoCommitMs("200");
         kafkaProperties.setBatchSize(200);
         kafkaProperties.setServers("192.168.129.128:9192");
-        kafkaProperties.setGroupId("groupId1");
+        kafkaProperties.setGroupId("groupId");
         kafkaProperties.setValueSerializer(StringDeserializer.class.getName());
         KafkaConsumerConnnector kafkaConsumerConnnector = new KafkaConsumerConnnector(kafkaProperties);
 
         // 测试对应的partitions -> 3 的数据，
-        kafkaConsumerConnnector.consumer("topic-2", new Handler() {
+        kafkaConsumerConnnector.consumer("test-4", new Handler() {
             @Override
             public void handle(String message) {
 
             }
-        }, 1, "WL");
+        }, 4, "WL");
+
     }
 }

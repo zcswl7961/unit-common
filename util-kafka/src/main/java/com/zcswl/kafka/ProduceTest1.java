@@ -2,11 +2,9 @@ package com.zcswl.kafka;
 
 import com.zcswl.kafka.config.KafkaProperties;
 import com.zcswl.kafka.kafka.KafkaProducerConnector;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Random;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author zhoucg
  * @date 2021-03-23 21:33
  */
-public class ProduceTest {
+public class ProduceTest1 {
 
     public static void main(String[] args) throws Exception {
 
@@ -27,7 +25,7 @@ public class ProduceTest {
         kafkaPropertiesProducer.setAck("-1");
         kafkaPropertiesProducer.setRetries(3);
         // partitions -> 3
-        kafkaPropertiesProducer.setSendTopic("topic-2");
+        kafkaPropertiesProducer.setSendTopic("test-4");
         KafkaProducerConnector kafkaProducerConnector = new KafkaProducerConnector(kafkaPropertiesProducer);
         kafkaProducerConnector.init();
 
@@ -37,12 +35,10 @@ public class ProduceTest {
             while (true) {
                 // 每隔0.5秒发送一次消息
                 try {
-                    String message = fin +"=="+"ZHOUCG:WL:"+random.nextLong();
-                    /*Future<RecordMetadata> send = kafkaProducerConnector.send(message);
-                    RecordMetadata recordMetadata = send.get();
-                    System.out.println("向kafka发送消息："+message+" 当前对应的partition："+recordMetadata.partition()+ " 当前对应的offset："+recordMetadata.offset());*/
-                    kafkaProducerConnector.send(message).get();
-                    Thread.sleep(200);
+                    String message = fin +"=="+"ZHOUCG:WL:TEST-4:"+random.nextLong();
+                    System.out.println("向kafka发送消息："+message);
+                    kafkaProducerConnector.send(message);
+                    Thread.sleep(15000);
                     fin.getAndIncrement();
                 } catch (Exception e) {
                     System.out.println("报错误："+e);

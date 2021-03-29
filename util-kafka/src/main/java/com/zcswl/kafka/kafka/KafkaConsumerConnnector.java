@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.zcswl.kafka.config.KafkaProperties;
 import com.zcswl.kafka.handler.Handler;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -134,16 +135,27 @@ public class KafkaConsumerConnnector {
             //消费组编号
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, groupId);
             // 使用 earliest
-            properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+            /**
+             * 关于auto.offset.reset 得参数说明
+             *      earliest
+             *      latest
+             *      none
+             *      https://stackoverflow.com/questions/58829112/kafka-consumer-configuration-how-does-auto-offset-reset-controls-the-message-c
+             */
+            properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
             //反序列化key
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
             //反序列化value
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-            //自定提交
-            properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,true);
+            // 禁止自动提交位移
+            // 自动提交再实际得生产环境中，一般会静止掉，
+            // 已经消费了数据，但是offset没来得及提交（比如Kafka没有或者不知道该数据已经被消费）。
+            // 使用手动提交offset得策略，防止因为kill 或者是异常错误导致offset没有来得及提交
+            properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+            //properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,true);
             //自定提交每一秒进行执行
-            properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1000");
+            //properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1000");
             kafkaConsumer= new KafkaConsumer<>(properties);
         }
 
@@ -189,16 +201,24 @@ public class KafkaConsumerConnnector {
             builer(brokerList, groupId);
         }
 
+        @SneakyThrows
         @Override
         public void run() {
             while (true) {
                 ConsumerRecords<String, String> records = get().poll(200);
-                Map metrics = get().metrics();
                 records.forEach(record -> {
                     //log.info( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
                     System.out.println( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
                     handler.handle(record.value());
                 });
+                /** *
+                 * 权衡：延迟与数据一致性
+                 *
+                 * 如果您必须确保数据一致性，请选择commitSync()，因为它会确保在执行任何进一步操作之前，您将知道偏移提交是成功还是失败。但由于它是同步和阻塞，您将花费更多时间等待提交完成，这会导致高延迟。
+                 * 如果您确定某些数据不一致并希望延迟较低，请选择commitAsync()，因为它不会等待完成。相反，它将稍后发出提交请求并处理来自Kafka的响应（成功或失败），同时，您的代码将继续执行。
+                 */
+                get().commitSync();
+                Thread.sleep(5000);
             }
         }
     }
