@@ -11,6 +11,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -69,11 +70,14 @@ public class Test {
         ConsumerRecord<String, String> consumerRecord = consumerRecords.get(0);
         System.out.println(consumerRecord.value());*/
 
-        Map<Integer, String> offsetMap = Maps.newHashMap();
-        offsetMap.put(0,"100000");
+        consumer.assign(Collections.singletonList(new TopicPartition("topic-18", 0)));
+        //ConsumerRecords<String, String> poll = consumer.poll(Duration.ofMillis(200));
+
+        //boolean empty = poll.isEmpty();
+        //System.out.println(empty);
 
 
-        consumer.subscribe(Collections.singletonList("topic-2"));
+        /*// consumer.subscribe(Collections.singletonList("topic-2"));
         Set<TopicPartition> assignment = new HashSet<>();
         while (assignment.size() == 0) {
             // seek之前poll一次，由系统内部分配一次分区
@@ -94,7 +98,7 @@ public class Test {
         ConsumerRecords<String, String> poll1 = consumer.poll(1000);
         List<ConsumerRecord<String, String>> lastPush = Lists.newArrayList(poll1);
         ConsumerRecord<String, String> consumerRecord = lastPush.get(0);
-        System.out.println(consumerRecord.value());
+        System.out.println(consumerRecord.value());*/
 
 
 

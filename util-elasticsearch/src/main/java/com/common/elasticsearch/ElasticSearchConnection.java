@@ -20,7 +20,13 @@ public class ElasticSearchConnection {
 
     private static final Logger logger = LoggerFactory.getLogger(ElasticSearchConnection.class);
     private TransportClient client;
+    /**
+     * 192.168.129.128:9200,192.168.129.129:9200
+     */
     private String hosts;
+    /**
+     * elasticsearch
+     */
     private String clusterName;
 
     public ElasticSearchConnection(String hosts, String clusterName) {

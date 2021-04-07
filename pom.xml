@@ -44,6 +44,7 @@
         <module>util-hadoop</module>
         <module>util-flink</module>
         <module>util-kafka-monitor</module>
+        <module>util-leecode</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->
@@ -251,6 +252,7 @@
 			</dependency>
 
 			<!-- kafka包 -->
+			<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka_2.11-->
 			<dependency>
 				<groupId>org.apache.kafka</groupId>
 				<artifactId>kafka_2.11</artifactId>

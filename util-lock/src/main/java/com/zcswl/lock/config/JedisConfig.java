@@ -11,6 +11,7 @@ import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 /**
  * 配置中心，获取application配置信息中redis的相关配置
@@ -46,7 +47,6 @@ public class JedisConfig {
      * 对应的拆分符号
      */
     private static final String COMMA = ",";
-
     /**
      * 对应的每一个redis sentinal 配置数据
      */

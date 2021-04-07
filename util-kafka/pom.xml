@@ -19,18 +19,24 @@
     </properties>
 
     <dependencies>
-        <!-- 这个包是scala的版本，实际上没有用 -->
+        <!-- 这个包是scala的版本 -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
-            <version>0.10.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>kafka-clients</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- http://kafka.apache.org/documentation.html#producerapi-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-        </dependency>-->
+            <version>2.1.1</version>
+        </dependency>
 
         <!-- kafka -->
         <!--<dependency>

@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
  */
 public class SemphoreDemo implements Runnable{
 
-    final Semaphore semaphore = new Semaphore(1);
+    /*final Semaphore semaphore = new Semaphore(5);
 
     @Override
     public void run() {
@@ -27,10 +27,10 @@ public class SemphoreDemo implements Runnable{
             e.printStackTrace();
         } finally {
             semaphore.release();
-            semaphore.release();
-            semaphore.release();
+            //semaphore.release();
+            //semaphore.release();
             int i = semaphore.availablePermits();
-            System.out.println(i);
+            //System.out.println(i);
         }
 
     }
@@ -38,7 +38,35 @@ public class SemphoreDemo implements Runnable{
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         final SemphoreDemo semphoreDemo = new SemphoreDemo();
-        for(int i=0;i<1;i++) {
+        for(int i=0;i<10;i++) {
+            System.out.println(executorService);
+            executorService.submit(semphoreDemo);
+        }
+    }*/
+
+
+    final Semaphore semaphore = new Semaphore(5);
+
+    @Override
+    public void run() {
+
+        try{
+            semaphore.acquire();
+            Random random = new Random();
+            Thread.sleep(random.nextInt(3000));
+            System.out.println("当前时间："+System.currentTimeMillis()+" 线程："+Thread.currentThread().getName()+" Done !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            //semaphore.release();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        final SemphoreDemo semphoreDemo = new SemphoreDemo();
+        for(int i=0;i<20;i++) {
             System.out.println(executorService);
             executorService.submit(semphoreDemo);
         }

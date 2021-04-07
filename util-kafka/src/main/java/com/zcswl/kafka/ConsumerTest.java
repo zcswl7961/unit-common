@@ -27,7 +27,7 @@ public class ConsumerTest {
         KafkaConsumerConnnector kafkaConsumerConnnector = new KafkaConsumerConnnector(kafkaProperties);
 
         // 测试对应的partitions -> 3 的数据，
-        kafkaConsumerConnnector.consumer("topic-2", new Handler() {
+        kafkaConsumerConnnector.consumer("topic-18", new Handler() {
             @Override
             public void handle(String message) {
 

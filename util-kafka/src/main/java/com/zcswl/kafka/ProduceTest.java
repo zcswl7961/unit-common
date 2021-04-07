@@ -2,11 +2,9 @@ package com.zcswl.kafka;
 
 import com.zcswl.kafka.config.KafkaProperties;
 import com.zcswl.kafka.kafka.KafkaProducerConnector;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Random;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -22,12 +20,11 @@ public class ProduceTest {
         kafkaPropertiesProducer.setServers("192.168.129.128:9192");
         kafkaPropertiesProducer.setKeySerializer(StringSerializer.class.getName());
         kafkaPropertiesProducer.setValueSerializer(StringSerializer.class.getName());
-        kafkaPropertiesProducer.setBatchSize(200);
         kafkaPropertiesProducer.setLingerMs(0L);
         kafkaPropertiesProducer.setAck("-1");
         kafkaPropertiesProducer.setRetries(3);
         // partitions -> 3
-        kafkaPropertiesProducer.setSendTopic("topic-2");
+        kafkaPropertiesProducer.setSendTopic("topic-18");
         KafkaProducerConnector kafkaProducerConnector = new KafkaProducerConnector(kafkaPropertiesProducer);
         kafkaProducerConnector.init();
 

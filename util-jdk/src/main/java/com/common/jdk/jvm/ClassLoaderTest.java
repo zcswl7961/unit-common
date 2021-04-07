@@ -29,6 +29,7 @@ public class ClassLoaderTest {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         ClassLoader systemClassLoader1 = ClassLoader.getSystemClassLoader();
+        ClassLoaderTest.class.getClassLoader();
         // 加载其他的程序
         Class<?> aClass3 = systemClassLoader1.loadClass("com.common.jdk.jvm.SuperClass");
 

@@ -39,7 +39,7 @@ public class KafkaProducerConnector {
         //kafka消息key序列化类 若传入key的值，则根据该key的值进行hash散列计算出在哪个partition上
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,properties.getKeySerializer());
         //当多条消息发送到同一个partition时，该值控制生产者批量发送消息的大小，批量发送可以减少生产者到服务端的请求数，有助于提高客户端和服务端的性能。
-        config.put(ProducerConfig.BATCH_SIZE_CONFIG,properties.getBatchSize().toString());
+        //config.put(ProducerConfig.BATCH_SIZE_CONFIG,properties.getBatchSize().toString());
         //往kafka服务器提交消息间隔时间，0则立即提交不等待
         config.put(ProducerConfig.LINGER_MS_CONFIG,properties.getLingerMs().toString());
         //kafka的ack模式 0，1，-1（all）
