@@ -29,6 +29,8 @@ public class LinkedRelease {
 
     /**
      * 链表反转的第一种实现
+     * 1 -> 2 -> 3 -> 4 -> 5
+     * 1 -> null
      */
     public static LinkedNode release(LinkedNode head) {
         LinkedNode prev = null;

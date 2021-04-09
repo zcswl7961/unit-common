@@ -4,6 +4,11 @@ import com.zcswl.leecode.node.LinkedNode;
 
 /**
  * 查询两个链表的公共子序
+ * 两个链表的公共子链
+ * 1，计算两个链表长度的差值，长链表从减去差值之后开始进行比较
+ * 2，直接不比较差值，如果p1 链表1 ，p2  链表2
+ *  if (p1.next == null ? p2: p1.next)
+ *
  * @author zhoucg
  * @date 2021-04-07 9:43
  */
@@ -47,6 +52,20 @@ public class LinkedListHaveCommonList {
         }
 
         return count;
+    }
+
+    /**
+     * 双指针的操作
+     */
+    public LinkedNode getIntersectionNode(LinkedNode headA, LinkedNode headB) {
+        if (headA == null || headB == null) return null;
+        LinkedNode apointer = headA;
+        LinkedNode bpointer = headB;
+        while (apointer != bpointer) {
+            apointer = apointer == null ? headB : apointer.next;
+            bpointer = bpointer == null ? headA : bpointer.next;
+        }
+        return apointer;
     }
 
 

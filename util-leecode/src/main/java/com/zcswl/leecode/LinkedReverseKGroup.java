@@ -112,9 +112,7 @@ public class LinkedReverseKGroup {
         if (head==null)
             return null;
         // 1 ->2 -> 3 -> 4 -> 5 -> 6 -> 7
-        // java中的类型引用
-        LinkedNode start=head,end=start;
-        System.out.println(end == head);
+        LinkedNode end= head;
         int index;
         for (index=0;index<k;++index){//让end移动到第k个节点上
             if (end==null)
@@ -128,8 +126,8 @@ public class LinkedReverseKGroup {
         LinkedNode node = end.next;
         // end.next = null 实上上head 和 start 都变成了 1 -> 2 - null
         end.next=null;//这里先将k个节点与后面的连接断开，方便翻转链表
-        reverse(start);//翻转这k个节点
-        start.next=helper(node,k);//让前k个节点的头节点的next指向后k个节点的尾节点
+        reverse(head);//翻转这k个节点
+        head.next=helper(node,k);//让前k个节点的头节点的next指向后k个节点的尾节点
         return end;
     }
 

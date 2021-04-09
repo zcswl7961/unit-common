@@ -1,4 +1,4 @@
-package com.common.jdk.sort;
+package com.zcswl.leecode;
 
 /**
  *
@@ -89,6 +89,9 @@ public class SortExample {
         if(array.length == 0) {
             return  array;
         }
+        /**
+         * 15,11,12,4,7,5,78,19,54,54
+         */
         int current;
         for(int i=0;i<array.length -1 ;i++) {
             current = array[i+1];

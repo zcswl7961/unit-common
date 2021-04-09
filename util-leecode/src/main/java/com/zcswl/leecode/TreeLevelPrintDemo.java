@@ -3,7 +3,9 @@ package com.zcswl.leecode;
 import com.zcswl.leecode.node.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * 二叉树按照层排序
@@ -40,6 +42,9 @@ public class TreeLevelPrintDemo {
         return treeNode;
     }
 
+    /**
+     * 二叉树按照层进行遍历
+     */
     private static void solution(List<List<Integer>> levels, int level, TreeNode node) {
         if (levels.size() == level) {
             levels.add(new ArrayList<>());
@@ -52,6 +57,30 @@ public class TreeLevelPrintDemo {
             solution(levels, level + 1, node.right);
         }
 
+    }
+
+    /**
+     * Queue 队列
+     *
+     */
+    private static void solution1(List<List<Integer>> levels, TreeNode treeNode) {
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(treeNode);
+        while (queue.size() != 0) {
+            int length = queue.size();
+            List<Integer> level = new ArrayList<>();
+            for (int i = 0 ;i < length ; i ++ ) {
+                TreeNode poll = queue.pollLast();
+                level.add(poll.val);
+                if (poll.left != null) {
+                    queue.addFirst(poll.left);
+                }
+                if (poll.right != null) {
+                    queue.addFirst(poll.right);
+                }
+            }
+            levels.add(level);
+        }
     }
 
 }

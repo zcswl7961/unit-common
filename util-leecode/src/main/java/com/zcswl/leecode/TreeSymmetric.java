@@ -19,6 +19,7 @@ public class TreeSymmetric {
     public static void main(String[] args) {
 
         TreeNode node = getNode();
+        isSymmetricDeep(node.left, node.right);
 
 
     }
