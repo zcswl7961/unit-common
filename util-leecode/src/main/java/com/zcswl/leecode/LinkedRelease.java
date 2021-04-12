@@ -102,11 +102,29 @@ public class LinkedRelease {
         // 反转的起始位置 即从3 开始反转
         LinkedNode node2 = node1.next;
         // 将node1的next指向对应的最后，没有问题，因为反转之后就是这样的
+        /*
+                fPer : 1
+                toPos : 5
+                node1: 2
+                node2: 3
+                node1.next = toPost
+                       1 -> 2 -> 5(此时的链表结构变成了这个)
+                node2： 3 -> 4 -> 5
+                while(node2 != toPos) {
+                    next = node.next // 4
+                    node2.next = node1
+                        3 - 2 -1 - 5 - null
+                    4 - 3 -2 - 1 - 5 - null
+                    fPer.ext = node1
+                }
+
+         */
         node1.next = toPos;
         LinkedNode next = null;
         // 这个实际上是链表反转的另一个精髓操作
         while (node2 != toPos) {
             next = node2.next;
+            // 指向了前一个操作
             node2.next = node1;
             node1 = node2;
             node2 = next;
