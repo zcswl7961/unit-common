@@ -20,11 +20,6 @@ public class ZigzagLevelOrder {
     }
 
 
-    /**
-     *
-     * @param root
-     * @return
-     */
     public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) return ans;

@@ -5,6 +5,7 @@ import org.jnetpcap.nio.Link;
 
 /**
  * 链表反转
+ * https://leetcode-cn.com/problems/reverse-linked-list/
  * @author zhoucg
  * @date 2021-04-07 10:14
  */
@@ -141,6 +142,7 @@ public class LinkedRelease {
 
     /**
      * 链表反转的第三种实现
+     * 递归的方式
      */
     public static LinkedNode reverse2(LinkedNode node) {
 
