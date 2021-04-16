@@ -42,4 +42,59 @@ public class 旋转后的数组找位置 {
         }
         return -1;
     }
+
+
+    /**
+     * 自己得思路
+     */
+    public int search1(int[] nums, int target) {
+        // 找到对应得递增得关系
+        // 1，如果nums 为null或者是对应得结果为1得话，进行查询
+        if (nums == null) {
+            return -1;
+        }
+        if (nums.length == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+        // 找出对应得递增-> 递减得关系
+        // 7 8 1 2 3 4 5 6
+        int mid = 0;
+        int leftNum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > leftNum) {
+                mid = i;
+                leftNum = nums[i];
+            } else {
+                break;
+            }
+        }
+        int left = 0 ;
+        int right = nums.length - 1;
+        while(left < right) {
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if (nums[left] == target) {
+                return left;
+            }
+            if (nums[right] == target) {
+                return right;
+            }
+            if (nums[mid] > target && nums[left] < target) {
+                // 中间的数大于它，并且最左边得数小于它 向左找
+                right = mid -1;
+            } else if (nums[mid] > target && nums[left] > target) {
+                // 中间得数大于它，并且最左边得数也是大于它，向右找
+                left = mid + 1;
+            } else if (nums[mid] < target && nums[right] < target) {
+                // 中间得数小于它，并且最右边得也是小于它，向左找
+                right = mid - 1;
+
+            } else {
+                left = mid + 1;
+            }
+            mid = (left + right + 1  ) / 2;
+        }
+        return -1;
+    }
 }
