@@ -26,7 +26,7 @@ public class 不重复子串长度 {
         int max = 1;
         for (int i = 0; i < s.length() ; i++) {
             if (map.containsKey(s.charAt(i))) {
-                // 滑动串口，起始位置为最左位置 + 1
+                // 滑动窗口，起始位置为最左位置 + 1
                 left = Math.max(left, map.get(s.charAt(i)) + 1);
             }
             map.put(s.charAt(i), i);
