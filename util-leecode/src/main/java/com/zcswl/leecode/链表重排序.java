@@ -1,6 +1,7 @@
 package com.zcswl.leecode;
 
 import com.zcswl.leecode.node.LinkedNode;
+import org.jnetpcap.nio.Link;
 
 /**
  * 链表重排序算法
@@ -14,7 +15,7 @@ public class 链表重排序 {
     public static void main(String[] args) {
         LinkedNode linkedNode = getNode();
         // 将一个链表拆成两个，第一个是倒叙，第二个是正序
-        LinkedNode[] linkedNodes = resLinkedNode(linkedNode);
+        LinkedNode[] linkedNodes = resLinkedNode1(linkedNode);
         // 对第一个进行反转操作
         LinkedNode fisrt = linkedNodes[0];
         LinkedNode release = releasev(fisrt);
@@ -66,6 +67,23 @@ public class 链表重排序 {
         return prev;
     }
 
+    private static LinkedNode[] resLinkedNode1(LinkedNode linkedNode) {
+        // 使用快慢指针的策略方式
+        // 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
+        LinkedNode fast = linkedNode;
+        LinkedNode slow = linkedNode;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        LinkedNode release = slow.next;
+        slow.next = null;
+        LinkedNode[] res = new LinkedNode[2];
+        res[0] = release;
+        res[1] = linkedNode;
+        return res;
+    }
+
     private static LinkedNode[] resLinkedNode(LinkedNode linkedNode) {
         int size = 0;
         LinkedNode tmp = linkedNode;
@@ -101,10 +119,16 @@ public class 链表重排序 {
         LinkedNode l3 = new LinkedNode(3);
         LinkedNode l4 = new LinkedNode(4);
         LinkedNode l5 = new LinkedNode(5);
+        LinkedNode l6 = new LinkedNode(6);
+        LinkedNode l7 = new LinkedNode(7);
+        LinkedNode l8 = new LinkedNode(8);
         root.next = l2;
         l2.next = l3;
         l3.next = l4;
         l4.next = l5;
+        l5.next = l6;
+        l6.next = l7;
+        l7.next = l8;
 
         return root;
     }
