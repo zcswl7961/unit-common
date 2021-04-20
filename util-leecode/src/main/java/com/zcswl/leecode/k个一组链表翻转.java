@@ -1,9 +1,6 @@
 package com.zcswl.leecode;
 
 import com.zcswl.leecode.node.LinkedNode;
-import org.jnetpcap.nio.Link;
-
-import java.util.LinkedList;
 
 /**
  * k 个一组翻转链表

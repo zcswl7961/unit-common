@@ -1,7 +1,6 @@
 package com.zcswl.leecode;
 
 import com.zcswl.leecode.node.LinkedNode;
-import org.jnetpcap.nio.Link;
 
 /**
  * 链表重排序算法
@@ -24,12 +23,18 @@ public class 链表重排序 {
         // 然后再交叉输出结果
         LinkedNode result = result(second, release);
 
+        while (result != null) {
+            System.out.println(result.val);
+            result = result.next;
+        }
+
     }
 
     private static LinkedNode result(LinkedNode second, LinkedNode release) {
         LinkedNode weakHead = new LinkedNode(-1);
+        LinkedNode pre = weakHead;
         int i = 0;
-        while (release != null) {
+        while (release != null && second != null) {
             if (i%2 == 0) {
                 weakHead.next = second;
                 second = second.next;
@@ -41,9 +46,13 @@ public class 链表重排序 {
             weakHead = weakHead.next;
             i++;
         }
-        if (second != null)
+        if (second != null){
             weakHead.next = second;
-        return weakHead.next;
+        }
+        if (release != null) {
+            weakHead.next = release;
+        }
+        return pre.next;
     }
 
     private static LinkedNode releasev(LinkedNode head) {
@@ -87,6 +96,16 @@ public class 链表重排序 {
     }
 
     private static LinkedNode getNode() {
-        return new LinkedNode(1);
+        LinkedNode root = new LinkedNode(1);
+        LinkedNode l2 = new LinkedNode(2);
+        LinkedNode l3 = new LinkedNode(3);
+        LinkedNode l4 = new LinkedNode(4);
+        LinkedNode l5 = new LinkedNode(5);
+        root.next = l2;
+        l2.next = l3;
+        l3.next = l4;
+        l4.next = l5;
+
+        return root;
     }
 }

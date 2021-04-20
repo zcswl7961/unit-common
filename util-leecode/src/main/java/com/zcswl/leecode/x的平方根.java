@@ -18,7 +18,7 @@ public class x的平方根 {
 
     public static void main(String[] args) {
         int x = 7;
-        System.out.println(mySqrt1(x));
+        System.out.println(mySqrt(x));
     }
 
 
@@ -32,7 +32,7 @@ public class x的平方根 {
         // 7
         int l = 0, r = x, ans = -1;
         while (l <= r) {
-            int mid = l + (r - l) / 2; // 4
+            int mid = (l+r) / 2; // 4
             // mid = 2
             if ((long) mid * mid <= x) {
                 ans = mid;// 2
