@@ -247,7 +247,7 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <!--<mainClass>com.zcswl.flink.FraudDetectionJob</mainClass>-->
+                                    <!--<mainClass>com.zcswl.flink.demo.FraudDetectionJob</mainClass>-->
                                     <!--<mainClass>com.zcswl.flink.job.WordCount</mainClass>-->
                                     <mainClass>com.zcswl.flink.watermarks.WaterMarkDemo</mainClass>
                                 </transformer>

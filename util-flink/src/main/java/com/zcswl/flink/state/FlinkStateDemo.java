@@ -1,8 +1,8 @@
 package com.zcswl.flink.state;
 
+import com.zcswl.flink.demo.FraudDetectionJob;
 import com.zcswl.flink.watermarks.StationLog;
 import org.apache.flink.api.common.functions.*;
-import org.apache.flink.api.common.state.OperatorStateStore;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.java.tuple.Tuple3;
@@ -10,12 +10,9 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.state.FunctionInitializationContext;
 import org.apache.flink.runtime.state.FunctionSnapshotContext;
 import org.apache.flink.streaming.api.checkpoint.CheckpointedFunction;
-import org.apache.flink.streaming.api.checkpoint.ListCheckpointed;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
-import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 /**
@@ -33,7 +30,7 @@ import org.apache.flink.util.Collector;
  *
  *
  * flink的状态管理
- * @see com.zcswl.flink.FraudDetectionJob
+ * @see FraudDetectionJob
  * @author zhoucg
  * @date 2021-03-05 9:44
  */

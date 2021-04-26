@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.zcswl.flink;
+package com.zcswl.flink.demo;
 
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;

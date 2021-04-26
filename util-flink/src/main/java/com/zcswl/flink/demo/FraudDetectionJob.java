@@ -1,4 +1,4 @@
-package com.zcswl.flink;
+package com.zcswl.flink.demo;
 
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
