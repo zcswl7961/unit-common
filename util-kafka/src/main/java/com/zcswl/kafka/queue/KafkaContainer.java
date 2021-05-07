@@ -57,13 +57,13 @@ public class KafkaContainer {
      */
     public void submit(String message) {
         Map<String, PreHandler> handlers = SpringContextUtil.getBeansOfType(PreHandler.class);
-        if(null!= handlers && handlers.size() != 0) {
+        if(handlers.size() != 0) {
             Set<String> handlerNames = handlers.keySet();
             List<String> orderLists = handlerNames.stream().filter(preHandlerPredicate).collect(Collectors.toList());
-            Collections.sort(orderLists, (o1, o2) -> {
-                LogInterceptor o1Order = SpringContextUtil.findAnnotationOnBean(o1,LogInterceptor.class);
-                LogInterceptor o2Order = SpringContextUtil.findAnnotationOnBean(o2,LogInterceptor.class);
-                if(o1Order.order() < o2Order.order()) {
+            orderLists.sort((o1, o2) -> {
+                LogInterceptor o1Order = SpringContextUtil.findAnnotationOnBean(o1, LogInterceptor.class);
+                LogInterceptor o2Order = SpringContextUtil.findAnnotationOnBean(o2, LogInterceptor.class);
+                if (o1Order.order() < o2Order.order()) {
                     return 1;
                 } else {
                     return -1;
@@ -109,7 +109,7 @@ public class KafkaContainer {
                     String taskInfo = queue.take();
                     connector.send(taskInfo);
                 } catch (InterruptedException e) {
-                    log.error("taks runner Interrutped,stop,e:{}",e);
+                    log.error("task runner Interrupted,stop,e:{}",e);
                     Thread.currentThread().interrupt();
                     break;
                 } catch (Exception e) {

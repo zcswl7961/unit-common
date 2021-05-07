@@ -135,7 +135,7 @@ public class KafkaConsumerConnnector {
             //消费组编号
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, groupId);
             // 使用 earliest
-            /**
+            /*
              * 关于auto.offset.reset 得参数说明
              *      earliest
              *      latest
