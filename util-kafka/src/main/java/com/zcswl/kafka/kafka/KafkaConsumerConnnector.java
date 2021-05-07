@@ -211,7 +211,7 @@ public class KafkaConsumerConnnector {
                     System.out.println( "当前线程名称 : " + Thread.currentThread().getName() + ", 主题名称 :" + record.topic() + ", 分区名称 :" + record.partition() + ", 位移名称 :" + record.offset() + ", value :" + record.value());
                     handler.handle(record.value());
                 });
-                /** *
+                /*
                  * 权衡：延迟与数据一致性
                  *
                  * 如果您必须确保数据一致性，请选择commitSync()，因为它会确保在执行任何进一步操作之前，您将知道偏移提交是成功还是失败。但由于它是同步和阻塞，您将花费更多时间等待提交完成，这会导致高延迟。
