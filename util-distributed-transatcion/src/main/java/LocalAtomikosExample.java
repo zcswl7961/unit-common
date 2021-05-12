@@ -17,6 +17,9 @@ import java.util.Properties;
  * Synchronization、Xid接口，通过与XAResource接口交互来实现分布式事务。此外，TM厂商如果要支持跨应用的分布式事务，那么还要实现JTS规范定义的接口。
  *
  * 常见的TM提供者包括我们前面提到的application server，包括:jboss、ejb server、weblogic等，以及一些以第三方类库形式提供事务管理器功能的jotm、Atomikos。
+ *
+ * DTP分布式事务模型定义了对应的核心节点：RM(资源管理器),  AP(应用程序),  TM(事务管理器)
+ *
  * @author zhoucg
  * @date 2021-01-14 15:19
  */
