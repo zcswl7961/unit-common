@@ -45,7 +45,8 @@
         <module>util-flink</module>
         <module>util-kafka-monitor</module>
         <module>util-leecode</module>
-    </modules>
+		<module>util-quartz</module>
+	</modules>
 
 	<!-- 作为聚合modules使用 -->
 	<!-- packaging 给出了项目得打包类型，即作为项目得发布形式， 可用得配置形式  jar , war pom-->
