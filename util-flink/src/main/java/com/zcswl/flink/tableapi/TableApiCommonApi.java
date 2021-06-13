@@ -28,14 +28,14 @@ public class TableApiCommonApi {
 
         // 1.11 基于老版本的Table 的流处理和批处理环境
         // 基于老版本的流式处理
-        EnvironmentSettings oldStreamSettings = EnvironmentSettings.newInstance()
+        /*EnvironmentSettings oldStreamSettings = EnvironmentSettings.newInstance()
                 .useOldPlanner()
                 .inStreamingMode()
                 .build();
         StreamTableEnvironment oldStreamTableEnv = StreamTableEnvironment.create(env, oldStreamSettings);
         // 基于老版本的批处理
         ExecutionEnvironment batchEnv = ExecutionEnvironment.getExecutionEnvironment();
-        BatchTableEnvironment oldBatchEnv = BatchTableEnvironment.create(batchEnv);
+        BatchTableEnvironment oldBatchEnv = BatchTableEnvironment.create(batchEnv);*/
 
 
 
@@ -59,7 +59,7 @@ public class TableApiCommonApi {
                 "CREATE TABLE UserScores (name STRING)\n" +
                         "WITH (\n" +
                         "  'connector' = 'kafka',\n" +
-                        "  'topic' = 'nima',\n" +
+                        "  'topic' = 'zhoucg-wl',\n" +
                         "  'properties.bootstrap.servers' = '192.168.120.130:9092',\n" +
                         "  'properties.group.id' = 'testGroup',\n" +
                         "  'format' = 'json',\n" +

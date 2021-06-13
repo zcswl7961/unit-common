@@ -1,8 +1,12 @@
 package com.zcswl.kafka;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.zcswl.kafka.config.KafkaProperties;
 import com.zcswl.kafka.kafka.KafkaProducerConnector;
+import lombok.Data;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,7 +28,7 @@ public class ProduceTest {
         kafkaPropertiesProducer.setAck("-1");
         kafkaPropertiesProducer.setRetries(3);
         // partitions -> 3
-        kafkaPropertiesProducer.setSendTopic("topic-18");
+        kafkaPropertiesProducer.setSendTopic("zhoucg-wl"); // 原来的版本topic-18
         KafkaProducerConnector kafkaProducerConnector = new KafkaProducerConnector(kafkaPropertiesProducer);
         kafkaProducerConnector.init();
 
@@ -34,17 +38,32 @@ public class ProduceTest {
             while (true) {
                 // 每隔0.5秒发送一次消息
                 try {
-                    String message = fin +"=="+"ZHOUCG:WL:"+random.nextLong();
+                    //String message = fin +"=="+"ZHOUCG:WL:"+random.nextLong();
                     /*Future<RecordMetadata> send = kafkaProducerConnector.send(message);
                     RecordMetadata recordMetadata = send.get();
                     System.out.println("向kafka发送消息："+message+" 当前对应的partition："+recordMetadata.partition()+ " 当前对应的offset："+recordMetadata.offset());*/
-                    kafkaProducerConnector.send(message).get();
-                    Thread.sleep(200);
+
+                    Message message = new Message();
+                    message.setName("zhoucg"+random.nextLong());
+                    message.setAddress("浙江省杭州市西湖区"+random.nextInt(1000)+"号");
+                    message.setAge(random.nextInt());
+                    String s = JSONUtil.toJsonStr(message);
+                    kafkaProducerConnector.send(s).get();
+                    Thread.sleep(2000);
                     fin.getAndIncrement();
                 } catch (Exception e) {
                     System.out.println("报错误："+e);
                 }
             }
         }).start();
+    }
+
+
+    @Data
+    private static class Message {
+
+        private String name;
+        private String address;
+        private int age;
     }
 }

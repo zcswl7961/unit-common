@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,6 +30,8 @@ public class SocketExmaple {
 
                 TimeUnit.SECONDS.sleep(1);
                 String info = "I'm "+i+++"-th information from client";
+
+                new HashMap<>();
 
                 byteBuffer.clear();
                 byteBuffer.put(info.getBytes());

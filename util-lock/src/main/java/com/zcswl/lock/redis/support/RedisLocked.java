@@ -59,16 +59,11 @@ public class RedisLocked {
      * @return 是否解锁成功
      */
     public boolean release(String lockKey,String requestId) {
-        Jedis jedis = pool.getResource();
-        try {
+        try (Jedis jedis = pool.getResource()) {
             String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-            Object result = jedis.eval(script, Collections.singletonList(lockKey),Collections.singletonList(requestId));
-            if(RELEASE_SUCCESS.equals(result)) {
+            Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
+            if (RELEASE_SUCCESS.equals(result)) {
                 return true;
-            }
-        }finally {
-            if(jedis != null) {
-                jedis.close();
             }
         }
         return false;
