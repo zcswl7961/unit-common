@@ -11,7 +11,7 @@ import java.util.List;
  * @author zhoucg
  * @date 2021-02-19 23:18
  */
-public class ApplicationMasterCallback implements AMRMClientAsync.CallbackHandler{
+public class ApplicationMasterCallback implements AMRMClientAsync.CallbackHandler {
     @Override
     public void onContainersCompleted(List<ContainerStatus> list) {
 

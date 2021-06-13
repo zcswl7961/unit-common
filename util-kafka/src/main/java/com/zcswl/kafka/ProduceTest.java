@@ -28,7 +28,9 @@ public class ProduceTest {
         KafkaProducerConnector kafkaProducerConnector = new KafkaProducerConnector(kafkaPropertiesProducer);
         kafkaProducerConnector.init();
 
+
         AtomicInteger fin = new AtomicInteger();
+
         Random random = new Random();
         new Thread(() -> {
             while (true) {

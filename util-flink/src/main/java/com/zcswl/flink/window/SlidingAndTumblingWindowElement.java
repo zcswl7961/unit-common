@@ -22,7 +22,7 @@ public class SlidingAndTumblingWindowElement {
         // env
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStream<String> dataStream = env.socketTextStream("192.168.129.128", 8888);
+        DataStream<String> dataStream = env.socketTextStream("127.0.0.1", 8888);
 
         // 转换成对应的格式
         DataStream<Element> dataStreamMap = dataStream.map((MapFunction<String, Element>) value -> {

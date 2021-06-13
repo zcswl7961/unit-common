@@ -139,6 +139,7 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -193,6 +194,10 @@
         </dependency>
 
         <!-- jdbc 自定义Sink -->
+
+
+
+        <!--  参考 flink 中的官方文档信息-->
 
 
     </dependencies>

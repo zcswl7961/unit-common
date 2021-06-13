@@ -10,10 +10,9 @@ import org.apache.hadoop.yarn.exceptions.YarnException;
 import java.io.IOException;
 
 /**
- * @see <a href="https://github.com/fireflyc/learnyarn/blob/v0.1/src/main/java/im/lsn/learnyarn/am/ApplicationMaster.java">ApplicationMaster</a>
- *
  * @author zhoucg
  * @date 2021-02-19 23:17
+ * @see <a href="https://github.com/fireflyc/learnyarn/blob/v0.1/src/main/java/im/lsn/learnyarn/am/ApplicationMaster.java">ApplicationMaster</a>
  */
 public class ApplicationMaster {
 

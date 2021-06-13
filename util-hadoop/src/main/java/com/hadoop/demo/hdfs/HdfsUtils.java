@@ -125,7 +125,6 @@ public class HdfsUtils {
 
     /**
      * 判断某个文件名称是否是真实文件
-     *
      */
     public static boolean isFile(String fileName) throws Exception {
         return fileSystem.isFile(new Path(fileName));
@@ -133,7 +132,6 @@ public class HdfsUtils {
 
     /**
      * 查看某个目录下所有的文件
-     *
      */
     public static List<HDFSResource> listFiles(String directorName) throws Exception {
         List<HDFSResource> result = new ArrayList<>();
@@ -390,7 +388,6 @@ public class HdfsUtils {
      */
     public static void setSafeMode() {
     }
-
 
 
 }

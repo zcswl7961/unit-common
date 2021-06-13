@@ -33,5 +33,8 @@ public class KafkaSource {
 
         env.execute("fink-connector-kafka");
         // flink-connector-kafka
+
+        // 创建对应的flink的信息结果，同时处理对应的指
+
     }
 }
