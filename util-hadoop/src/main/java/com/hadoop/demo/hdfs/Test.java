@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * a simple test for hdfs
- *
- *
+ * <p>
+ * <p>
  * Unable to load native-hadoop library for your platform... using builtin-java classes where applicable 问题
  *
  * @author zhoucg

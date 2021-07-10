@@ -28,9 +28,9 @@ import java.util.Map;
 
 /**
  * a simple yarn from {@see <a href="https://github.com/fireflyc/learnyarn/blob/v0.1/src/main/java/im/lsn/learnyarn/DemoApplicationClient.java">DemoApplicationClient</a>}
- *
- *  yarn:
- *      https://www.cnblogs.com/zsql/p/11636112.html#_label0
+ * <p>
+ * yarn:
+ * https://www.cnblogs.com/zsql/p/11636112.html#_label0
  *
  * @author zhoucg
  * @date 2021-02-19 23:05
@@ -176,7 +176,6 @@ public class YarnUtils {
         }
 
     }
-
 
 
 }

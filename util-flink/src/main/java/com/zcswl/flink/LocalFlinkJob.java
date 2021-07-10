@@ -30,7 +30,8 @@ public class LocalFlinkJob {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
+
+        DataStreamSource<String> dataStreamSource = env.socketTextStream("127.0.0.1", 8888);
 
         // 流处理
         KeyedStream<StationLog, String> windowWindowedStream = dataStreamSource

@@ -37,7 +37,7 @@ public class WaterMarkDemo {
         env.getConfig().setAutoWatermarkInterval(100);
 
         // 通过socket获取流
-        DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
+        DataStream<String> dataStreamSource = env.socketTextStream("127.0.0.1", 8888);
 
         // 解决数据乱序的第三种策略，如果设置的数据延迟时间之后仍然延迟，就放到侧输出栏中
         OutputTag<StationLog> outputTag1 = new OutputTag<StationLog>("create"){};

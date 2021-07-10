@@ -164,11 +164,11 @@
         <!-- kafka-->
         <!-- FlinkKafkaProcecer011  sink-->
         <!-- FlinkKafkaConsumer011  source-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
             <version>${flink.version}</version>
-        </dependency>-->
+        </dependency>
 
         <!-- redis Apache bahir 提供-->
         <!-- RedisSink  sink
@@ -176,18 +176,6 @@
                     FlinkJedisConfigBase jedis的配置参数：FlinkJedisPoolConfig
                     RedisMapper:redis写入数据的命令，和对应的参数设置  RedisCommandDescription：命令描述
         -->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-json</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.apache.bahir</groupId>
@@ -207,8 +195,7 @@
             <version>${flink.version}</version>
         </dependency>
 
-        <!-- jdbc 自定义Sink -->
-
+        <!-- 对应的log日志配置-->
         <!-- Add logging framework, to produce console output when running in the IDE. -->
         <!-- These dependencies are excluded from the application JAR by default. -->
         <dependency>
@@ -229,8 +216,6 @@
             <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-
 
     </dependencies>
 
