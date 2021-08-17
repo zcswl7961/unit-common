@@ -46,6 +46,7 @@
         <module>util-kafka-monitor</module>
         <module>util-leecode</module>
 		<module>util-quartz</module>
+		<module>util-presto</module>
 	</modules>
 
 	<!-- 作为聚合modules使用 -->
