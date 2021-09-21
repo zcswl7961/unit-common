@@ -3,7 +3,9 @@ package com.zcswl.mybatis.serivce;
 import com.zcswl.mybatis.entity.Student;
 import com.zcswl.mybatis.mapper.StudentMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,14 +28,18 @@ public class StudentService {
         student.setAddress("asdfasdf");
 
         studentMapper.insert(student);
-        test2();
+        // 事务生效
+        // ((StudentService)AopContext.currentProxy()).test2();
+        this.test2();
+        // test2中的事务不会生效，使用对应的cglib也会生效
+        // this.test2();
+        System.out.print("first transaction message");
 
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void test2() {
-        int x = 1/0;
         studentMapper.update("1212", 2L);
         System.out.println(12);
     }
