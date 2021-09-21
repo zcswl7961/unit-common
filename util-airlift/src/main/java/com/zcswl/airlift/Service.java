@@ -11,6 +11,7 @@ import io.airlift.node.NodeModule;
  * https://github.com/airlift/airlift
  *
  * Airlift is a framework for building REST services in Java.
+ * trino use airlift for rest
  * @author xingyi
  * @date 2021/9/11
  */
