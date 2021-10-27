@@ -1,6 +1,6 @@
 package com.common.jdk.jvm;
 
-import sun.misc.Launcher;
+//import sun.misc.Launcher;
 //import sun.security.mscapi.RSACipher;
 
 import java.io.File;
@@ -64,7 +64,7 @@ public class ClassLoaderTest {
         //ClassLoader classLoader2 = RSACipher.class.getClassLoader();
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
 
-        Launcher launcher = new Launcher();
+        // Launcher launcher = new Launcher();
 
 
         // ClassLoader
