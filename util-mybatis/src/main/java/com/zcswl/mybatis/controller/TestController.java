@@ -24,6 +24,12 @@ public class TestController {
         return "111";
     }
 
+    @GetMapping("/hello")
+    public String test1() {
+        studentService.testMybatisMapper();
+        return "12";
+    }
+
 
 
 

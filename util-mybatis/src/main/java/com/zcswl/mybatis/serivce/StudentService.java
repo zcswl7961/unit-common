@@ -18,6 +18,12 @@ public class StudentService {
 
     private final StudentMapper studentMapper;
 
+
+    public void testMybatisMapper() {
+        Student student = studentMapper.selectByPrimaryKey(1L);
+        System.out.println(student);
+    }
+
     /**
      * 开启事物操作
      */

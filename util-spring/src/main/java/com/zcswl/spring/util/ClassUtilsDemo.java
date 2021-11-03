@@ -13,8 +13,14 @@ import java.util.Map;
  */
 public class ClassUtilsDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
+        String[] strArray = new String[2];
+        System.out.println(strArray);
+
+        testClassUtils();
+
         String intName = int.class.getName();
+        System.out.println(intName);
         String booleanStrName = boolean[].class.getName();
         String byteStrName =  byte[].class.getName();
         ClassLoader clToUse = null;
@@ -53,6 +59,11 @@ public class ClassUtilsDemo {
             classLoader = Thread.currentThread().getContextClassLoader();
         }
 
+    }
+
+
+    public static void testClassUtils() throws ClassNotFoundException {
+        Class<?> anInt = ClassUtils.forName("int", null);
     }
 
     /**

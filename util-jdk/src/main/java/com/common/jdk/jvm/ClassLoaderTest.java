@@ -1,13 +1,19 @@
 package com.common.jdk.jvm;
 
-//import sun.misc.Launcher;
-//import sun.security.mscapi.RSACipher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sun.misc.CompoundEnumeration;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 /**
@@ -111,6 +117,181 @@ public class ClassLoaderTest {
                 throw new ClassNotFoundException(name);
             }
         }
+    }
+
+    /**
+     * 继承自对应的UrlClassLoader的类加载器
+     * 破坏双亲委派机制的策略类加载器
+     */
+    private static class LocalClassLoader extends URLClassLoader {
+
+        private static Logger LOGGER = LoggerFactory.getLogger(LocalClassLoader.class);
+
+        private ClassLoader parent;
+
+        private boolean hasExternalRepositories = false;
+
+        public LocalClassLoader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+            this.parent = parent;
+        }
+
+        public LocalClassLoader(URL[] urls) {
+            super(urls);
+        }
+
+        @Override
+        public Class<?> loadClass(String name) throws ClassNotFoundException {
+            return this.loadClass(name, false);
+        }
+
+        @Override
+        public Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+            synchronized (getClassLoadingLock(name)) {
+                if (LOGGER.isDebugEnabled()){
+                    LOGGER.debug("loadClass(" + name + ", " + resolve + ")");
+                }
+                Class<?> clazz = null;
+
+                // (0.1) Check our previously loaded class cache
+                clazz = findLoadedClass(name);
+                if (clazz != null) {
+                    if (LOGGER.isDebugEnabled()){
+                        LOGGER.debug("  Returning class from cache");
+                    }
+                    if (resolve){
+                        resolveClass(clazz);
+                    }
+                    return (clazz);
+                }
+
+                // (2) Search local repositories
+                if (LOGGER.isDebugEnabled()){
+                    LOGGER.debug("  Searching local repositories");
+                }
+                try {
+                    clazz = findClass(name);
+                    if (clazz != null) {
+                        if (LOGGER.isDebugEnabled()){
+                            LOGGER.debug("  Loading class from local repository");
+                        }
+                        if (resolve){
+                            resolveClass(clazz);
+                        }
+                        return (clazz);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // Ignore
+                }
+
+                if (LOGGER.isDebugEnabled()){
+                    LOGGER.debug("  Delegating to parent classloader at end: " + parent);
+                }
+
+                try {
+                    clazz = Class.forName(name, false, parent);
+                    if (clazz != null) {
+                        if (LOGGER.isDebugEnabled()){
+                            LOGGER.debug("  Loading class from parent");
+                        }
+                        if (resolve){
+                            resolveClass(clazz);
+                        }
+                        return (clazz);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // Ignore
+                }
+            }
+
+            throw new ClassNotFoundException(name);
+        }
+
+        @Override
+        public URL getResource(String name) {
+
+            if (LOGGER.isDebugEnabled()){
+                LOGGER.debug("getResource(" + name + ")");
+            }
+
+            URL url = null;
+
+            // (2) Search local repositories
+            url = findResource(name);
+            if (url != null) {
+                if (LOGGER.isDebugEnabled()){
+                    LOGGER.debug("  --> Returning '" + url.toString() + "'");
+                }
+                return (url);
+            }
+
+            // (3) Delegate to parent unconditionally if not already attempted
+            url = parent.getResource(name);
+            if (url != null) {
+                if (LOGGER.isDebugEnabled()){
+                    LOGGER.debug("  --> Returning '" + url.toString() + "'");
+                }
+                return (url);
+            }
+
+            // (4) Resource was not found
+            if (LOGGER.isDebugEnabled()){
+                LOGGER.debug("  --> Resource not found, returning null");
+            }
+            return (null);
+        }
+
+        @Override
+        public void addURL(URL url) {
+            super.addURL(url);
+            hasExternalRepositories = true;
+        }
+
+        /**
+         * FIXME 需要测试
+         * @param name
+         * @return
+         * @throws IOException
+         */
+        @Override
+        public Enumeration<URL> getResources(String name) throws IOException {
+            @SuppressWarnings("unchecked")
+            Enumeration<URL>[] tmp = (Enumeration<URL>[]) new Enumeration<?>[1];
+            tmp[0] = findResources(name);//优先使用当前类的资源
+
+            if(!tmp[0].hasMoreElements()){//只有子classLoader找不到任何资源才会调用原生的方法
+                return super.getResources(name);
+            }
+
+            return new CompoundEnumeration<>(tmp);
+        }
+
+        @Override
+        public Enumeration<URL> findResources(String name) throws IOException {
+
+            if (LOGGER.isDebugEnabled()){
+                LOGGER.debug("findResources(" + name + ")");
+            }
+
+            LinkedHashSet<URL> result = new LinkedHashSet<>();
+
+            Enumeration<URL> superResource = super.findResources(name);
+
+            while (superResource.hasMoreElements()){
+                result.add(superResource.nextElement());
+            }
+
+            // Adding the results of a call to the superclass
+            if (hasExternalRepositories) {
+                Enumeration<URL> otherResourcePaths = super.findResources(name);
+                while (otherResourcePaths.hasMoreElements()) {
+                    result.add(otherResourcePaths.nextElement());
+                }
+            }
+
+            return Collections.enumeration(result);
+        }
+
     }
 
 

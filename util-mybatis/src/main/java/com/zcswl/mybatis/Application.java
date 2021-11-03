@@ -1,6 +1,5 @@
 package com.zcswl.mybatis;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -14,14 +13,16 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * 方式二：使用@MapperScan注解
  *      通过@MapperScan可以指定要扫描的Mapper接口类的包路径
  *
+ * EnableAspectJAutoProxy(exposeProxy = true)
+ * 通过AopContext获取
+ *
  * Mapper PageHelper 学习文档：https://blog.csdn.net/zcswl7961/article/details/109582909
  * @author zhoucg
  * @date 2018-12-27 17:22
  */
 @SpringBootApplication
-// 通过AopContext获取
 @EnableAspectJAutoProxy(exposeProxy = true)
-@MapperScan(basePackages = "com.zcswl.mybatis.mapper")
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "com.zcswl.mybatis.mapper")
 public class Application {
 
 

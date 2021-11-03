@@ -1,4 +1,5 @@
 # 基于多数据源的数据库配置信息
+# 上面的配置信息在configuratin中进行Properties设置
 two:
     datasource:
         pmcis:
@@ -48,6 +49,7 @@ two:
 
 
 # 通过对应的jdbc进行数据源连接操作, spring 自动注入
+# spring-boot-starter-jdbc
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&remarks=true&useInformationSchema=true
