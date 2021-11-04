@@ -27,4 +27,9 @@
     </update>
 
 
+    <select id="selectAllList" resultType="com.zcswl.mybatis.entity.Student">
+        select * from t_student
+    </select>
+
+
 </mapper>

@@ -1,8 +1,13 @@
 package com.zcswl.mybatis.controller;
 
+import com.zcswl.mybatis.common.api.PageResult;
+import com.zcswl.mybatis.common.params.StudentQuery;
+import com.zcswl.mybatis.entity.Student;
 import com.zcswl.mybatis.serivce.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +36,10 @@ public class TestController {
     }
 
 
-
-
+    @PostMapping("/page")
+    public PageResult<Student> pageQuery(@RequestBody StudentQuery query) {
+        return studentService.pageQuery(query);
+    }
 
 
 

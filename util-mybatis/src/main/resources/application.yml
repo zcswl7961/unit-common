@@ -65,6 +65,12 @@ mybatis:
 server:
   port: 8082
 
+# pageHelper 分页查询框架
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countSql
+
 
 logging:
   level:

@@ -1,5 +1,10 @@
 package com.zcswl.mybatis.serivce;
 
+import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.zcswl.mybatis.common.api.PageResult;
+import com.zcswl.mybatis.common.params.StudentQuery;
 import com.zcswl.mybatis.entity.Student;
 import com.zcswl.mybatis.mapper.StudentMapper;
 import lombok.AllArgsConstructor;
@@ -7,6 +12,8 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author xingyi
@@ -49,6 +56,35 @@ public class StudentService {
         studentMapper.update("1212", 2L);
         System.out.println(12);
     }
+
+
+    public PageResult<Student> pageQuery(StudentQuery query){
+        PageHelper.startPage(query.getCurrentPage(), query.getPageSize(), buildOrderBy(query, "id"));
+        List<Student> students = studentMapper.selectAllList(query);
+        return new PageResult<>(((Page<Student>) students).getTotal(), students);
+
+    }
+
+
+    public <T extends StudentQuery> String buildOrderBy(T condition, String defaultSortBy) {
+        String sortBy, sortType;
+        if (null == condition) {
+            if (null == defaultSortBy) {
+                return null;
+            }
+            sortBy = defaultSortBy;
+            sortType = "DESC";
+        } else {
+            sortBy = StrUtil.isBlank(condition.getSortBy()) ? defaultSortBy : condition.getSortBy();
+            if (null == sortBy) {
+                return null;
+            }
+            sortType = StrUtil.isBlank(condition.getSortType()) ? "DESC" : condition.getSortType();
+        }
+        return StrUtil.format("`{}` {}", sortBy, sortType);
+    }
+
+
 
 
 }

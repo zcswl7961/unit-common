@@ -65,12 +65,24 @@
             <version>1.5.4</version>
         </dependency>
 
-        <!--<dependency>
+        <!-- pageHelper 分页查询-->
+        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.13</version>
-        </dependency>-->
+        </dependency>
 
+        <!-- guava-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.5.7</version>
+        </dependency>
 
 
     </dependencies>
