@@ -17,7 +17,7 @@ public class ClassAdapter extends Adaptee implements  Target{
                 String s = "0" + x /1;
                 break;
             case 2:
-                String s = "0" + x /1;
+                String s1 = "0" + x /1;
                 break;
         }
     }
