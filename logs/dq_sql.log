@@ -1,0 +1,6 @@
+2021-11-29 17:53:20.921 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - ==>  Preparing: SELECT `id`,`name`,`address` FROM `t_student` WHERE `id` = ? 
+2021-11-29 17:53:20.943 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - ==> Parameters: 1(Long)
+2021-11-29 17:53:20.953 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - <==      Total: 1
+2021-11-29 19:03:13.498 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - ==>  Preparing: SELECT `id`,`name`,`address` FROM `t_student` WHERE `id` = ? 
+2021-11-29 19:03:13.521 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - ==> Parameters: 1(Long)
+2021-11-29 19:03:13.534 [http-nio-8082-exec-1] DEBUG c.z.m.mapper.StudentMapper.selectByPrimaryKey [BaseJdbcLogger.java:143] - <==      Total: 1

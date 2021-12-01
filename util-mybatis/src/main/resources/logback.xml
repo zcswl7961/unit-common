@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+
+    <property name="FILE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} [%file:%line] - %msg%n"/>
+
+    <property name="SERVER" value="server"/>
+    <property name="SQL" value="dq_sql"/>
+    <property name="REQUEST" value="dq_http_request"/>
+    <property name="QUARTZ" value="dq_job"/>
+    <property name="CONSOLE" value="console"/>
+
+    <!-- 控制台-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- mybatis 对应的sql信息-->
+    <appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.dir}/logs/${SQL}.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.dir}/logs/history/${SQL}_%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- dao层对应的sql日志-->
+    <logger name="com.zcswl.mybatis.mapper" level="DEBUG">
+        <appender-ref ref="SQL" />
+    </logger>
+
+</configuration>
