@@ -99,22 +99,6 @@
 	</distributionManagement>-->
 
 
-	<!-- 美创私服 -->
-	<distributionManagement>
-		<!-- 稳定版本 -->
-		<repository>
-			<id>maven-repository-releases</id>
-			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/releases/</url>
-		</repository>
-
-		<!-- 快照版本-->
-		<snapshotRepository>
-			<id>maven-repository-snapshots</id>
-			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-
 	<!-- 处理从maven中配置的中央仓库中下来依赖包之外，同样会从下面配置的
 	 		私服地址进行下载依赖 其中id和你的仓库名称一致
 	 		设置 snapshots 的 enabled 为ture，表示允许下载 snapshots 版本的包-->
