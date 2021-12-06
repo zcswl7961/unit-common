@@ -101,7 +101,8 @@ public class LocalAtomikosExample {
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
         //atomikos要求为每个AtomikosDataSourceBean名称，为了方便记忆，这里设置为和dbName相同
         ds.setUniqueResourceName(dbName);
-        ds.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
+        ds.setXaDataSourceClassName("com.mysql.cj.jdbc.MysqlXADataSource");
+        // ds.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
         ds.setXaProperties(p);
         return ds;
     }

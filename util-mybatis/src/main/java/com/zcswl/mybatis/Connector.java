@@ -1,6 +1,7 @@
 package com.zcswl.mybatis;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -31,7 +32,7 @@ public class Connector {
         Class.forName("com.mysql.jdbc.Driver");
         System.out.println("数据库驱动加载成功");
         // useUnicode=true&characterEncoding=utf-8&useSSL=false
-        String url="jdbc:mysql://192.168.1.196:3306";
+        String url="jdbc:mysql://127.0.0.1:3306";
         //如果不加useSSL=false就会有警告，由于jdbc和mysql版本不同，有一个连接安全问题
 
         String user="root";
@@ -55,6 +56,8 @@ public class Connector {
 
 
         Connection connect = driver.connect(url, properties);
+        int majorVersion = driver.getMajorVersion();
+        int majorVersion1 = driver.getMajorVersion();
         System.out.println("已成功的与数据库MySQL建立连接！！" + connect);
     }
 }

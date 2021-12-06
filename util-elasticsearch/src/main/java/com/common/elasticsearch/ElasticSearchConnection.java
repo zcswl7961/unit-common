@@ -4,7 +4,6 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.omg.CORBA.portable.UnknownException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +45,6 @@ public class ElasticSearchConnection {
             addHost(client, hosts);
             logger.info("elastisearch  info :{}, cluster.name: {} ", hosts, clusterName);
         } catch (UnknownHostException e) {
-            throw new UnknownException(e);
         }
     }
 
