@@ -48,7 +48,7 @@
 		<module>util-quartz</module>
 		<module>util-presto</module>
         <module>util-google</module>
-        <module>util-airlift</module>
+        <!--<module>util-airlift</module>-->
         <module>util-grpc</module>
     </modules>
 

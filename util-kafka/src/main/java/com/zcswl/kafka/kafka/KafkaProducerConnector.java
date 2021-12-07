@@ -1,6 +1,7 @@
 package com.zcswl.kafka.kafka;
 
 import com.zcswl.kafka.config.KafkaProperties;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
@@ -20,7 +21,7 @@ import java.util.concurrent.Future;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@AllArgsConstructor
 public class KafkaProducerConnector {
 
     private final KafkaProperties properties;

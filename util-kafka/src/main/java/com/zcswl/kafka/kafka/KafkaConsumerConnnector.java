@@ -3,6 +3,7 @@ package com.zcswl.kafka.kafka;
 import com.google.common.collect.Lists;
 import com.zcswl.kafka.config.KafkaProperties;
 import com.zcswl.kafka.handler.Handler;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ import java.util.*;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@AllArgsConstructor
 public class KafkaConsumerConnnector {
 
     private final KafkaProperties prop;

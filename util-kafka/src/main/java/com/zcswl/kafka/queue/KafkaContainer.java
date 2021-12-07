@@ -6,6 +6,7 @@ import com.zcswl.kafka.annotation.LogInterceptor;
 import com.zcswl.kafka.common.SpringContextUtil;
 import com.zcswl.kafka.handler.PreHandler;
 import com.zcswl.kafka.kafka.KafkaProducerConnector;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@AllArgsConstructor
 public class KafkaContainer {
 
     private static Predicate<String> preHandlerPredicate = preHandlerName -> SpringContextUtil.findAnnotationOnBean(preHandlerName, LogInterceptor.class) != null;
