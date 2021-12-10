@@ -1,9 +1,8 @@
-package com.zcswl.mybatis;
+import com.mysql.cj.jdbc.MysqlSavepoint;
 
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.Properties;
 
 /**
@@ -29,7 +28,6 @@ public class Connector {
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = null;
-        Class.forName("com.mysql.jdbc.Driver");
         System.out.println("数据库驱动加载成功");
         // useUnicode=true&characterEncoding=utf-8&useSSL=false
         String url="jdbc:mysql://127.0.0.1:3306";
@@ -59,5 +57,20 @@ public class Connector {
         int majorVersion = driver.getMajorVersion();
         int majorVersion1 = driver.getMajorVersion();
         System.out.println("已成功的与数据库MySQL建立连接！！" + connect);
+
+        // 本地事务
+        // SavePoint
+        // https://vimsky.com/examples/detail/java-class-com.mysql.jdbc.ConnectionImpl.ExceptionInterceptorChain.html
+        // mysql的事务是通过redo.log实现的
+        connect.setAutoCommit(false);
+        try {
+            // 执行本地事物方法
+            connect.commit();
+        } catch (Exception e) {
+            connect.rollback();
+        } finally {
+            connect.close();
+        }
+
     }
 }
