@@ -13,7 +13,8 @@ import java.rmi.registry.LocateRegistry;
 /**
  *
  * 使用Naming方法实现rmi
- *
+ * 命名服务：
+ *  命名服务是一种简单的键值对绑定，可以通过键名检索值，RMI就是典型的命名服务
  * @author zhoucg
  * @date 2020-03-04 21:38
  */

@@ -9,6 +9,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
+ * rmi和jndi之间的关系
+ * https://blog.csdn.net/u011479200/article/details/108246846
  * @author zhoucg
  * @date 2020-03-04 21:28
  */
