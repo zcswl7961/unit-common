@@ -1,4 +1,4 @@
-package com.zcswl.flink.stream;
+package com.zcswl.flink.transform;
 
 import org.apache.flink.api.common.JobExecutionResult;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -29,6 +29,8 @@ public class DataStreamTransformationsDemo {
         //              .window(TumblingEventTimeWindows.of(Time.seconds(3)))
         //              .apply (new JoinFunction () {...});
         //      process
+        //      split
+        //      connect
         //
         // DataStream -> KeyedStream
         //      keyBy: flink的keyBy并不是一个算子操作，Flink 的keyBy本质上并不是将相同key的元素集合到一个集合元素里面，
@@ -37,6 +39,7 @@ public class DataStreamTransformationsDemo {
         // KeyedStream -> DataStream
         //      reduce :“滚动”减少键控数据流。结合当前元素最后价值和降低排放的新值。(A "rolling" reduce on a keyed data stream.
         //                  Combines the current element with the last reduced value and emits the new value.)
+        //              reduceFunction(T t1, T t2)
         //      fold:  “滚动”褶皱与一个初始值的数据流。结合当前元素最后折叠价值和排放的新值。 @Deprecated
         //              A "rolling" fold on a keyed data stream with an initial value.
         //              Combines the current element with the last folded value and emits the new value.
@@ -68,13 +71,14 @@ public class DataStreamTransformationsDemo {
         //          min minBy max maxBy
 
         // DataStream 常用api操作
-        //      shuffle()   随机发牌
+        //      shuffle()   随机发牌,
         //      boradcast() 广播
         //      forward() 直接发给当前slot槽位的下一个算子的子任务中, 下一个算子的并行度要调整和上一个算子的并行度相同
         //                Forward partitioning does not allow change of parallelism. Upstream operation: Source: Socket Stream-1 parallelism: 1, downstream operation:
         //                Sink: Print to Std. Out-3 parallelism: 8 You must use another partitioning strategy, such as broadcast, rebalance, shuffle or global.
         //      reblance() 依次发给下一个算子
         //      global 分发到下一个算子的第一个子任务中，这个一般不会设置，存在性能问题
+        //      partitionCustom 用户自定义分区器
         //
         DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
         //DataStream<String> nextDataStream = dataStreamSource.shuffle();

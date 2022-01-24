@@ -46,6 +46,7 @@ public class ProcessFunctionDemo {
                     // 设置对应的flatMap 算子的并行度为4
                 });
 
+        // https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/learn-flink/event_driven.html
         windowWindowedStream.keyBy(StationLog::getStationID)
                 .process(new MyKeyedProcessFunction())
                 .print();

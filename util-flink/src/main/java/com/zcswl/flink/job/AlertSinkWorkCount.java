@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * flink sink
  * @author zhoucg
  * @date 2021-02-24 11:06
  */

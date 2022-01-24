@@ -27,6 +27,7 @@ public class WordCount {
         //连接socket获取输入的数据
         DataStreamSource<String> text = env.socketTextStream("127.0.0.1", 8888, "\n");
 
+
         //计算数据
         DataStream<WordWithCount> windowCount = text.flatMap(new FlatMapFunction<String, WordWithCount>() {
             public void flatMap(String value, Collector<WordWithCount> out) throws Exception {
@@ -44,8 +45,7 @@ public class WordCount {
         windowCount
                 .addSink(new AlertSinkWorkCount())
                 .name("send-alerts");
-        windowCount.print()
-                .setParallelism(1);//使用一个并行度
+        //windowCount.print();//使用一个并行度
         //注意：因为flink是懒加载的，所以必须调用execute方法，上面的代码才会执行
         // 流处理的操作
         env.execute("streaming word count");

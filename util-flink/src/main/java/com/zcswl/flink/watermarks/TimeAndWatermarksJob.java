@@ -38,7 +38,7 @@ public class TimeAndWatermarksJob {
         env.getConfig().setAutoWatermarkInterval(100);//默认100毫秒
 
         // source
-        DataStream<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
+        DataStream<String> dataStreamSource = env.socketTextStream("127.0.0.1", 8888);
 
         DataStream<Sensor> dataStreamMap = dataStreamSource.map((MapFunction<String, Sensor>) value -> {
             Random random = new Random();
@@ -46,7 +46,7 @@ public class TimeAndWatermarksJob {
             return new Sensor(value, sensor, System.currentTimeMillis());
         });
 
-        // 当Flink已Event Timer模式处理数据流时，它会根据数据里的时间戳来处理基于时间的算子
+        // 当Flink以Event Timer模式处理数据流时，它会根据数据里的时间戳来处理基于时间的算子
         // 给一个100毫秒的延迟
         // 乱序数据设置时间戳和watermark
         // AssignerWithPeriodicWatermarks 周期
