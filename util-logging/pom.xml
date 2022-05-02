@@ -54,7 +54,7 @@
                     <artifactId>log4j-api</artifactId>
                 </exclusion>
             </exclusions>
-            <version>5.0.9.RELEASE</version>
+            <version>5.3.19</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
