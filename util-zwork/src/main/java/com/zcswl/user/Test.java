@@ -1,5 +1,7 @@
 package com.zcswl.user;
 
+import java.util.EnumSet;
+
 /**
  * @author xingyi
  * @date 2021/8/11 2:48 下午
@@ -22,5 +24,10 @@ public class Test {
         String str22 = str2.replaceAll(".", "#");	// str22 = "###################"
         String str33 = str3.replaceFirst(".", "#");	// str33 = "#oc.Iop.Aoc.Iop.Aoc"
         System.out.println(1);
+
+        EnumSet<YarnApplicationState> yarnApplicationStates = EnumSet.noneOf(YarnApplicationState.class);
+        System.out.print(yarnApplicationStates);
+
+
     }
 }
