@@ -20,7 +20,7 @@ import java.util.Random;
 /**
  * https://www.cnblogs.com/ronnieyuan/p/11847568.html
  *
- * 滚翻窗口
+ * 滚动窗口
  * 翻滚窗口能将数据流切分成不重叠的窗口，每一个事件只能属于一个窗口
  * 翻滚窗具有固定的尺寸，不重叠。
  * @author zhoucg
@@ -60,10 +60,12 @@ public class TumblingWindow {
         WindowedStream<Tuple2<String, Integer>, Tuple, GlobalWindow> countWindow = map.keyBy(0)
                 .countWindow(100);
 
+        // 全窗口函数
         timeWindow.apply(new MyTimeWindowFunction()).setParallelism(1).print();
 
         // 增量聚合函数
         SingleOutputStreamOperator<String> aggregate = timeWindow.aggregate(new MyAggregateFunction());
+
 
         env.execute();
     }

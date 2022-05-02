@@ -72,8 +72,8 @@ pagehelper:
   params: count=countSql
 
 
-logging:
-  level:
-    com.zcswl: debug
-    org.springframework: info
-    com.zcswl.mybatis.mapper: debug
+#logging:
+#  level:
+#    com.zcswl: debug
+#    org.springframework: info
+#    com.zcswl.mybatis.mapper: debug

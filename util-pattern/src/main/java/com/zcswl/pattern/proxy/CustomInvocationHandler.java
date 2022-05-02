@@ -2,6 +2,7 @@ package com.zcswl.pattern.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 /**
  * Created by zhoucg on 2019-03-17.
@@ -25,6 +26,12 @@ public class CustomInvocationHandler implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if (method.getName().equals("equals")) {
+            Object target = this.target;
+            Object objects = args[0];
+            Proxy proxy1 = (Proxy) objects;
+            System.out.println(111);
+        }
 
         System.out.println("Before invocation==============");
         // target代理的是对应调用的本身

@@ -1,8 +1,4 @@
 package com.common.jdk.thread.concurrent;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;

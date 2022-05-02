@@ -28,8 +28,13 @@ public class ProxyTest {
         HelloTest proxy = (HelloTest) Proxy.newProxyInstance(
                 HelloTest.class.getClassLoader(),
                 helloWord.getClass().getInterfaces(), customInvocationHandler);
+
+        HelloTest proxy1 = (HelloTest) Proxy.newProxyInstance(
+                HelloTest.class.getClassLoader(),
+                helloWord.getClass().getInterfaces(), customInvocationHandler);
         //调用say方法
         proxy.say("test");
+        proxy.equals(proxy1);
 
 
         Class proxyClass = Proxy.getProxyClass(HelloTest.class.getClassLoader(), HelloTest.class);

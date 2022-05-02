@@ -42,7 +42,7 @@ public class LocalAtomikosExample {
             // 开启事务
             userTransaction.begin();
 
-            // 执行db1上的sql
+            // 执行db1上的sqla
             conn1 = dataSourceBean1.getConnection();
             ps1 = conn1.prepareStatement("INSERT into t_order(user_id, status) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps1.setInt(1, 1000);
@@ -51,11 +51,11 @@ public class LocalAtomikosExample {
             ResultSet generatedKeys = ps1.getGeneratedKeys();
             int userId = -1;
             while (generatedKeys.next()) {
-                userId = generatedKeys.getInt(1);// 获得自动生成的userId
+                // 获取自定生成的userId
+                userId = generatedKeys.getInt(1);
             }
 
             // 模拟异常 ，直接进入catch代码块，2个都不会提交
-        int i=1/0;
 
             // 执行db2上的sql
             conn2 = dataSourceBean2
@@ -101,7 +101,8 @@ public class LocalAtomikosExample {
         AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
         //atomikos要求为每个AtomikosDataSourceBean名称，为了方便记忆，这里设置为和dbName相同
         ds.setUniqueResourceName(dbName);
-        ds.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
+        ds.setXaDataSourceClassName("com.mysql.cj.jdbc.MysqlXADataSource");
+        // ds.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
         ds.setXaProperties(p);
         return ds;
     }

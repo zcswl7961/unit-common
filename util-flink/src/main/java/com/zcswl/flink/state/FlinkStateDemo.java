@@ -43,7 +43,7 @@ public class FlinkStateDemo {
         // 设置状态后端 策略
         // env.setStateBackend()
 
-        DataStreamSource<String> dataStreamSource = env.socketTextStream("192.168.129.128", 8888);
+        DataStreamSource<String> dataStreamSource = env.socketTextStream("127.0.0.1", 8888);
 
         SingleOutputStreamOperator<StationLog> windowWindowedStream = dataStreamSource
                 // 流元素扁平化处理，转换成StationLog
@@ -60,6 +60,9 @@ public class FlinkStateDemo {
                 });
         //windowWindowedStream.keyBy(StationLog::getStationID)
         //        .map(new MyRichMapFunction()).print();
+
+
+
 
         // 基于keyedState 进行状态编码
         // 对于基站的信息：station1,18688822219,18684812319,10,1595158485855  基站id ，呼叫方，被叫放，呼叫持续时间，通话开始时间

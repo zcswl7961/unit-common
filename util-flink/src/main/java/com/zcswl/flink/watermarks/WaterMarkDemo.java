@@ -21,11 +21,16 @@ import java.time.Duration;
 
 /**
  * 每隔五秒，将过去是10秒内，通话时间最长的通话日志输出。
+ *
  * @author zhoucg
  * @date 2021-03-03 22:43
  */
 public class WaterMarkDemo {
 
+    /**
+     * watermark 算子之间的传递
+     *
+     */
     public static void main(String[] args) throws Exception {
         // 得到flink流式处理的运行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -86,20 +91,32 @@ public class WaterMarkDemo {
                 // 过滤
                 .filter((FilterFunction<StationLog>) value -> value.getDuration() > 0)
 
-                // 当Flink已Event Timer模式处理数据流时，它会根据数据里的时间戳来处理基于时间的算子
+                // 当Flink已Event Timer模式处理数据流时，它会根据数据里的时间戳来处理基于时间的算子，（就是计算对应的watermark）
                 // 给一个3秒的延迟
+                // watermark = eventTime - 延迟时间
+                // <>watermark表示timestamp（时间时间）小于watermark的数据都已经到齐
                 // 乱序数据设置时间戳和watermark
                 // AssignerWithPeriodicWatermarks 周期
+
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<StationLog>forBoundedOutOfOrderness(Duration.ofSeconds(3))
                         .withTimestampAssigner((SerializableTimestampAssigner<StationLog>) (element, recordTimestamp) -> {
                             return element.getCallTime(); //指定EventTime对应的字段
                         }))
+
+                // 表示的是时间有序，所以对应的时间就是按照事件时间
+                // AscendingTimestampsWatermarks
+                //.assignTimestampsAndWatermarks(WatermarkStrategy.<StationLog>forMonotonousTimestamps().withTimestampAssigner((SerializableTimestampAssigner<StationLog>) (element, recordTimestmp) -> {
+                //    return element.getCallTime();
+                //}))
+
                 // 分组操作,按照基站进行分组操作
                 .keyBy(StationLog::getStationID)
                 // 基于时间驱动，每隔5s计算一下最近10s的数据
                 //.timeWindow(Time.seconds(10), Time.seconds(5))
                 .timeWindow(Time.seconds(10))
                 // 解决事件乱序的另一个防范，设置数据延迟处理时间
+                // 当对应的watermark触发了窗口计算的时候，会首先在窗口中计算一次数据
+                // 设置延迟时间之后是来一个计算一次数据（桶不会关闭），但是同样针对watermark进行计算的
                 .allowedLateness(Time.seconds(5))
                 // 侧输出栏
                 .sideOutputLateData(outputTag);

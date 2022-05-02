@@ -17,7 +17,7 @@
         <scala.binary.version>2.11</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <log4j.version>2.12.1</log4j.version>
+        <log4j.version>2.15.0</log4j.version>
     </properties>
 
 
@@ -188,6 +188,8 @@
                     RedisMapper:redis写入数据的命令，和对应的参数设置  RedisCommandDescription：命令描述
         -->
 
+
+        <!-- 开发相关工作测试性能-->
         <dependency>
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_${scala.binary.version}</artifactId>
@@ -199,6 +201,7 @@
         <!-- ElasticsearchSink  sink
             List<HttpHost> https :es参数
             ElasticsearchSinkFunction：
+
             -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -282,7 +285,8 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!--<mainClass>com.zcswl.flink.demo.FraudDetectionJob</mainClass>-->
                                     <!--<mainClass>com.zcswl.flink.job.WordCount</mainClass>-->
-                                    <mainClass>com.zcswl.flink.watermarks.WaterMarkDemo</mainClass>
+                                    <!--<mainClass>com.zcswl.flink.watermarks.WaterMarkDemo</mainClass>-->
+                                    <mainClass>com.zcswl.flink.LocalFlinkJob</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

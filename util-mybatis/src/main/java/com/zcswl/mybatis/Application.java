@@ -6,7 +6,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * 关于mybatis原生使用@Mapper和@MapperScan的关系
- * 在使用Mybatis持久层框架来操作数据库时，我们可以使用@Mapper注解和@MapperScan注解来将Mapper接口类交给Sprinig进行管理。
+ * 在使用Mybatis持久层框架来操作数据库时，我们可以使用@Mapper注解和@MapperScan注解来将Mapper接口类交给Spring进行管理。
  * 方式一：使用@Mapper注解
  *      优点：粒度更细
  *      缺点：直接在Mapper接口类中加@Mapper注解，需要在每一个mapper接口类中都需要添加@Mapper注解，较为繁琐

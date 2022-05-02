@@ -48,7 +48,8 @@
 		<module>util-quartz</module>
 		<module>util-presto</module>
         <module>util-google</module>
-        <module>util-airlift</module>
+        <!--<module>util-airlift</module>-->
+        <module>util-grpc</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->
@@ -98,25 +99,9 @@
 	</distributionManagement>-->
 
 
-	<!-- 美创私服 -->
-	<distributionManagement>
-		<!-- 稳定版本 -->
-		<repository>
-			<id>maven-repository-releases</id>
-			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/releases/</url>
-		</repository>
-
-		<!-- 快照版本-->
-		<snapshotRepository>
-			<id>maven-repository-snapshots</id>
-			<url>http://nexus.mchz.com.cn:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-
 	<!-- 处理从maven中配置的中央仓库中下来依赖包之外，同样会从下面配置的
 	 		私服地址进行下载依赖 其中id和你的仓库名称一致
-	 		设置 snapshots 的 enabled 为ture，表示允许下载 snapshots 版本的包-->
+	 		设置 snapshots 的 enabled 为true，表示允许下载 snapshots 版本的包-->
 	<repositories>
 		<!--<repository>
 			<id>maven-releases</id>
@@ -124,18 +109,6 @@
 			<url>http://localhost:8081/repository/maven-releases/</url>
 			<snapshots>
 				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-
-		&lt;!&ndash;美创私服&ndash;&gt;
-		<repository>
-			<id>nexus</id>
-			<name>Team Nexus Repository</name>
-			<url>http://nexus.mchz.com.cn:8081/nexus/content/groups/public</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
 			</snapshots>
 		</repository>-->
 	</repositories>
@@ -304,7 +277,7 @@
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-api</artifactId>
-				<version>2.11.1</version>
+				<version>2.15.0</version>
 			</dependency>
 
 
@@ -579,6 +552,7 @@
 
 	<!-- maven中的 profiles配置-->
 	<!-- https://blog.csdn.net/java_collect/article/details/83870215-->
+
 
 
 </project>
