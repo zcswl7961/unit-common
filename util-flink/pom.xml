@@ -12,9 +12,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <flink.version>1.11.2</flink.version>
+        <flink.version>1.12.7</flink.version>
         <java.version>1.8</java.version>
-        <scala.binary.version>2.11</scala.binary.version>
+        <scala.binary.version>2.12</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <log4j.version>2.15.0</log4j.version>
@@ -127,6 +127,12 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-yarn_2.12</artifactId>
+            <version>1.12.7</version>
+        </dependency>
+
         <!-- flink官方文档的规范引入：-->
         <!-- 你可以添加以下你的pom的依赖性。xml包含Apache Flink在您的项目中。这些依赖关系包括本地执行环境,从而支持本地测试。-->
         <!-- https://flink.apache.org/downloads.html-->
@@ -177,8 +183,14 @@
         <!-- FlinkKafkaConsumer011  source-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
+            <artifactId>flink-connector-kafka_2.11</artifactId>
             <version>${flink.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
         </dependency>
 
         <!-- redis Apache bahir 提供-->
@@ -190,11 +202,11 @@
 
 
         <!-- 开发相关工作测试性能-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_${scala.binary.version}</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency>-->
 
 
         <!-- elasticsearch flink 官方提供 bundled-->

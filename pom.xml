@@ -50,6 +50,7 @@
         <module>util-google</module>
         <!--<module>util-airlift</module>-->
         <module>util-grpc</module>
+        <module>util-akka</module>
     </modules>
 
 	<!-- 作为聚合modules使用 -->

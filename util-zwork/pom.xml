@@ -32,11 +32,12 @@
             <version>v0.0.1</version>
         </dependency>
 
-        <dependency>
+
+        <!--<dependency>
             <groupId>com.zcswl</groupId>
             <artifactId>util-spring</artifactId>
             <version>v0.0.1</version>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,7 +1,6 @@
 package com.zcswl.flink.source;
 
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
-import org.apache.flink.table.planner.expressions.Rand;
 
 import java.util.HashMap;
 import java.util.Map;

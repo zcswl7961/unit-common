@@ -27,6 +27,7 @@ import org.apache.flink.util.Collector;
  *  Operator State:
  *      一个算子子任务对应一个状态
  *      横向扩展：有多种状态重新分配的方式
+ *      一个算子，并行度2
  *
  *
  * flink的状态管理
@@ -88,6 +89,10 @@ public class FlinkStateDemo {
         public void open(Configuration parameters) throws Exception {
             valueState = getRuntimeContext().getState(new ValueStateDescriptor<StationLog>("phone-station", StationLog.class));
         }
+
+
+
+
 
         @Override
         public void flatMap(StationLog value, Collector<Tuple3<String, String, String>> out) throws Exception {

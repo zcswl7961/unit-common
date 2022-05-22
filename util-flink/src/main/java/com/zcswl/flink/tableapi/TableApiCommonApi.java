@@ -65,8 +65,19 @@ public class TableApiCommonApi {
                         "  'format' = 'json',\n" +
                         "  'scan.startup.mode' = 'group-offsets'\n" +
                         ")");
-        tableEnvironment.executeSql(createTable);
-        Table table = tableEnvironment.sqlQuery("SELECT * FROM UserScores");
+        String createTablePrint = String.format(
+                "CREATE TABLE print_table (\n" +
+                        " f0 INT,\n" +
+                        " f1 INT,\n" +
+                        " f2 STRING,\n" +
+                        " f3 DOUBLE\n" +
+                        ") WITH (\n" +
+                        " 'connector' = 'print'\n" +
+                        ")"
+        );
+        tableEnvironment.executeSql(createTablePrint);
+        // tableEnvironment.executeSql(createTable);
+        Table table = tableEnvironment.sqlQuery("SELECT * FROM print_table");
 
         DataStream<Row> infoDataStream1 = tableEnvironment.toAppendStream(table, Row.class);
         infoDataStream1.print();
