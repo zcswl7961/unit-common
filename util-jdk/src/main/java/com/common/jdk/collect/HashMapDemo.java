@@ -86,6 +86,12 @@ public class HashMapDemo {
 
         int i5 = tableSizeFor(11);
         int i6 = tableSizeFor(12);
+        // 1
+        int i55 = tableSizeFor(1);
+        // 4
+        int i66 = tableSizeFor(3);
+        System.out.println(i55+ "::" + i66);
+
         System.out.println(i5+ ":" + i6);
 
 
@@ -153,6 +159,10 @@ public class HashMapDemo {
         //
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
     }
+
+    /**
+     * 返回大于等于输入参数且最近的2的整数次幂的数，比如10，则返回16。该算法源码如下：
+     */
     static final int tableSizeFor(int cap) {
         int n = cap - 1;
         n |= n >>> 1;

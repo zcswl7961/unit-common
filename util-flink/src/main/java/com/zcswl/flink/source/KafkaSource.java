@@ -3,7 +3,6 @@ package com.zcswl.flink.source;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
 
 import java.util.Properties;
 
@@ -28,8 +27,8 @@ public class KafkaSource {
 
         env.enableCheckpointing(5000);
 
-        DataStream<String> stream = env.addSource(new FlinkKafkaConsumer011<String>("demo", new SimpleStringSchema(), props));
-        stream.print();
+        //DataStream<String> stream = env.addSource(new FlinkKafkaConsumer011<String>("demo", new SimpleStringSchema(), props));
+        //stream.print();
 
         env.execute("fink-connector-kafka");
         // flink-connector-kafka

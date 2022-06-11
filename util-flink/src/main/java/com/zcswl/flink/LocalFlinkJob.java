@@ -30,9 +30,9 @@ public class LocalFlinkJob {
 
 
     public static void main(String[] args) throws Exception {
+        
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
 
         // 本地模式
         // args : --host 192.168.129.128 --port 8888 解析这种格式

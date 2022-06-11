@@ -1,11 +1,11 @@
 package com.zcswl.flink.job;
 
 import com.zcswl.flink.entity.Student;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class SourceFromCollectionJob {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // Source from
-        List<Student> lists = Lists.newArrayList();
+        List<Student> lists = new ArrayList<>();
         lists.add(new Student("ZJCJDX","zhoucg",100));
         lists.add(new Student("HNMYJJXY","wl",12));
         lists.add(new Student("ZJCJDX","yhh",13));
