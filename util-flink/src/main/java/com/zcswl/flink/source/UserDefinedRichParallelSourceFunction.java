@@ -13,6 +13,9 @@ import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunctio
  * RichSourceFunction 内部使用RichInputFormat进行source生成
  * 自定义source
  *
+ * InputFormatSourceFunction
+ * https://blog.csdn.net/weixin_34124939/article/details/88700051
+ *
  *
  * 带并行度操作的RichSourceFunction
  * @author xingyi

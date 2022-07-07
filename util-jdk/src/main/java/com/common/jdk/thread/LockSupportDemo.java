@@ -24,7 +24,7 @@ public class LockSupportDemo {
             // park是不会释放锁的
             //synchronized (u) {
                 System.out.println("in " + getName());
-                LockSupport.park();
+                LockSupport.park(this);
                 boolean interrupted = Thread.interrupted();
                 System.out.println(interrupted);
 //                if (Thread.currentThread().isInterrupted()) {
@@ -45,7 +45,6 @@ public class LockSupportDemo {
 
             System.out.println("运行结束");
             System.out.println("是否中断:"+Thread.currentThread().isInterrupted());
-            super.run();
         }
     }
 
@@ -55,11 +54,11 @@ public class LockSupportDemo {
         threadTest.start();
         System.out.println("主线程结束");
         // 给一个线程的中断标志位，会使其park（）阻塞的线程继续执行
-        Thread.sleep(1000L);
-        //threadTest.interrupt();
+        Thread.sleep(10000L);
+        threadTest.interrupt();
 
         // 同样，我们可以调用LockSupport.unPark(Thread thread)进行唤醒操作
-        LockSupport.unpark(threadTest);
+        //LockSupport.unpark(threadTest);
         // 当LockSupport.park()在持有锁的语句种，不会释放锁
 
 

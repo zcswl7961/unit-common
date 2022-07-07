@@ -71,6 +71,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>javac-shaded</artifactId>
+            <version>9-dev-r4023-3</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>

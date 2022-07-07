@@ -13,6 +13,11 @@ import java.util.Optional;
 public class Test {
 
     public static void main(String[] args) {
+
+        String LOGBACK_KAFKA_APPENDER = "ADD ENGINE FILE WITH %s RENAME %s KEY %s";
+        String format = String.format(LOGBACK_KAFKA_APPENDER, "1", "2", "3");
+        System.out.println(format);
+
         String s100 = String.join(File.separator, Lists.newArrayList(System.getProperty("user.dir"), "12", String.format("TASK_%s", "1212"), "12", "12")) + File.separator;
         System.out.println(s100);
         String join = Joiner.on(File.separator).join(System.getProperty("user.dir"), "12", String.format("TASK_%s", "1212"), "12", "12");

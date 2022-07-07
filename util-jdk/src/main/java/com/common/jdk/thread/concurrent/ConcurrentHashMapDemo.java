@@ -11,6 +11,10 @@ public class ConcurrentHashMapDemo {
 
     public static void main(String[] args) {
 
+
+        int x = 1 << (16 - 1);
+        System.out.println(x);
+
         ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>(2);
 
         concurrentHashMap.put("concurrentHashMap","1");

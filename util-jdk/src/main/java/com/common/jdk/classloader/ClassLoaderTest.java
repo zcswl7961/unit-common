@@ -1,4 +1,4 @@
-package com.common.jdk.jvm;
+package com.common.jdk.classloader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +34,16 @@ public class ClassLoaderTest {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
+        // sun.mic.Launcher 定义ExtClassLoader,AppClassLoader
+        sun.misc.Launcher l = sun.misc.Launcher.getLauncher();
+        // Launcher.ExtClassLoader extDir
+        ClassLoaderTest.getExtDirs();
+
+
+
         ClassLoader systemClassLoader1 = ClassLoader.getSystemClassLoader();
         ClassLoaderTest.class.getClassLoader();
-        // 加载其他的程序
+        // 加载其他的程序ContextClassLoader
         Class<?> aClass3 = systemClassLoader1.loadClass("com.common.jdk.jvm.SuperClass");
 
         // 自定义类加载器
@@ -55,7 +62,7 @@ public class ClassLoaderTest {
         System.out.println(i);
 
 
-        Object obj = myLoader.loadClass("com.common.jdk.jvm.ClassLoaderTest").newInstance();
+        Object obj = myLoader.loadClass("com.common.jdk.classloader.ClassLoaderTest").newInstance();
         ClassLoader classLoader = obj.getClass().getClassLoader();
 
         // 自定义的ClassLoader
@@ -86,6 +93,7 @@ public class ClassLoaderTest {
     ClassLoader getContextClassLoader() {
         return (ClassLoader)
                 AccessController.doPrivileged(new PrivilegedAction() {
+                    @Override
                     public Object run() {
                         ClassLoader cl = null;
                         try {
@@ -100,6 +108,11 @@ public class ClassLoaderTest {
      * 自定义类加载器
      */
     private static class ClassLoaderLocal extends ClassLoader {
+
+        static {
+            // 将当前的ClassLoader注册成具备并行加载能力的ClassLoader
+            ClassLoader.registerAsParallelCapable();
+        }
 
         @Override
         public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -291,7 +304,27 @@ public class ClassLoaderTest {
 
             return Collections.enumeration(result);
         }
+    }
 
+    /**
+     * Launcher.ExtClassLoader
+     */
+    private static File[] getExtDirs() {
+        String var0 = System.getProperty("java.ext.dirs");
+        File[] var1;
+        if (var0 != null) {
+            StringTokenizer var2 = new StringTokenizer(var0, File.pathSeparator);
+            int var3 = var2.countTokens();
+            var1 = new File[var3];
+
+            for(int var4 = 0; var4 < var3; ++var4) {
+                var1[var4] = new File(var2.nextToken());
+            }
+        } else {
+            var1 = new File[0];
+        }
+
+        return var1;
     }
 
 
