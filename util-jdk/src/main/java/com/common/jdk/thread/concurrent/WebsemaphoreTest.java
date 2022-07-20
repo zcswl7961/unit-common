@@ -11,37 +11,34 @@ public class WebsemaphoreTest {
 
     static LinkedList<Integer> integerLinkedList = new LinkedList<>();
     static Semaphore semaphore = new Semaphore(1);
-    static Object lock = new Object();
 
     public static void main(String[] args) throws InterruptedException {
-        String format = String.format("使用 用户名：{%s}， 密码：{%s} 连接失败", "zhoucg", "asdf");
-        System.out.println(format);
 
-//        Thread t1 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    produce();
-//                } catch (InterruptedException e) {
-//                }
-//            }
-//        });
-//
-//        Thread t2 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    consume();
-//                } catch (InterruptedException e) {
-//                }
-//            }
-//        });
-//
-//        t1.start();
-//        t2.start();
-//
-//        t1.join();
-//        t2.join();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    produce();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    consume();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
 
     }
 

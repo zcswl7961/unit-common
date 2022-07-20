@@ -34,7 +34,7 @@ public class ThreadInterrupted {
         public void run() {
             while(true) {
                 currentFlag++;
-                if (Thread.currentThread().isInterrupted()) {
+                if (Thread.interrupted()) {
                     System.out.println("当前线程被暂停啦");
                     break;
                 }
