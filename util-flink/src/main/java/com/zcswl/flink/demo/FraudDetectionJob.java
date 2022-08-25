@@ -1,5 +1,7 @@
 package com.zcswl.flink.demo;
 
+import org.apache.flink.api.common.JobExecutionResult;
+import org.apache.flink.core.execution.JobClient;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.walkthrough.common.sink.AlertSink;
@@ -43,6 +45,10 @@ public class FraudDetectionJob {
                 .addSink(new AlertSink())
                 .name("send-alerts");
 
-        env.execute("Fraud Detection");
+       //env.execute("Fraud Detection");
+        JobClient jobClient = env.executeAsync("Fraud Detection");
+        JobExecutionResult jobExecutionResult = jobClient.getJobExecutionResult().get();
+        System.out.println("jobId====="+jobClient);
+        System.out.println("jobClient==" + jobClient.toString());
     }
 }
