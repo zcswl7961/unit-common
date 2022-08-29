@@ -16,6 +16,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
 /**
+ *  https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/dev/stream/state/checkpointing.html
  *  https://zhuanlan.zhihu.com/p/104171679
  *
  *  Flink的一个算子有多个子任务，每个子任务分布在不同的实例上，我们可以把状态理解为某个算子子任务在其当前实例上的一个变量
