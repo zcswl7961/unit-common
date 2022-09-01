@@ -1,5 +1,6 @@
 package com.zcswl.flink.tableapi;
 
+import com.google.inject.internal.cglib.core.$DuplicatesPredicate;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -8,6 +9,7 @@ import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.bridge.java.BatchTableEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+import org.apache.flink.table.catalog.GenericInMemoryCatalog;
 import org.apache.flink.types.Row;
 
 /**
@@ -45,7 +47,7 @@ public class TableApiCommonApi {
         StreamTableEnvironment tableEnvironment = StreamTableEnvironment.create(env);
         // 基于Blink的批处理
         EnvironmentSettings blinkBatchEnvSettings = EnvironmentSettings.newInstance()
-                .inBatchMode()
+                .inStreamingMode()
                 .useBlinkPlanner()
                 .build();
         TableEnvironment blinkBatchTableEnv = TableEnvironment.create(blinkBatchEnvSettings);
@@ -78,6 +80,10 @@ public class TableApiCommonApi {
         tableEnvironment.executeSql(createTablePrint);
         // tableEnvironment.executeSql(createTable);
         Table table = tableEnvironment.sqlQuery("SELECT * FROM print_table");
+
+
+        tableEnvironment.registerCatalog("ceshi", new GenericInMemoryCatalog("ceshi"));
+
 
         DataStream<Row> infoDataStream1 = tableEnvironment.toAppendStream(table, Row.class);
         infoDataStream1.print();

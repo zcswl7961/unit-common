@@ -38,87 +38,6 @@
 
     <dependencies>
 
-        <!--&lt;!&ndash; flink中得演示得包项目&ndash;&gt;
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-walkthrough-common_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-        &lt;!&ndash; flink-java 项目&ndash;&gt;
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-java</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-        &lt;!&ndash; This dependency is provided, because it should not be packaged into the JAR file. &ndash;&gt;
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        &lt;!&ndash; 本地调试集成&ndash;&gt;
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-            <scope>test</scope>
-        </dependency>-->
-
-        <!-- Add connector dependencies here. They must be in the default scope (compile). -->
-
-        <!-- Example:
-
-        使用Kafka
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka-0.10_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-
-        flink-connector-hive
-        flink-connector-jdbc
-        flink-connector-fliesystem
-        flink-connector-elasticsearch-base
-        flink-connector-elasticsearch6
-        flink-connector-files
-        flink-connector-twitter
-        flink-connector-elasticsearch7
-        flink-connector-rabbitmq
-        .....
-        -->
-
-        <!-- Add logging framework, to produce console output when running in the IDE. -->
-        <!-- These dependencies are excluded from the application JAR by default. -->
-        <!--<dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>-->
-
 
         <!-- 演示所需要的包-->
         <dependency>
@@ -128,14 +47,15 @@
         </dependency>
 
 
+        <!-- flink stream api 官方引入-->
         <!-- flink官方文档的规范引入：-->
         <!-- 你可以添加以下你的pom的依赖性。xml包含Apache Flink在您的项目中。这些依赖关系包括本地执行环境,从而支持本地测试。-->
         <!-- https://flink.apache.org/downloads.html-->
+        <!-- https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/dev/project-configuration.html-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-java</artifactId>
             <version>${flink.version}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- flink-yarn 提交-->
@@ -161,7 +81,6 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -190,21 +109,6 @@
             <!--<scope>provided</scope>-->
         </dependency>
 
-        <!-- flink tableapi需要引入的包 -->
-        <!-- flink blink 版本-->
-        <!-- https://zhuanlan.zhihu.com/p/55891534-->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
 
 
         <!-- flink 的connector-->
@@ -213,7 +117,28 @@
         <!-- FlinkKafkaConsumer011  source-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_2.11</artifactId>
+            <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-jdbc_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.46</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-json</artifactId>
             <version>${flink.version}</version>
         </dependency>
 
@@ -223,33 +148,57 @@
             <version>31.0.1-jre</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch6_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
         <!-- redis Apache bahir 提供-->
         <!-- RedisSink  sink
                 public RedisSink(FlinkJedisConfigBase flinkJedisConfigBase, RedisMapper<IN> redisSinkMapper)
                     FlinkJedisConfigBase jedis的配置参数：FlinkJedisPoolConfig
                     RedisMapper:redis写入数据的命令，和对应的参数设置  RedisCommandDescription：命令描述
         -->
-
-
         <!-- 开发相关工作测试性能-->
         <!--<dependency>
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_${scala.binary.version}</artifactId>
             <version>1.0</version>
         </dependency>-->
-
-
         <!-- elasticsearch flink 官方提供 bundled-->
         <!-- ElasticsearchSink  sink
             List<HttpHost> https :es参数
             ElasticsearchSinkFunction：
 
             -->
+        <!-- flink tableAPi@Sql start-->
+        <!-- https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/dev/table/-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-elasticsearch6_${scala.binary.version}</artifactId>
+            <artifactId>flink-table-api-java-bridge_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-common</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        <!-- flink tableAPi@Sql end-->
 
         <!-- 对应的log日志配置-->
         <!-- Add logging framework, to produce console output when running in the IDE. -->
