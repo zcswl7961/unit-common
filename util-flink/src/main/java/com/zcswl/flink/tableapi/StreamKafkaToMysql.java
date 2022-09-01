@@ -1,7 +1,6 @@
 package com.zcswl.flink.tableapi;
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 /**
@@ -48,9 +47,9 @@ public class StreamKafkaToMysql {
 
         String transformSql = "insert into sink select * from source";
 
-        TableResult tableResult = tableEnvironment.executeSql(source);
-        TableResult tableResult1 = tableEnvironment.executeSql(target);
-        TableResult tableResult2 = tableEnvironment.executeSql(transformSql);
+        tableEnvironment.executeSql(source);
+        tableEnvironment.executeSql(target);
+        tableEnvironment.executeSql(transformSql);
 
 
         env.execute();
