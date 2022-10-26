@@ -33,7 +33,7 @@ public class StreamKafkaToMysql {
                 "    id          int,\n" +
                 "    name        varchar\n" +
                 ") WITH (\n" +
-                "       -- 'connector' = 'stream-x'\n" +
+                "       -- 'connector' = 'mysql'\n" +
                 "\n" +
                 "      'connector' = 'jdbc',\n" +
                 "      'url' = 'jdbc:mysql://localhost:3306/test',\n" +
@@ -41,8 +41,8 @@ public class StreamKafkaToMysql {
                 "      'username' = 'root',\n" +
                 "      'password' = '123456',\n" +
                 "\n" +
-                "      'sink.buffer-flush.max-rows' = '1024', -- 批量写数据条数，默认：1024\n" +
-                "      'sink.buffer-flush.interval' = '10000' -- 批量写时间间隔，默认：10000毫秒\n" +
+                "      'sink.buffer-flush.max-rows' = '10', -- 批量写数据条数，默认：1024\n" +
+                "      'sink.buffer-flush.interval' = '1000' -- 批量写时间间隔，默认：10000毫秒\n" +
                 "      )";
 
         String transformSql = "insert into sink select * from source";

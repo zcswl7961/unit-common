@@ -16,6 +16,8 @@ import org.apache.flink.types.Row;
  * 有一个地方：我的本地注册的flink-verison 是<flink.version>1.11.2</flink.version>
  * 但是貌似api的文档介绍你要看着：https://ci.apache.org/projects/flink/flink-docs-release-1.12/dev/table/common.html 貌似这个里面是符合的
  * 版本1.111 还是会存在已经废弃的api文档
+ * update-mode:
+ * https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/dev/table/streaming/dynamic_tables.html#continuous-queries
  *
  * @author zhoucg
  * @date 2021-03-07 18:45

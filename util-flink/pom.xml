@@ -65,6 +65,7 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <!-- flink-core核心包-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-core</artifactId>
@@ -115,6 +116,7 @@
         <!-- kafka-->
         <!-- FlinkKafkaProcecer011  sink-->
         <!-- FlinkKafkaConsumer011  source-->
+        <!-- https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/dev/table/connect.html-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
