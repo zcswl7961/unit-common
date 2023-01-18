@@ -25,13 +25,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--加入下面两项配置，如果不加入这两个东西，会报：no main manifest attribute, in /app.jar 这个错误-->
-                <executions>
+                <!-- ignore package error-->
+                <!--<executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>-->
                 <configuration>
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
