@@ -1,5 +1,7 @@
 package com.hadoop.demo.yarn;
 
+import org.apache.flink.util.FileUtils;
+import org.apache.flink.util.function.FunctionUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -8,7 +10,6 @@ import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.io.DataOutputBuffer;
 import org.apache.hadoop.security.Credentials;
 import org.apache.hadoop.security.UserGroupInformation;
-import org.apache.hadoop.util.ClassUtil;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.protocolrecords.GetNewApplicationResponse;
 import org.apache.hadoop.yarn.api.records.*;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -42,10 +44,14 @@ public class YarnUtils {
     private final String appMasterMainClass;
     private final YarnClient yarnClient;
 
+    private static final String XML_FILE_EXTENSION = "xml";
+
 
     public YarnUtils(Configuration conf) {
         this.conf = conf;
-        this.appMasterJar = ClassUtil.findContainingJar(ApplicationMaster.class);
+        // local test
+        this.appMasterJar = "/Users/edy/IdeaProjects/unit-common/util-hadoop/target/util-hadoop-v0.0.1.jar";
+        //this.appMasterJar = ClassUtil.findContainingJar(ApplicationMaster.class);
         this.appMasterMainClass = ApplicationMaster.class.getName();
         yarnClient = YarnClient.createYarnClient();
         yarnClient.init(conf);
@@ -72,7 +78,7 @@ public class YarnUtils {
         //定义资源
         Resource amResource = Records.newRecord(Resource.class);
         amResource.setMemory(Math.min(clusterMax.getMemory(), 1));
-        amResource.setVirtualCores(Math.min(clusterMax.getVirtualCores(), 4));
+        amResource.setVirtualCores(Math.min(clusterMax.getVirtualCores(), 1));
         appContext.setResource(amResource);
 
         //定义执行的代码
@@ -95,6 +101,7 @@ public class YarnUtils {
                 appMasterJarFile));
         clc.setLocalResources(localResourceMap);
         appContext.setAMContainerSpec(clc);
+        appContext.setApplicationName("xingyi_YARN");
 
 
         Map<String, String> envMap = new HashMap<String, String>();
@@ -157,7 +164,12 @@ public class YarnUtils {
     }
 
     public static void main(String[] args) throws IOException, YarnException, InterruptedException {
-        Configuration conf = new YarnConfiguration();
+        // 获取对应的yarnConfiguration
+        System.setProperty("HADOOP_USER_NAME", "admin");
+        String yarnConfDir = "/Users/edy/IdeaProjects/flink-spark-submiter/hadoop";
+        Configuration conf = getYarnConf(yarnConfDir);
+
+
         YarnUtils client = new YarnUtils(conf);
         ApplicationId applicationId = client.submit();
         boolean outAccepted = false;
@@ -176,6 +188,43 @@ public class YarnUtils {
         }
 
     }
+
+    public static  YarnConfiguration getYarnConf(String yarnConfDir) throws IOException {
+        YarnConfiguration yarnConf = new YarnConfiguration();
+
+        FileUtils.listFilesInDirectory(new File(yarnConfDir).toPath(), YarnUtils::isXmlFile)
+                .stream()
+                .map(FunctionUtils.uncheckedFunction(FileUtils::toURL))
+                .forEach(yarnConf::addResource);
+
+        haYarnConf(yarnConf);
+        return yarnConf;
+    }
+
+    /**
+     * deal yarn HA conf
+     */
+    private static org.apache.hadoop.conf.Configuration haYarnConf(org.apache.hadoop.conf.Configuration yarnConf) {
+        Iterator<Map.Entry<String, String>> iterator = yarnConf.iterator();
+        iterator.forEachRemaining((Map.Entry<String, String> entry) -> {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (key.startsWith("yarn.resourcemanager.hostname.")) {
+                String rm = key.substring("yarn.resourcemanager.hostname.".length());
+                String addressKey = "yarn.resourcemanager.address." + rm;
+                if (yarnConf.get(addressKey) == null) {
+                    yarnConf.set(addressKey, value + ":" + YarnConfiguration.DEFAULT_RM_PORT);
+                }
+            }
+        });
+
+        return yarnConf;
+    }
+
+    private static boolean isXmlFile(java.nio.file.Path file) {
+        return XML_FILE_EXTENSION.equals(org.apache.flink.shaded.guava18.com.google.common.io.Files.getFileExtension(file.toString()));
+    }
+
 
 
 }

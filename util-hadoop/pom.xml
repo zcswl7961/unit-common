@@ -127,6 +127,13 @@
             </exclusions>
         </dependency>
 
+        <!-- just use util-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-core</artifactId>
+            <version>1.12.7</version>
+        </dependency>
+
 
     </dependencies>
 
