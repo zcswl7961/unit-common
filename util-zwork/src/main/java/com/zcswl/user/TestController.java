@@ -20,5 +20,6 @@ public class TestController {
         // mock
         List<SpringApplicationRunListener> springApplicationRunListeners = SpringFactoriesLoader.loadFactories(SpringApplicationRunListener.class, null);
         return "1";
+        // just return simple 1
     }
 }
