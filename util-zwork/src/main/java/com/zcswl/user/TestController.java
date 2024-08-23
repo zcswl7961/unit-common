@@ -17,7 +17,9 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
+        // mock
         List<SpringApplicationRunListener> springApplicationRunListeners = SpringFactoriesLoader.loadFactories(SpringApplicationRunListener.class, null);
         return "1";
+        // just return simple 1
     }
 }
