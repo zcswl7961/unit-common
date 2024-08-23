@@ -1,6 +1,7 @@
 package com.common.jdk.collect;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,10 @@ public class HashMapDemo {
 
 
     public static void main(String[] args) {
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>(1);
+        objectObjectHashMap.put(1,1);
+        objectObjectHashMap.put(2,2);
+
         HashMapDemo hashMapDemo = new HashMapDemo();
         int i = hashMapDemo.hashCode();
         int hash = hash(hashMapDemo);
@@ -79,6 +84,7 @@ public class HashMapDemo {
 
         Integer[] arr = new Integer[0];
         Integer[] array = new Integer[10];
+        int length = array.length;
         array[9] = 8;
 
 

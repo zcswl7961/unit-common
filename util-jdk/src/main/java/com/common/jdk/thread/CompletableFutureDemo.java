@@ -14,11 +14,48 @@ public class CompletableFutureDemo {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Executor executor = Executors.newFixedThreadPool(5);
-        demo1(executor);
+        demo();
+        //demo1(executor);
+    }
+
+    public static void demo() throws ExecutionException, InterruptedException {
+        Executor executor = Executors.newSingleThreadExecutor();
+        CompletableFuture<String> futureSync = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(3000L);
+                System.out.println("do something other-----");
+                Thread.currentThread().interrupt();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "sdf";
+        },executor);
+        String s = futureSync.get();
+        String join = futureSync.join();
+        System.out.println(join);
+
     }
 
 
     public static void demo1(Executor executor) throws ExecutionException, InterruptedException {
+        CompletableFuture<String> futureSync = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(3000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "sdf";
+        });
+        String s = futureSync.get();
+
+
+        //
+        CompletableFuture<String> future1 = new CompletableFuture<>();
+        future1.complete("12");
+        future1.get();
+
+        CompletableFuture<Void> future = new CompletableFuture<>();
+
         // 创建异步对象
         // 1、runXxxx 都是没有返回结果的，supplyXxxx都是可以获取返回结果的
         //
@@ -28,6 +65,7 @@ public class CompletableFutureDemo {
 
         CompletableFuture<Void> future02 = CompletableFuture.runAsync(() -> System.out.println("无返回值，使用自定义线程池"), executor);
         System.out.println(future02.get());
+        future02.join();
 
         CompletableFuture<Long> future03 = CompletableFuture.supplyAsync(() -> {
             System.out.println("有返回值，使用默认线程池");

@@ -134,6 +134,7 @@ public class KafkaConsumerConnnector {
             //kafka的broker_list 配置信息
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);
             //消费组编号
+            // https://docs.confluent.io/kafka/kafka-apis.html#consumer-api
             properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, groupId);
             // 使用 earliest
             /*

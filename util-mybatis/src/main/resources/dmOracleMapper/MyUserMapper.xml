@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.demo.mapper.MyUserMapper">
+
+
+
+    <!-- 主键自增 AUTO：mysql-->
+    <!--<insert id="insertInner" parameterType="MyUser" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO my_user
+        (name)
+        VALUES
+            (#{name})
+    </insert>-->
+
+
+    <!-- Oracle 需要通过seq 序列满足-->
+    <insert id="insertInner" parameterType="MyUser">
+        <selectKey keyProperty="id" order="BEFORE" resultType="long">
+            SELECT SEQ_MY_USER.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO my_user (id, name) VALUES (#{id}, #{name})
+    </insert>
+
+
+
+
+</mapper>

@@ -13,13 +13,18 @@ public class TryFinallyDemo {
             // 我们模拟创建一个线程，并启动错误的线程信息
             Runnable runnable = () -> {
                 try {
-                    Thread.sleep(50000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 throw new RuntimeException("报错lalalal");};
             Thread thread = new Thread(runnable);
             thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             workerStarted = true;
 
 

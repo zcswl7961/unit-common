@@ -50,6 +50,9 @@
         <module>util-google</module>
         <!--<module>util-airlift</module>-->
         <module>util-grpc</module>
+        <!--<module>util-akka</module>-->
+		<module>jar-package</module>
+        <module>udf</module>
         <module>util-akka</module>
     </modules>
 
